@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import { Agenda } from 'react-native-calendars'
-import { API } from '../../../http/api'
+import { API } from '../../http/api'
 import { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../../../contexts/AuthContext'
-import events from '../../../assets/data/events.json'
+import { AuthContext } from '../../contexts/AuthContext'
+import events from '../../assets/data/events.json'
 import { Center } from 'native-base'
 
 const Calendario = () => {

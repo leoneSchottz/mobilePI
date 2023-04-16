@@ -17,9 +17,9 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <Drawer screenOptions={{ headerShown: false }}>
         <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
-        <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} />
+        <Drawer.Screen name="Forum" options={{ drawerLabel: 'Fórum' }} />
         <Drawer.Screen
-          name="(configuracoes)"
+          name="Configuracoes"
           options={{ drawerLabel: 'Configurações' }}
         />
       </Drawer>

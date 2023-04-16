@@ -14,8 +14,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Constants } from 'expo-constants'
 
 export default function MenuInferior() {
-  const nav = useNavigation()
-  const router = useRouter()
+  const nav = useNavigation();
+  const router = useRouter();
   return (
     <NativeBaseProvider>
       <Tabs
@@ -46,7 +46,7 @@ export default function MenuInferior() {
           headerRightContainerStyle: { paddingRight: 10 },
           headerRight: () => (
             <IconButton
-              onPress={() => router.push('/mensagens')}
+              onPress={() => router.push('/Mensagens')}
               icon={<Icon as={Feather} name="message-square" />}
               _icon={{
                 color: 'black',
@@ -61,8 +61,9 @@ export default function MenuInferior() {
           ),
           headerLeftContainerStyle: { paddingLeft: 10 },
           headerLeft: () => (
-            <TouchableOpacity onPress={() => nav.openDrawer()}>
-              <Avatar
+            <TouchableOpacity onPress={() => alert('open drawer')}>
+              <Image
+                style={{height: 50, width: 50, borderRadius: 50}}
                 source={{
                   uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
                 }}
@@ -81,7 +82,7 @@ export default function MenuInferior() {
           }}
         />
         <Tabs.Screen
-          name="calendario"
+          name="Calendario"
           options={{
             tabBarLabel: 'Calendario',
             tabBarIcon: () => (
@@ -90,7 +91,7 @@ export default function MenuInferior() {
           }}
         />
         <Tabs.Screen
-          name="badges"
+          name="Badges"
           options={{
             tabBarLabel: 'Badges',
             tabBarIcon: () => (
@@ -99,7 +100,7 @@ export default function MenuInferior() {
           }}
         />
         <Tabs.Screen
-          name="arquivos"
+          name="Arquivos"
           options={{
             tabBarLabel: 'Arquivos',
             tabBarIcon: () => (
@@ -108,7 +109,7 @@ export default function MenuInferior() {
           }}
         />
         <Tabs.Screen
-          name="notificacoes"
+          name="Notificacoes"
           options={{
             tabBarLabel: 'Notificações',
             tabBarIcon: () => (
@@ -117,7 +118,7 @@ export default function MenuInferior() {
           }}
         />
         <Tabs.Screen
-          name="mensagens"
+          name="Mensagens"
           options={{
             href: null
           }}

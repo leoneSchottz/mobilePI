@@ -12,6 +12,7 @@ export default function ListaUC({ navigation }) {
   const idUsuarioLogado = useContext(AuthContext)
   const idUsuario = '3b700ecc-cec9-4be4-8c00-48bced543861'
   const [listaUC, setListaUC] = useState<Grupo[]>([]);
+  console.log(listaUC);
 
   useEffect (() => {
     API.get<Grupo[]>('Grupo').then((response) => setListaUC(response.data));
@@ -89,16 +90,15 @@ export default function ListaUC({ navigation }) {
     <View>
         <FlatList
           ListHeaderComponent={() => (
-          <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-          Meus Cursos
-        </Heading>
-        )}
+            <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+              Meus Cursos
+            </Heading>
+          )}
           width="100%"
           data={listaUC}
-          renderItem = { RenderCard } 
+          renderItem = { RenderCard }
+          keyExtractor={(item) => item.id.toString()}
           />
     </View>
   )
-
-  
 }
