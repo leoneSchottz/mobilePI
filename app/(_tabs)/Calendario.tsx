@@ -1,10 +1,9 @@
 import { View, Text } from 'react-native'
 import { Agenda } from 'react-native-calendars'
-import { API } from '../../http/api'
+import { API } from '../../http/API'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import events from '../../assets/data/events.json'
-import { Center } from 'native-base'
 
 const Calendario = () => {
   // const idUsuarioLogado = useContext(AuthContext)
@@ -27,9 +26,9 @@ const Calendario = () => {
   // )
 
   return (
-    <Center>
+    <View>
       <Text>Calendário</Text>
-    </Center>
+    </View>
   )
 }
 

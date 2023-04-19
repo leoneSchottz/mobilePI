@@ -1,21 +1,31 @@
-import { View } from 'react-native'
+import { View, Image, ScrollView, Button, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useContext } from 'react'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from "react";
-import { Box, Heading, AspectRatio, Image, Text, Center, HStack, Stack, NativeBaseProvider, Button, Spinner, Spacer, FlatList, Card } from "native-base";
+import { FlashList } from '@shopify/flash-list';
 import { Grupo } from "../../../models/Grupo";
-import { API } from '../../../http/api';
+import { API } from '../../../http/API';
+import { ControleExecucao } from '../../../models/ControleExecucao';
+import { Usuario } from '../../../models/Usuario';
+import { StyleSheet } from 'react-native';
 
 export default function ListaUC({ navigation }) {
   const router = useRouter()
-  const idUsuarioLogado = useContext(AuthContext)
-  const idUsuario = '3b700ecc-cec9-4be4-8c00-48bced543861'
+  const idUsuario = useContext(AuthContext)
   const [listaUC, setListaUC] = useState<Grupo[]>([]);
-  console.log(listaUC);
+  
+  const [listaControleExecucao, setListaControleExecucao] = useState<ControleExecucao[]>([])
+  const idPeriodo = 2;
 
   useEffect (() => {
-    API.get<Grupo[]>('Grupo').then((response) => setListaUC(response.data));
+    
+    // /ObterGruposByPeriodoAtivoByUsuarioId/${idUsuario}
+    API.get<Grupo[]>(`Grupo`).then((response) => setListaUC(response.data));
+
+    listaUC.map((grupo)=>
+      API.get<ControleExecucao[]>(`ControleExecucao/FilterByPeriodoIdByGrupoId/${idPeriodo}/${grupo.id}`).then((response) => setListaControleExecucao(response.data))
+    )
   }, [])
 
   type RenderCardProps = {
@@ -23,82 +33,81 @@ export default function ListaUC({ navigation }) {
   }
   const RenderCard = ({ item }: RenderCardProps) => {
     return (
-      <Box alignItems="center" margin="1">
-        <Button
-          maxW="80" 
-          rounded="lg" 
-          overflow="hidden" 
-          borderColor="coolGray.200" 
-          borderWidth="1" _dark={{
-            borderColor: "coolGray.600",
-            backgroundColor: "gray.700"
-          }} _web={{
-            borderWidth: 0
-          }} _light={{
-            backgroundColor: "gray.50"
-          }}
-        >
-          <Box>
-            <AspectRatio w="100%" ratio={16/9}>
-              <Image source={{
-              uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
-            }} alt="image" />
-            </AspectRatio>
-            <Center bg="violet.500" _dark={{
-            bg: "violet.400"
-          }} _text={{
-            color: "warmGray.50",
-            fontWeight: "700",
-            fontSize: "xs"
-          }} position="absolute" bottom="0" px="3" py="1.5">
-              UC
-            </Center>
-          </Box>
-          <Stack p="4" space={3}>
-            <Stack space={2}>
-              <Heading size="md" ml="-1">
-                {item.unidadeCurricular.nome}
-              </Heading>
-              <Text fontSize="xs" _light={{
-                color: "violet.500"
-                }} _dark={{
-                  color: "violet.400"
-                }} fontWeight="500" ml="-0.5" mt="-1"
-              >
-                { item.descricao }
+      <View style={{ margin: 5, borderRadius:12, backgroundColor:'white', width: '50%', overflow: 'hidden'}} >
+        <TouchableOpacity>
+        <View style={{flexDirection: 'row', height: 80, width: 250}}>
+          <View style={{width: '30%'}}>
+              <Image 
+              style={{height:'100%', width: '100%'}}
+              resizeMode='cover'
+              source={{
+                uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
+              }} 
+              alt="image" />
+
+            <View style={{position:'absolute', bottom: 0, padding:3, paddingTop:1.5, backgroundColor: 'red'}}>
+              <Text>UC</Text>
+            </View>
+          </View>
+          <View style={{width: '60%', marginLeft: 10}}>
+              <Text style={{fontFamily:'PoppinsBold', fontSize: 12}}>
+                {item.unidadeCurricular.nomeCurto}
               </Text>
-            </Stack>
-            {/* <Text fontWeight="400">
-              {item.descricao}
-            </Text> */}
-            <HStack alignItems="center" space={4} justifyContent="space-between">
-              <HStack alignItems="center">
-                <Text color="coolGray.600" _dark={{
-                color: "warmGray.200"
-              }} fontWeight="400">
-                  Frequência: 95%
-                </Text>
-              </HStack>
-            </HStack>
-          </Stack>
-        </Button>
-        <Spacer/>
-      </Box>)
+              <Text style={{fontFamily:'Poppins', fontSize: 10}}>
+                { item.unidadeCurricular.nomeCurto }
+              </Text>
+              <Text>
+                Frequência: 95%
+              </Text>
+           </View>
+        </View>
+        </TouchableOpacity>
+      </View>
+      )
   };
 
   return (
-    <View>
-        <FlatList
-          ListHeaderComponent={() => (
-            <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-              Meus Cursos
-            </Heading>
-          )}
-          width="100%"
-          data={listaUC}
-          renderItem = { RenderCard }
-          keyExtractor={(item) => item.id.toString()}
-          />
-    </View>
+
+      <FlashList
+      StickyHeaderComponent={() => (
+        <Text style={{fontFamily: 'Poppins', marginLeft: 4}}>
+          Meus Cursos
+        </Text>)}
+      
+        data={listaUC}
+        estimatedItemSize={8}
+        renderItem = { RenderCard }
+        keyExtractor={(item) => item.id.toString()}
+        
+      />
+  
+    //   <>
+    //   <ScrollView>
+    //     {listaUC.map((grupo) => (
+    //       <View key={grupo.id}>
+    //           <Text style={{alignSelf: 'center'}} >
+    //             {grupo.unidadeCurricular.nomeCurto}
+    //           </Text>
+    //           <Text style={{alignSelf: 'center'}} >
+    //             {grupo.unidadeCurricular.horas}
+    //           </Text>
+    //       </View>
+    //         )
+    //       )
+    //     }
+
+    //   <View  style={{alignSelf: 'center'}}>
+    //     <Text>TESTE</Text>
+    //     {listaControleExecucao.map((controle) => (<Text key={controle.id}>{controle.data} {controle.status}</Text>))}
+    //   </View>
+      
+    // </ScrollView>
+    // </>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1
+  }
+})

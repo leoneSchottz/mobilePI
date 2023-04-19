@@ -1,73 +1,84 @@
-import { Tabs, useRouter, useNavigation } from 'expo-router'
-import { Text, Image } from 'react-native'
-import { Ionicons, AntDesign, Feather, MaterialIcons } from '@expo/vector-icons'
-import {
-  Avatar,
-  Box,
-  Icon,
-  IconButton,
-  Input,
-  AspectRatio,
-  NativeBaseProvider
-} from 'native-base'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Constants } from 'expo-constants'
-
-export default function MenuInferior() {
-  const nav = useNavigation();
+import { Tabs, useNavigation, useRouter } from 'expo-router'
+import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons'
+import { TouchableOpacity ,Image, ImageBackground} from 'react-native'
+import { API } from '../../http/API'
+import { Usuario } from '../../models/Usuario'
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext'
+import SearchBar from '../../components/SearchBar'
+import  Constants from 'expo-constants'
+const MenuInferior = () => {
   const router = useRouter();
+  const nav = useNavigation();
+  const [usuario, setUsuario] = useState<Usuario>();
+  const idUsuario = useContext(AuthContext)
+  const headerHeight = Constants.statusBarHeight * 2
+
+  useEffect(() => {
+    API.get<Usuario>(`Usuario/${idUsuario}`).then((response) => setUsuario(response.data))
+  }, [])  
+
   return (
-    <NativeBaseProvider>
+
       <Tabs
+        
         initialRouteName="(dashboard)"
         screenOptions={{
-          headerTitleContainerStyle: {
-            width: '100%'
+          headerBackground: () => (
+            <ImageBackground source={require('../../assets/data/gradient.png')} resizeMode="stretch" style={{flex:1}}/>
+          ),
+
+          
+          tabBarStyle: {
+            position: 'absolute',
+            bottom: 0,
+            left: '10%',
+            paddingBottom: 0,
+            marginBottom: 35,
+            borderRadius: 20,
+            borderColor: 'gray',
+            width:'80%',
+            alignSelf: 'center',
+            maxHeight: 50
+
+            // shadowColor: 'black',
+            // shadowRadius: 200,
+            // shadowOffset: '5'
           },
+          // tabBarItemStyle: {
+          //   flex: 1,
+          //   justifyContent: 'center',
+          //   alignItems: 'center'
+          // },
+          tabBarShowLabel: false,
+          tabBarLabelStyle: {fontSize: 11},
+          tabBarInactiveTintColor: '#828282',
+          tabBarActiveTintColor:'#F47402',
+          headerStatusBarHeight: headerHeight,
+          headerTitleAlign: 'center',
           headerTitle: () => (
-            <Input
-              size="md"
-              placeholder="Search"
-              variant="filled"
-              borderRadius="50"
-              w="100%"
-              py="1"
-              px="2"
-              InputLeftElement={
-                <Icon
-                  ml="2"
-                  size="4"
-                  color="gray.400"
-                  as={<Ionicons name="ios-search" />}
-                />
-              }
-            />
+                <SearchBar/>
           ),
-          headerRightContainerStyle: { paddingRight: 10 },
+          headerRightContainerStyle: { paddingRight: 10},
           headerRight: () => (
-            <IconButton
+            <Feather
+              backgroundColor='transparent'
               onPress={() => router.push('/Mensagens')}
-              icon={<Icon as={Feather} name="message-square" />}
-              _icon={{
-                color: 'black',
-                size: 'md'
-              }}
-              _ios={{
-                _icon: {
-                  size: 'xl'
-                }
-              }}
-            />
+              name='message-square'
+              size={24}
+              color="black"
+              borderRadius={50}
+          />
           ),
-          headerLeftContainerStyle: { paddingLeft: 10 },
+          headerLeftContainerStyle: { paddingLeft: 10},
           headerLeft: () => (
-            <TouchableOpacity onPress={() => alert('open drawer')}>
-              <Image
-                style={{height: 50, width: 50, borderRadius: 50}}
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
-                }}
-              />
+            <TouchableOpacity onPress={() => nav.openDrawer()}>
+              {usuario && <Image
+                alt='profilePic'
+                style={{height: 40, width: 40, borderRadius: 50}}
+                source={{uri: `data:image/png;base64,${usuario.foto}`}}
+              />}
+              
             </TouchableOpacity>
           )
         }}
@@ -75,45 +86,47 @@ export default function MenuInferior() {
         <Tabs.Screen
           name="(dashboard)"
           options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: () => (
-              <MaterialIcons name="home" size={24} color="black" />
+            //tabBarLabel: 'Home',
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons name="home" size={size} color={color}/>
             )
           }}
         />
         <Tabs.Screen
           name="Calendario"
           options={{
-            tabBarLabel: 'Calendario',
-            tabBarIcon: () => (
-              <MaterialIcons name="calendar-today" size={24} color="black" />
+            //tabBarLabel: 'Calendario',
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons name="calendar-today" size={size} color={color} />
             )
           }}
         />
         <Tabs.Screen
           name="Badges"
           options={{
-            tabBarLabel: 'Badges',
-            tabBarIcon: () => (
-              <Ionicons name="ios-trophy" size={24} color="black" />
+            //tabBarLabel: 'Badges',
+            tabBarIcon: ({size, color}) => (
+              <Ionicons name="ios-trophy" size={size} color={color} />
             )
           }}
         />
         <Tabs.Screen
           name="Arquivos"
           options={{
-            tabBarLabel: 'Arquivos',
-            tabBarIcon: () => (
-              <MaterialIcons name="folder" size={24} color="black" />
+            //tabBarLabel: 'Arquivos',
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons name="folder" size={size} color={color} />
             )
           }}
         />
         <Tabs.Screen
           name="Notificacoes"
           options={{
-            tabBarLabel: 'Notificações',
-            tabBarIcon: () => (
-              <MaterialIcons name="notifications" size={24} color="black" />
+            tabBarBadge: 3,
+            //tabBarLabel: 'Notificações',
+
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons name="notifications" size={size} color={color} />
             )
           }}
         />
@@ -124,6 +137,7 @@ export default function MenuInferior() {
           }}
         />
       </Tabs>
-    </NativeBaseProvider>
   )
 }
+
+export default MenuInferior

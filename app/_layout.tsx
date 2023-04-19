@@ -3,9 +3,10 @@ import { AuthContext } from '../contexts/AuthContext'
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [fontsLoaded] = useFonts({
-    Poppins: require('../assets/fonts/Poppins-Regular.ttf')
+    Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
+    PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf')
   })
 
   if (!fontsLoaded) {
@@ -18,11 +19,9 @@ export default function RootLayout() {
       <Drawer screenOptions={{ headerShown: false }}>
         <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
         <Drawer.Screen name="Forum" options={{ drawerLabel: 'Fórum' }} />
-        <Drawer.Screen
-          name="Configuracoes"
-          options={{ drawerLabel: 'Configurações' }}
-        />
+        <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações' }}/>
       </Drawer>
     </AuthContext.Provider>
   )
 }
+export default RootLayout

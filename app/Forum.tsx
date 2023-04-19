@@ -1,11 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-
+import { View, Text, Platform, StatusBar} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 const Forum = () => {
   return (
-    <View>
-      <Text style={{ fontFamily: 'Poppins' }}>Forum</Text>
-    </View>
+    <SafeAreaView >
+      <Text style={{ fontFamily: 'Poppins' }}>Fórum</Text>
+    </SafeAreaView>
   )
 }
 
