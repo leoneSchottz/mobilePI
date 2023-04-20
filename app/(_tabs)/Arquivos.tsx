@@ -1,8 +1,7 @@
 import { View, Text, FlatList } from 'react-native'
 import React from 'react'
-import RecursoService from '../core/services/RecursoService'
+import RecursoService from '../../core/services/RecursoService'
 import { Recurso } from '../../models/Recurso'
-import * as nativeBase from "native-base";
 
 
 export default function listaRecursos() {
@@ -23,9 +22,9 @@ export default function listaRecursos() {
     <View>
       <FlatList
         ListHeaderComponent={() => (
-          <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+          <Text style={{fontFamily:'Poppins', fontSize:20, padding:2, marginLeft:4}}>
             Meus Recursos
-          </nativeBase.Heading>
+          </Text>
         )}
         data={listaRecursos}
         renderItem={RenderRecurso}

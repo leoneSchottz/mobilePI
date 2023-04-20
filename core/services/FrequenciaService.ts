@@ -1,6 +1,6 @@
-import { ControleExecucao } from './../models/ControleExecucao';
+import { ControleExecucao } from '../../models/ControleExecucao';
 import { useEffect, useState } from 'react';
-import { API } from '../http/API';
+import { API } from '../../http/API';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export function getAllFrequenciasPorEstudanteId(idEstudante: string) {

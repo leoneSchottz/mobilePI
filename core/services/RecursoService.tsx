@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { API } from "../../../http/api";
-import { Recurso } from "../../../models/Recurso";
+import { API } from "../../http/API";
+import { Recurso } from "../../models/Recurso";
 
 export default function RecursoService() {
 
@@ -8,7 +8,7 @@ export default function RecursoService() {
 
     useEffect(() => {
         API.get<Recurso[]>('Recurso').then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setListaRecursos(response.data);
         }
 
