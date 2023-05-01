@@ -10,9 +10,7 @@ export default function RecursoService() {
         API.get<Recurso[]>('Recurso').then((response) => {
             //console.log(response.data);
             setListaRecursos(response.data);
-        }
-
-        )
+        })
     }, []);
 
     return { listaRecursos };

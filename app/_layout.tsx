@@ -6,7 +6,8 @@ import { useFonts } from 'expo-font'
 const RootLayout = () => {
   const [fontsLoaded] = useFonts({
     Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
-    PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf')
+    PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf'),
+    PoppinsThin: require('../assets/fonts/Poppins-Thin.ttf')
   })
 
   if (!fontsLoaded) {

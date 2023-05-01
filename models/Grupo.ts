@@ -4,7 +4,7 @@ import Turno from "./Turno";
 import { UnidadeCurricular } from "./UnidadeCurricular";
 
 
-export interface Grupo {
+export type Grupo = {
   id: number;
   descricao: string
   dataInicio: string
@@ -18,5 +18,6 @@ export interface Grupo {
   periodo: Periodo
   professorI: number
   professor: Professor
+  frequencia?: string
 
 }

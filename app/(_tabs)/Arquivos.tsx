@@ -28,7 +28,7 @@ export default function listaRecursos() {
         )}
         data={listaRecursos}
         renderItem={RenderRecurso}
-        keyExtractor={(item) => item.id.toString()}
+        // keyExtractor={(item) => item.id.toString()}
       />
 
       <Text>Arquivos</Text>

@@ -4,15 +4,17 @@ import { TouchableOpacity ,Image, ImageBackground} from 'react-native'
 import { API } from '../../http/API'
 import { Usuario } from '../../models/Usuario'
 import { useContext, useEffect, useState } from 'react';
+import { BlurView } from 'expo-blur';
 import { AuthContext } from '../../contexts/AuthContext'
 import SearchBar from '../../components/SearchBar'
 import  Constants from 'expo-constants'
+
 const MenuInferior = () => {
   const router = useRouter();
   const nav = useNavigation();
   const [usuario, setUsuario] = useState<Usuario>();
   const idUsuario = useContext(AuthContext)
-  const headerHeight = Constants.statusBarHeight * 2
+  const headerHeight = Constants.statusBarHeight * 1.5
 
   useEffect(() => {
     API.get<Usuario>(`Usuario/${idUsuario}`).then((response) => setUsuario(response.data))
@@ -24,27 +26,22 @@ const MenuInferior = () => {
         
         initialRouteName="(dashboard)"
         screenOptions={{
-          headerBackground: () => (
-            <ImageBackground source={require('../../assets/data/gradient.png')} resizeMode="stretch" style={{flex:1}}/>
-          ),
+          // headerBackground: () => (
+          //   <ImageBackground source={require('../../assets/data/gradient.png')} resizeMode="stretch" style={{flex:1}}/>
+          // ),
 
           
           tabBarStyle: {
             position: 'absolute',
-            bottom: 0,
-            left: '10%',
-            paddingBottom: 0,
-            marginBottom: 35,
-            borderRadius: 20,
-            borderColor: 'gray',
-            width:'80%',
-            alignSelf: 'center',
-            maxHeight: 50
+            
 
             // shadowColor: 'black',
             // shadowRadius: 200,
             // shadowOffset: '5'
           },
+          tabBarBackground: () => (
+            <BlurView tint="light" intensity={90} style={{flex: 1,padding: 20,justifyContent: 'center',}}/>
+          ),
           // tabBarItemStyle: {
           //   flex: 1,
           //   justifyContent: 'center',
@@ -59,23 +56,23 @@ const MenuInferior = () => {
           headerTitle: () => (
                 <SearchBar/>
           ),
-          headerRightContainerStyle: { paddingRight: 10},
+          headerRightContainerStyle: { paddingRight: 15, paddingBottom: 15},
           headerRight: () => (
             <Feather
               backgroundColor='transparent'
               onPress={() => router.push('/Mensagens')}
               name='message-square'
-              size={24}
+              size={35}
               color="black"
               borderRadius={50}
           />
           ),
-          headerLeftContainerStyle: { paddingLeft: 10},
+          headerLeftContainerStyle: { paddingLeft: 10, paddingBottom: 20},
           headerLeft: () => (
             <TouchableOpacity onPress={() => nav.openDrawer()}>
               {usuario && <Image
                 alt='profilePic'
-                style={{height: 40, width: 40, borderRadius: 50}}
+                style={{height: 50, width: 50, borderRadius: 50}}
                 source={{uri: `data:image/png;base64,${usuario.foto}`}}
               />}
               

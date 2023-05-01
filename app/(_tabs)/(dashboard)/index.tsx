@@ -1,113 +1,51 @@
-import { View, Image, ScrollView, Button, Text, TouchableOpacity, ImageBackground } from 'react-native'
-import React, { useContext } from 'react'
-import { AuthContext } from '../../../contexts/AuthContext'
-import { useRouter } from 'expo-router'
+import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useEffect, useState } from "react";
 import { FlashList } from '@shopify/flash-list';
 import { Grupo } from "../../../models/Grupo";
-import { API } from '../../../http/API';
-import { ControleExecucao } from '../../../models/ControleExecucao';
-import { Usuario } from '../../../models/Usuario';
-import { StyleSheet } from 'react-native';
+import { getFrequenciaByEstudanteIdByPeriodoId } from '../../../core/services/FrequenciaService';
+import { getAllGrupos, getGruposByEstudanteIdByPeriodoId } from '../../../core/services/GrupoService';
+import ListaGrupo from '../../../components/ListaGrupo';
 
-export default function ListaUC({ navigation }) {
-  const router = useRouter()
-  const idUsuario = useContext(AuthContext)
-  const [listaUC, setListaUC] = useState<Grupo[]>([]);
+export default function ListaUC() {
   
-  const [listaControleExecucao, setListaControleExecucao] = useState<ControleExecucao[]>([])
   const idPeriodo = 2;
+  const idEstudante = 1;
+  const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);
+  //const {grupos} = getAllGrupos();
+  const {grupos} = getGruposByEstudanteIdByPeriodoId(idEstudante, idPeriodo)
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  useEffect (() => {
-    
-    // /ObterGruposByPeriodoAtivoByUsuarioId/${idUsuario}
-    API.get<Grupo[]>(`Grupo`).then((response) => setListaUC(response.data));
 
-    listaUC.map((grupo)=>
-      API.get<ControleExecucao[]>(`ControleExecucao/FilterByPeriodoIdByGrupoId/${idPeriodo}/${grupo.id}`).then((response) => setListaControleExecucao(response.data))
+  useEffect(() => {
+    grupos.forEach(
+      (g) => {
+          var freq = frequencias.filter((f) =>(f.grupoId == g.id));
+          if(freq.length != 0){
+            g.frequencia = freq[0].frequencia;
+            setIsLoaded(true)
+          }
+      }
     )
-  }, [])
+  },[grupos, frequencias])
 
-  type RenderCardProps = {
-    item : Grupo;
-  }
-  const RenderCard = ({ item }: RenderCardProps) => {
-    return (
-      <View style={{ margin: 5, borderRadius:12, backgroundColor:'white', width: '50%', overflow: 'hidden'}} >
-        <TouchableOpacity>
-        <View style={{flexDirection: 'row', height: 80, width: 250}}>
-          <View style={{width: '30%'}}>
-              <Image 
-              style={{height:'100%', width: '100%'}}
-              resizeMode='cover'
-              source={{
-                uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
-              }} 
-              alt="image" />
-
-            <View style={{position:'absolute', bottom: 0, padding:3, paddingTop:1.5, backgroundColor: 'red'}}>
-              <Text>UC</Text>
-            </View>
-          </View>
-          <View style={{width: '60%', marginLeft: 10}}>
-              <Text style={{fontFamily:'PoppinsBold', fontSize: 12}}>
-                {item.unidadeCurricular.nomeCurto}
-              </Text>
-              <Text style={{fontFamily:'Poppins', fontSize: 10}}>
-                { item.unidadeCurricular.nomeCurto }
-              </Text>
-              <Text>
-                Frequência: 95%
-              </Text>
-           </View>
-        </View>
-        </TouchableOpacity>
-      </View>
-      )
-  };
 
   return (
-
-      <FlashList
-      StickyHeaderComponent={() => (
-        <Text style={{fontFamily: 'Poppins', marginLeft: 4}}>
-          Meus Cursos
-        </Text>)}
-      
-        data={listaUC}
+    <View style={styles.container}>
+    {isLoaded && <FlashList
+        ListHeaderComponent={<Text style={{margin:5, fontSize: 22, fontFamily: 'Poppins'}}>Meus Cursos</Text>}
+        data={grupos}
         estimatedItemSize={8}
-        renderItem = { RenderCard }
+        numColumns={1}
+        renderItem = { ({item}) => <ListaGrupo {...item}/>}
         keyExtractor={(item) => item.id.toString()}
-        
-      />
-  
-    //   <>
-    //   <ScrollView>
-    //     {listaUC.map((grupo) => (
-    //       <View key={grupo.id}>
-    //           <Text style={{alignSelf: 'center'}} >
-    //             {grupo.unidadeCurricular.nomeCurto}
-    //           </Text>
-    //           <Text style={{alignSelf: 'center'}} >
-    //             {grupo.unidadeCurricular.horas}
-    //           </Text>
-    //       </View>
-    //         )
-    //       )
-    //     }
-
-    //   <View  style={{alignSelf: 'center'}}>
-    //     <Text>TESTE</Text>
-    //     {listaControleExecucao.map((controle) => (<Text key={controle.id}>{controle.data} {controle.status}</Text>))}
-    //   </View>
-      
-    // </ScrollView>
-    // </>
+      />}
+      </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex:1
-  }
+  },
+  
 })
