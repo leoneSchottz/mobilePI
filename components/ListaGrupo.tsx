@@ -2,11 +2,15 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Grupo } from '../models/Grupo'
 import { ProgressBar } from 'react-native-paper'
+import { Link, useRouter } from 'expo-router'
 
 const ListaGrupo = (grupo: Grupo) => {
+  const router = useRouter()
+
   return (
     <View style={styles.mainCardContainer} >
-        <TouchableOpacity> 
+        <TouchableOpacity onPress={() => router.push(`/UCS/${grupo.id}`)}>
+          
           <View style={styles.cardContainer}>
             <Image
               style={{height:50, width: 50, borderRadius: 50}}
@@ -26,6 +30,7 @@ const ListaGrupo = (grupo: Grupo) => {
                 </Text>
             </View>
           </View>
+
         </TouchableOpacity>
       </View>
   )

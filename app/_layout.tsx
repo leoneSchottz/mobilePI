@@ -13,7 +13,7 @@ const RootLayout = () => {
   if (!fontsLoaded) {
     return undefined
   }
-
+  //3b700ecc-cec9-4be4-8c00-48bced543861
   return (
     <AuthContext.Provider value="3b700ecc-cec9-4be4-8c00-48bced543861">
       <StatusBar style="auto" />

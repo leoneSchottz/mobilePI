@@ -1,3 +1,5 @@
+import { SenacCoin } from "./SenacCoin"
+
 export type Usuario = {
   id:	string
   userName:	string
@@ -22,5 +24,5 @@ export type Usuario = {
   telefone:	string
   dataCadastro:	string
   status:	number
- // senacCoin:	SenacCoin
+  senacCoin: SenacCoin
 }

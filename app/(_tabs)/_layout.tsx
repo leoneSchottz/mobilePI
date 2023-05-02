@@ -1,6 +1,7 @@
 import { Tabs, useNavigation, useRouter } from 'expo-router'
 import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons'
-import { TouchableOpacity ,Image, ImageBackground} from 'react-native'
+import Icons from '@expo/vector-icons/MaterialIcons'
+import { Text, TouchableOpacity ,Image, ImageBackground, View} from 'react-native'
 import { API } from '../../http/API'
 import { Usuario } from '../../models/Usuario'
 import { useContext, useEffect, useState } from 'react';
@@ -8,71 +9,73 @@ import { BlurView } from 'expo-blur';
 import { AuthContext } from '../../contexts/AuthContext'
 import SearchBar from '../../components/SearchBar'
 import  Constants from 'expo-constants'
+import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService'
 
 const MenuInferior = () => {
   const router = useRouter();
   const nav = useNavigation();
-  const [usuario, setUsuario] = useState<Usuario>();
   const idUsuario = useContext(AuthContext)
   const headerHeight = Constants.statusBarHeight * 1.5
-
-  useEffect(() => {
-    API.get<Usuario>(`Usuario/${idUsuario}`).then((response) => setUsuario(response.data))
-  }, [])  
-
+  const {usuario} = getUsuarioByUsuarioId(idUsuario)
+  
   return (
 
       <Tabs
         
         initialRouteName="(dashboard)"
-        screenOptions={{
-          // headerBackground: () => (
-          //   <ImageBackground source={require('../../assets/data/gradient.png')} resizeMode="stretch" style={{flex:1}}/>
-          // ),
-
-          
-          tabBarStyle: {
-            position: 'absolute',
-            
-
-            // shadowColor: 'black',
-            // shadowRadius: 200,
-            // shadowOffset: '5'
-          },
-          tabBarBackground: () => (
-            <BlurView tint="light" intensity={90} style={{flex: 1,padding: 20,justifyContent: 'center',}}/>
-          ),
-          // tabBarItemStyle: {
-          //   flex: 1,
-          //   justifyContent: 'center',
-          //   alignItems: 'center'
-          // },
+        screenOptions={{    
+        //   tabBarStyle: {
+        //     position: 'absolute',
+        //   },
+        //   tabBarBackground: () => (
+        //     <BlurView tint="light" intensity={90} style={{flex: 1,justifyContent: 'center'}}/>
+        //   ),
+        //   // tabBarItemStyle: {
+        //   //   flex: 1,
+        //   //   justifyContent: 'center',
+        //   //   alignItems: 'center'
+        //   // },
           tabBarShowLabel: false,
-          tabBarLabelStyle: {fontSize: 11},
-          tabBarInactiveTintColor: '#828282',
-          tabBarActiveTintColor:'#F47402',
-          headerStatusBarHeight: headerHeight,
-          headerTitleAlign: 'center',
+        //   tabBarLabelStyle: {fontSize: 11},
+        //   tabBarInactiveTintColor: '#828282',
+        //   tabBarActiveTintColor:'#F47402',
+        //   headerStatusBarHeight: headerHeight,
+        //   headerTitleAlign: 'center',
+          headerTitleContainerStyle: { paddingBottom: 15},
           headerTitle: () => (
-                <SearchBar/>
+            <>
+            {usuario && <View>
+              <Text numberOfLines={1} style={{fontSize: 18, fontWeight: '600'}}>Olá, {usuario.nomeCompleto} 👋</Text>
+              
+              <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
+                <Icons name='attach-money' size={15} color={'orange'}/>
+                <Text style={{fontSize: 13}}>{/*{usuario.senacCoin.saldo}*/}1500</Text>
+              </View>
+            </View>}
+            </>
+               
           ),
           headerRightContainerStyle: { paddingRight: 15, paddingBottom: 15},
           headerRight: () => (
-            <Feather
-              backgroundColor='transparent'
-              onPress={() => router.push('/Mensagens')}
-              name='message-square'
-              size={35}
-              color="black"
-              borderRadius={50}
-          />
+            <TouchableOpacity style={{width: 50, aspectRatio:1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1}}>
+              <Icons name='notifications' size={24} color={'black'}/>
+
+              {/* <Feather
+                onPress={() => router.push('/Mensagens')}
+                name='message-square'
+                size={35}
+                color="black"
+                borderRadius={50}
+              /> */}
+            </TouchableOpacity>
+           
           ),
-          headerLeftContainerStyle: { paddingLeft: 10, paddingBottom: 20},
+          headerLeftContainerStyle: { paddingLeft: 15, paddingBottom: 15},
           headerLeft: () => (
             <TouchableOpacity onPress={() => nav.openDrawer()}>
               {usuario && <Image
                 alt='profilePic'
-                style={{height: 50, width: 50, borderRadius: 50}}
+                style={{width: 50, aspectRatio: 1, borderRadius: 50, borderWidth: 1, borderColor: 'gray'}}
                 source={{uri: `data:image/png;base64,${usuario.foto}`}}
               />}
               
@@ -119,6 +122,7 @@ const MenuInferior = () => {
         <Tabs.Screen
           name="Notificacoes"
           options={{
+            href: null,
             tabBarBadge: 3,
             //tabBarLabel: 'Notificações',
 
