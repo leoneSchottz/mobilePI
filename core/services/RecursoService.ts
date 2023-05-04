@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { API } from "../../../http/api";
-import { Recurso } from "../../../models/Recurso";
+import { Recurso } from "../../models/Recurso";
+import { API } from "../../http/API";
+
 
 export default function RecursoService() {
 

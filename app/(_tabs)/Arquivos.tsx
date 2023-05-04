@@ -1,12 +1,12 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import RecursoService from '../core/services/RecursoService'
-import { Recurso } from '../../models/Recurso'
 import * as nativeBase from "native-base";
 import { Avatar, Card, IconButton, AnimatedFAB } from 'react-native-paper';
 import { NativeBaseProvider, Modal } from 'native-base';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
+import { Recurso } from '../../models/Recurso';
+import RecursoService from '../../core/services/RecursoService';
 
 
 
@@ -70,7 +70,7 @@ export default function listaRecursos() {
           usuarioId: this.idUsuarioLogado,
         };
 
-        saveRecurso(Recurso)
+        // saveRecurso(Recurso)
       }
 
       fileReader.readAsDataURL(file);
@@ -81,7 +81,7 @@ export default function listaRecursos() {
     let result = await DocumentPicker.getDocumentAsync({});
     console.log(result);
     if (result.type == "success") {
-      let base64 = await FileSystem.readAsStringAsync('file:///data/user/0/host.exp.exponent/cache/DocumentPicker/download.jpeg', { encoding: FileSystem.EncodingType.Base64 });
+      let base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: FileSystem.EncodingType.Base64 });
       // utilize o valor de base64 aqui
       console.log(base64)
     }
