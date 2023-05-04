@@ -9,11 +9,18 @@ const UcDetail = () => {
   const router = useRouter()
   const {id} = useSearchParams()
   const [grupo, setGrupo] = useState<Grupo>()
+  const [dados, setDados] = useState<any[]>()
+  useEffect(() => {
+    if(id){
+      API.get(`Grupo/${id}`).then((response) => setGrupo(response.data))
+    }
+  },[id])
 
   useEffect(() => {
-    API.get(`Grupo/${id}`).then((response) => setGrupo(response.data))
+    API.get('Acompanhamento/filterByBrupoIdByEstudanteId/1/1').then((response) => setDados(response.data))
     
   },[])
+  console.log(dados)
 
 
   return (
