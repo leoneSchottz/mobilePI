@@ -21,7 +21,7 @@ const ListaGrupo = (grupo: Grupo) => {
               alt="image"
             />
             <View style={styles.cardInfoContainer}>
-                <Text style={styles.cardTitle} numberOfLines={2} adjustsFontSizeToFit={true}>
+                <Text style={styles.cardTitle} numberOfLines={1} adjustsFontSizeToFit={true}>
                   {grupo.unidadeCurricular.nomeCurto}
                 </Text>
                 <ProgressBar progress={parseInt(grupo.frequencia)/100} color='blue'/>

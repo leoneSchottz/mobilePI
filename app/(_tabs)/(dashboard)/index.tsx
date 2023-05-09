@@ -5,6 +5,7 @@ import { Grupo } from "../../../models/Grupo";
 import { getFrequenciaByEstudanteIdByPeriodoId } from '../../../core/services/FrequenciaService';
 import { getAllGrupos, getGruposByEstudanteIdByPeriodoId } from '../../../core/services/GrupoService';
 import ListaGrupo from '../../../components/ListaGrupo';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 export default function ListaUC() {
   
@@ -32,7 +33,7 @@ export default function ListaUC() {
   return (
     <View style={styles.container}>
     {isLoaded && <FlashList
-        ListHeaderComponent={<Text style={{margin:5, fontSize: 22, fontFamily: 'Poppins'}}>Meus Cursos</Text>}
+        ListHeaderComponent={<HeaderCursos/>}
         data={grupos}
         estimatedItemSize={8}
         numColumns={1}
@@ -43,9 +44,16 @@ export default function ListaUC() {
   )
 }
 
+  const HeaderCursos = () => {
+    return (
+      <Text style={{margin:5, marginTop: 20, fontSize: 20, fontFamily: 'PoppinsBold'}}>Meus Cursos</Text>
+    )
+  }
+
 const styles = StyleSheet.create({
   container: {
-    flex:1
+    flex:1,
+    marginHorizontal: 10
   },
   
 })

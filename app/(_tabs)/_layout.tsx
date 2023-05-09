@@ -39,7 +39,7 @@ const MenuInferior = () => {
         //   tabBarLabelStyle: {fontSize: 11},
         //   tabBarInactiveTintColor: '#828282',
         //   tabBarActiveTintColor:'#F47402',
-        //   headerStatusBarHeight: headerHeight,
+          headerStatusBarHeight: headerHeight,
         //   headerTitleAlign: 'center',
           headerTitleContainerStyle: { paddingBottom: 15},
           headerTitle: () => (
