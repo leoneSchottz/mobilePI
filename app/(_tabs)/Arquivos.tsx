@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet} from 'react-native'
 import React, { useCallback, useState } from 'react'
 import * as nativeBase from "native-base";
 import { Avatar, Card, IconButton, AnimatedFAB } from 'react-native-paper';
@@ -7,6 +7,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import { Recurso } from '../../models/Recurso';
 import RecursoService from '../../core/services/RecursoService';
+import uuid from 'uuid-random';
 
 
 
@@ -15,6 +16,13 @@ export default function listaRecursos() {
   const { listaRecursos, deleteRecurso, saveRecurso } = RecursoService()
   const [showModal, setShowModal] = useState(false);
   const [fileResponse, setFileResponse] = useState([]);
+  const [recurso,setRecurso] = useState<Recurso>()
+  const [nomeArquivo, setNomeArquivo] = useState<string>('');
+  const idUsuarioLogado = "3b700ecc-cec9-4be4-8c00-48bced543861";
+  const currentDate = new Date();
+  const id = uuid();
+
+
 
   type RenderRecursoProps = {
     item: Recurso
@@ -32,58 +40,24 @@ export default function listaRecursos() {
   }
 
 
-  // const pickDocument = () => {
-  //   try {
-  //     console.log("aaaaaaaaaaaaaaaaaaaa");
-
-  //     const result = DocumentPicker.pick({
-  //       type: [DocumentPicker.types.allFiles],
-  //     });
-  //     console.log(
-  //       result
-  //     );
-  //   } catch (err) {
-  //     if (DocumentPicker.isCancel(err)) {
-  //       console.log('User cancelled the picker');
-  //     } else {
-  //       console.log('Error:', err.message);
-  //     }
-  //   }
-  // }
-
-  const onUpload = ({ item }: any) => {
-    const fileReader = new FileReader();
-
-
-    for (let file of item.files) {
-      fileReader.onload = (e) => {
-        const arquivo = e.target?.result as string;
-        const formatAquivo = arquivo.split(',')[1];
-
-        const Recurso = {
-          id: 7,
-          descricao: "",
-          nomeArquivo: file.name,
-          arquivo: formatAquivo,
-          dataCadastro: new Date().toISOString(),
-          status: 1,
-          usuarioId: this.idUsuarioLogado,
-        };
-
-        // saveRecurso(Recurso)
-      }
-
-      fileReader.readAsDataURL(file);
-    }
-  }
-
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
     console.log(result);
     if (result.type == "success") {
       let base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: FileSystem.EncodingType.Base64 });
       // utilize o valor de base64 aqui
-      console.log(base64)
+      const Recurso = {
+        id: 7,
+        descricao: "",
+        nomeArquivo: result.name,
+        arquivo: base64,
+        dataCadastro: new Date().toISOString(),
+        status: 1,
+        usuarioId: idUsuarioLogado,
+      };
+      console.log(Recurso)
+      setRecurso(Recurso)
+      setNomeArquivo(result.name)
     }
 
   };
@@ -106,6 +80,7 @@ export default function listaRecursos() {
                 Cancel
               </nativeBase.Button>
               <nativeBase.Button onPress={() => {
+                saveRecurso(recurso);
                 setShowModal(false);
               }}>
                 Save
@@ -116,7 +91,7 @@ export default function listaRecursos() {
       </Modal>
     </nativeBase.Center>;
   }
-
+  
   const UploadBox = () => {
     return <nativeBase.Box alignItems="center">
       <nativeBase.Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
@@ -138,6 +113,7 @@ export default function listaRecursos() {
             {/* <Text>
               The Silicon Valley of India.
             </Text> */}
+            <Text>{nomeArquivo}</Text>
           </nativeBase.Stack>
           {fileResponse.map((file, index) => (
             <Text
@@ -152,21 +128,6 @@ export default function listaRecursos() {
     </nativeBase.Box>;
   };
 
-  // const handleDocumentSelection = async () => {
-  //   try {
-  //     const doc = await DocumentPicker.pick();
-  //     console.log(doc)
-  //   } catch (err) {
-  //     if (DocumentPicker.isCancel(err))
-  //       console.log("User cancelled")
-  //     else
-  //       console.log(err)
-  //   }
-  // };
-
-
-
-
   return (
     <NativeBaseProvider>
       <View>
@@ -178,7 +139,7 @@ export default function listaRecursos() {
           )}
           data={listaRecursos}
           renderItem={RenderRecurso}
-          keyExtractor={(item) => item.id.toString()}
+          key={id}
         />
         <AnimatedFAB
           icon={'plus'}

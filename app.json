@@ -5,6 +5,17 @@
       "bundler": "metro"
     },
     "name": "testeExpoRouter",
-    "slug": "testeExpoRouter"
+    "slug": "testeExpoRouter",
+    "android": {
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "ios": {
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Precisamos de acesso às suas fotos para selecionar um arquivo"
+      }
+    }
   }
 }
