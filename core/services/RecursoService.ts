@@ -15,6 +15,15 @@ export default function RecursoService() {
         )
     }, []);
 
+    const getListaRecursos = async () => {
+        try {
+            const response = await API.get<Recurso[]>('Recurso');
+            setListaRecursos(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const deleteRecurso = async (id: number) => {
         try {
             const response = await API.delete<Recurso>('Recurso/' + id)
@@ -48,7 +57,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, deleteRecurso, saveRecurso };
+    return { listaRecursos, deleteRecurso, saveRecurso, getListaRecursos };
 
 }
 
