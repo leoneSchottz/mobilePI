@@ -10,9 +10,10 @@ export default function RecursoService() {
     useEffect(() => {
         API.get<Recurso[]>('Recurso').then((response) => {
             setListaRecursos(response.data);
-        }
+        }).catch((error) => {
+            console.log("Erro:::::::" + error);
+        });
 
-        )
     }, []);
 
     const getListaRecursos = async () => {
@@ -57,7 +58,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, deleteRecurso, saveRecurso, getListaRecursos };
+    return { listaRecursos, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos };
 
 }
 

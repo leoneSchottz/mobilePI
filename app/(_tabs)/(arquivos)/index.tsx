@@ -13,13 +13,14 @@ import uuid from 'uuid-random';
 
 export default function listaRecursos() {
 
-  const { listaRecursos, deleteRecurso, saveRecurso, getListaRecursos } = RecursoService()
+  const { listaRecursos, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos } = RecursoService()
   const [showModal, setShowModal] = useState(false);
   const [showDesc, setShowDesc] = useState(true);
   const [fileResponse, setFileResponse] = useState([]);
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
+  const [searchText, setSearchText] = useState('');
   const idUsuarioLogado = "3b700ecc-cec9-4be4-8c00-48bced543861";
   const currentDate = new Date();
   const id = uuid();
@@ -33,48 +34,56 @@ export default function listaRecursos() {
 
   const RenderRecurso = ({ item }: RenderRecursoProps) => {
     return (
-      <Card.Title
-        title={item.nomeArquivo}
-        subtitle={item.descricao}
-        left={(props) => <Avatar.Icon {...props} style={styles.button} icon="content-save" />}
-        right={(props) => <IconButton {...props} icon="close" onPress={() =>
-          Alert.alert("",
-            "Tem certeza que deseja apagar o arquivo?",
-            [
-              {
-                text: 'Sim',
-                onPress: () => {
-                  deleteRecurso(item.id).catch((error) => {
-                    nativeBase.Toast.show({
-                      title: "Erro ao apagar arquivo!",
-                      placement: "top",
-                      backgroundColor: "amber.500",
-                    });
-                    console.log(error);
-                  }).
-                    then(() => {
-                      getListaRecursos(),
-                        nativeBase.Toast.show({
-                          title: "Arquivo apagado com sucesso!",
-                          placement: "top",
-                          backgroundColor: "green.500",
-                        });
-                    });
+      <View>
+        <Card.Title
+          title={item.nomeArquivo}
+          subtitle={item.descricao}
+          left={(props) => <Avatar.Icon {...props} style={styles.button} icon="content-save" />}
+          right={(props) => <IconButton {...props} icon="close" onPress={() =>
+            Alert.alert("",
+              "Tem certeza que deseja apagar o arquivo?",
+              [
+                {
+                  text: 'Sim',
+                  onPress: () => {
+                    deleteRecurso(item.id).catch((error) => {
+                      nativeBase.Toast.show({
+                        title: "Erro ao apagar arquivo!",
+                        placement: "top",
+                        backgroundColor: "amber.500",
+                      });
+                      console.log(error);
+                    }).
+                      then(() => {
+                        getListaRecursos(),
+                          nativeBase.Toast.show({
+                            title: "Arquivo apagado com sucesso!",
+                            placement: "top",
+                            backgroundColor: "green.500",
+                          });
+                      });
+                  },
+                  style: 'destructive',
                 },
-                style: 'destructive',
-              },
-              {
-                text: 'Não',
-                onPress: () => {
-                  // Lógica a ser executada ao pressionar o Botão 2
-                  return null;
+                {
+                  text: 'Não',
+                  onPress: () => {
+                    // Lógica a ser executada ao pressionar o Botão 2
+                    return null;
+                  },
+                  style: 'cancel',
                 },
-                style: 'cancel',
-              },
 
-            ],
-          )} />}
-      />
+              ],
+            )} />}
+        />
+        <NativeBaseProvider>
+          <nativeBase.Divider />
+        </NativeBaseProvider>
+      </View>
+
+
+
     )
   }
 
@@ -187,19 +196,46 @@ export default function listaRecursos() {
   };
 
 
+  // const searchFilterFunction = (text) => {
+  //   if (text) {
+  //     const newData = listaRecursos.filter((item) => {
+  //       const itemData = item.nomeArquivo
+  //         ? item.nomeArquivo.toUpperCase()
+  //         : ''.toUpperCase();
+  //       const textData = text.toUpperCase();
+  //       return itemData.indexOf(textData) > -1;
+  //     });
+  //   } else {
+  //     setListaRecursos(listaRecursos)
+  //   }
+  // };
+
 
   return (
     <NativeBaseProvider>
       <View>
+        <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+          Arquivos
+        </nativeBase.Heading>
+
+        <TextInput
+          placeholder='Pesquisar'
+          style={styles.input}
+          placeholderTextColor={'#999'}
+          value={searchText}
+          onChangeText={(text) => { setSearchText(text) }}
+        />
+
         <FlatList
-          ListHeaderComponent={() => (
-            <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-              Arquivos
-            </nativeBase.Heading>
-          )}
+          // ListHeaderComponent={() => (
+          //   <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+          //     Arquivos
+          //   </nativeBase.Heading>
+          // )}
           data={listaRecursos}
           renderItem={RenderRecurso}
           key={id}
+          style={styles.listaRecursos}
         />
         <AnimatedFAB
           icon={'plus'}
@@ -219,6 +255,7 @@ export default function listaRecursos() {
 
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -231,4 +268,18 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#2563ea',
   },
+  listaRecursos: {
+    marginTop: 10,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: '#2563ea',
+    color: '#2563ea',
+  },
 });
+
+
