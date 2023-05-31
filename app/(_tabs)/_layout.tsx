@@ -14,8 +14,8 @@ import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService'
 const MenuInferior = () => {
   const router = useRouter();
   const nav = useNavigation();
-  const idUsuario = useContext(AuthContext)
   const headerHeight = Constants.statusBarHeight * 1.5
+  const idUsuario = useContext(AuthContext)
   const {usuario} = getUsuarioByUsuarioId(idUsuario)
   
   return (
@@ -93,6 +93,16 @@ const MenuInferior = () => {
           }}
         />
         <Tabs.Screen
+          name="(forum)"
+          options={{
+            //tabBarLabel: 'Calendario',
+            tabBarIcon: ({size, color}) => (
+              <MaterialIcons name="forum" size={size} color={color} />
+            )
+          }}
+        />
+
+        <Tabs.Screen
           name="Calendario"
           options={{
             //tabBarLabel: 'Calendario',
@@ -101,6 +111,7 @@ const MenuInferior = () => {
             )
           }}
         />
+
         <Tabs.Screen
           name="Badges"
           options={{
