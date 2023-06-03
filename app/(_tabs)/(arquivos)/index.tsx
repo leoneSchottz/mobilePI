@@ -13,16 +13,16 @@ import uuid from 'uuid-random';
 
 export default function listaRecursos() {
 
-  const { listaRecursos, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos } = RecursoService()
+  const { listaRecursos, originalData, setOriginalData, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos } = RecursoService()
+
   const [showModal, setShowModal] = useState(false);
   const [showDesc, setShowDesc] = useState(true);
+
   const [fileResponse, setFileResponse] = useState([]);
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
-  const [searchText, setSearchText] = useState('');
   const idUsuarioLogado = "3b700ecc-cec9-4be4-8c00-48bced543861";
-  const currentDate = new Date();
   const id = uuid();
 
 
@@ -196,6 +196,11 @@ export default function listaRecursos() {
   };
 
 
+  function search(s) {
+    let arr = JSON.parse(JSON.stringify(originalData));
+    setListaRecursos(arr.filter((item) => item.nomeArquivo.includes(s) || item.descricao.includes(s)))
+  }
+
   // const searchFilterFunction = (text) => {
   //   if (text) {
   //     const newData = listaRecursos.filter((item) => {
@@ -222,8 +227,7 @@ export default function listaRecursos() {
           placeholder='Pesquisar'
           style={styles.input}
           placeholderTextColor={'#999'}
-          value={searchText}
-          onChangeText={(text) => { setSearchText(text) }}
+          onChangeText={(s) => { search(s) }}
         />
 
         <FlatList

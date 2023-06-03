@@ -6,10 +6,12 @@ import { API } from "../../http/API";
 export default function RecursoService() {
 
     const [listaRecursos, setListaRecursos] = useState<Recurso[]>([]);
+    const [originalData, setOriginalData] = useState<Recurso[]>([]);
 
     useEffect(() => {
         API.get<Recurso[]>('Recurso').then((response) => {
             setListaRecursos(response.data);
+            setOriginalData(response.data);
         }).catch((error) => {
             console.log("Erro:::::::" + error);
         });
@@ -58,7 +60,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos };
+    return { listaRecursos, originalData, setOriginalData, setListaRecursos, deleteRecurso, saveRecurso, getListaRecursos };
 
 }
 
