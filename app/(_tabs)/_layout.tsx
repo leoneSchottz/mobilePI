@@ -16,8 +16,8 @@ const MenuInferior = () => {
   const nav = useNavigation();
   const headerHeight = Constants.statusBarHeight * 1.5
   const idUsuario = useContext(AuthContext)
-  const {usuario} = getUsuarioByUsuarioId(idUsuario)
-  
+  const { usuario } = getUsuarioByUsuarioId(idUsuario)
+
   return (
 
     <Tabs
@@ -92,6 +92,16 @@ const MenuInferior = () => {
           )
         }}
       />
+      {/* <Tabs.Screen
+        name="Forum"
+        options={{
+          //tabBarLabel: 'Calendario',
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="forum" size={size} color={color} />
+          )
+        }}
+      /> */}
+
       <Tabs.Screen
         name="Calendario"
         options={{
@@ -100,60 +110,32 @@ const MenuInferior = () => {
             <MaterialIcons name="calendar-today" size={size} color={color} />
           )
         }}
-      >
-        <Tabs.Screen
-          name="(dashboard)"
-          options={{
-            //tabBarLabel: 'Home',
-            tabBarIcon: ({size, color}) => (
-              <MaterialIcons name="home" size={size} color={color}/>
-            )
-          }}
-        />
-        <Tabs.Screen
-          name="(forum)"
-          options={{
-            //tabBarLabel: 'Calendario',
-            tabBarIcon: ({size, color}) => (
-              <MaterialIcons name="forum" size={size} color={color} />
-            )
-          }}
-        />
+      />
 
-        <Tabs.Screen
-          name="Calendario"
-          options={{
-            //tabBarLabel: 'Calendario',
-            tabBarIcon: ({size, color}) => (
-              <MaterialIcons name="calendar-today" size={size} color={color} />
-            )
-          }}
-        />
-
-        <Tabs.Screen
-          name="Badges"
-          options={{
-            //tabBarLabel: 'Badges',
-            tabBarIcon: ({size, color}) => (
-              <Ionicons name="ios-trophy" size={size} color={color} />
-            )
-          }}
-        />
-        <Tabs.Screen
-          name="Arquivos"
-          options={{
-            //tabBarLabel: 'Arquivos',
-            tabBarIcon: ({size, color}) => (
-              <MaterialIcons name="folder" size={size} color={color} />
-            )
-          }}
-        />
-        <Tabs.Screen
-          name="Notificacoes"
-          options={{
-            href: null,
-            tabBarBadge: 3,
-            //tabBarLabel: 'Notificações',
+      <Tabs.Screen
+        name="Badges"
+        options={{
+          //tabBarLabel: 'Badges',
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="ios-trophy" size={size} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="(arquivos)"
+        options={{
+          //tabBarLabel: 'Arquivos',
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="folder" size={size} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="Notificacoes"
+        options={{
+          href: null,
+          tabBarBadge: 3,
+          //tabBarLabel: 'Notificações',
 
           tabBarIcon: ({ size, color }) => (
             <MaterialIcons name="notifications" size={size} color={color} />

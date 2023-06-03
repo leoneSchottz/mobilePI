@@ -198,7 +198,8 @@ export default function listaRecursos() {
 
   function search(s) {
     let arr = JSON.parse(JSON.stringify(originalData));
-    setListaRecursos(arr.filter((item) => item.nomeArquivo.includes(s) || item.descricao.includes(s)))
+    setListaRecursos(arr.filter((item) =>
+      item.nomeArquivo.toUpperCase().includes(s.toUpperCase()) || item.descricao.toUpperCase().includes(s.toUpperCase())))
   }
 
   // const searchFilterFunction = (text) => {
