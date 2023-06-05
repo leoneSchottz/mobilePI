@@ -7,7 +7,7 @@ import { getUsuarioByUsuarioId } from '../core/services/UsuarioService'
 
 const RootLayout = () => {
   const {usuario} = getUsuarioByUsuarioId("3b700ecc-cec9-4be4-8c00-48bced543861");
-  
+
   const [fontsLoaded] = useFonts({
     Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
     PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf'),

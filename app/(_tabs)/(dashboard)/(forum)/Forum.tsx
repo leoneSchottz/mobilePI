@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useRouter, useNavigation, useSearchParams } from "expo-router";
 import { ScrollView, HStack, VStack, List, NativeBaseProvider } from 'native-base';
 import { Card, Title, Button, IconButton, Chip, Tooltip, Provider} from 'react-native-paper';
-import { ChapterAssunto } from '../../../models/ChapterAssunto';
-import { obterChaptersAssuntoComentario } from '../../../core/services/ChapterAssuntoComentarioService';
-import { Tag } from '../../../models/Tag';
-import { obterTags } from '../../../core/services/TagService';
-import { obterChaptersAssunto } from '../../../core/services/ChapterAssuntoService';
+import { ChapterAssunto } from '../../../../models/ChapterAssunto';
+import { obterChaptersAssuntoComentario } from '../../../../core/services/ChapterAssuntoComentarioService';
+import { Tag } from '../../../../models/Tag';
+import { obterTags } from '../../../../core/services/TagService';
+import { obterChaptersAssunto } from '../../../../core/services/ChapterAssuntoService';
 
 
 function ListTags(chaptersAssunto: ChapterAssunto[], setChaptersAssunto: Dispatch<ChapterAssunto[]>) {
