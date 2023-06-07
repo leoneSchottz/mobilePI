@@ -24,7 +24,7 @@ const RootLayout = () => {
         <StatusBar style="auto" />
         <Drawer screenOptions={{ headerShown: false }}>
           <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
-          <Drawer.Screen name="Forum" options={{ drawerLabel: 'Fórum' }} />
+          <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} />
           <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações' }}/>
         </Drawer>
       </AuthContext.Provider>

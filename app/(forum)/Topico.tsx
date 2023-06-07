@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import {View, Text, StyleSheet, ScrollView } from "react-native"
 import { useLocalSearchParams } from 'expo-router'
 import { Button, Card, Chip, IconButton, Title, TextInput, Provider} from 'react-native-paper'
-import { ChapterAssuntoComentario } from '../../../../models/ChapterAssuntoComentario';
-import { obterChaptersAssuntoComentario } from '../../../../core/services/ChapterAssuntoComentarioService';
+import { ChapterAssuntoComentario } from '../../models/ChapterAssuntoComentario';
+import { obterChaptersAssuntoComentario } from '../../core/services/ChapterAssuntoComentarioService';
 import { FormControl, Input, Menu, Modal, NativeBaseProvider } from 'native-base';
 import moment from 'moment';
-import { AuthContext } from '../../../../contexts/AuthContext';
-import { getUsuarioByUsuarioId } from '../../../../core/services/UsuarioService';
-import { Usuario } from '../../../../models/Usuario';
-import { UsarioContext } from '../../../../contexts/UsuarioContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService';
+import { Usuario } from '../../models/Usuario';
+import { UsarioContext } from '../../contexts/UsuarioContext';
 
 
 function ListChaptersAssuntoComentario(chaptersAssunto: ChapterAssuntoComentario[], curtir: Function, descurtir: Function, excluirComentario: Function, editarComentario: Function, user: Usuario) {

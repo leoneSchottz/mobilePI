@@ -1,13 +1,13 @@
 import { Dispatch, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useRouter, useNavigation, useSearchParams } from "expo-router";
+import { useRouter, useNavigation, useSearchParams, Link } from "expo-router";
 import { ScrollView, HStack, VStack, List, NativeBaseProvider } from 'native-base';
 import { Card, Title, Button, IconButton, Chip, Tooltip, Provider} from 'react-native-paper';
-import { ChapterAssunto } from '../../../../models/ChapterAssunto';
-import { obterChaptersAssuntoComentario } from '../../../../core/services/ChapterAssuntoComentarioService';
-import { Tag } from '../../../../models/Tag';
-import { obterTags } from '../../../../core/services/TagService';
-import { obterChaptersAssunto } from '../../../../core/services/ChapterAssuntoService';
+import { ChapterAssunto } from '../../models/ChapterAssunto';
+import { obterChaptersAssuntoComentario } from '../../core/services/ChapterAssuntoComentarioService';
+import { Tag } from '../../models/Tag';
+import { obterTags } from '../../core/services/TagService';
+import { obterChaptersAssunto } from '../../core/services/ChapterAssuntoService';
 
 
 function ListTags(chaptersAssunto: ChapterAssunto[], setChaptersAssunto: Dispatch<ChapterAssunto[]>) {
@@ -95,7 +95,7 @@ useEffect(() => {setChaptersAssunto(obterChaptersAssunto())}, [])
     <NativeBaseProvider>
       <View style={styles.container}>
         <View>
-        <Button style={styles.pergunta} labelStyle={{fontSize: 16, color: 'white'}} onPress={() => router.push('Perguntar')}>Pergunta</Button>
+        <Link href={'Perguntar'} asChild ><Button style={styles.pergunta} labelStyle={{fontSize: 16, color: 'white'}}>Pergunta</Button></Link>
           {ListTags(chaptersAssunto, setChaptersAssunto)}
         </View>
         <View style={{flex: 1}}>

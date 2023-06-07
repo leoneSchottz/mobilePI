@@ -4,15 +4,15 @@ import { useRouter } from 'expo-router';
 import { Card, Text, TextInput, Title, Button, Modal, Portal, Provider, IconButton} from "react-native-paper";
 import { Input, InputGroup, InputLeftAddon, NativeBaseProvider, ScrollView, Select } from "native-base";
 import MultiSelect from 'react-native-multiple-select';
-import { ChapterAssunto } from '../../../../models/ChapterAssunto';
-import { Tag } from '../../../../models/Tag';
-import { obterTags } from '../../../../core/services/TagService';
+import { ChapterAssunto } from '../../models/ChapterAssunto';
+import { Tag } from '../../models/Tag';
+import { obterTags } from '../../core/services/TagService';
 import { faker } from '@faker-js/faker';
-import { adicionarChapterAssunto, obterChaptersAssunto } from '../../../../core/services/ChapterAssuntoService';
+import { adicionarChapterAssunto, obterChaptersAssunto } from '../../core/services/ChapterAssuntoService';
 import moment from 'moment';
-import { AuthContext } from '../../../../contexts/AuthContext';
-import { getUsuarioByUsuarioId } from '../../../../core/services/UsuarioService';
-import { UsarioContext } from '../../../../contexts/UsuarioContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService';
+import { UsarioContext } from '../../contexts/UsuarioContext';
 
 
 
