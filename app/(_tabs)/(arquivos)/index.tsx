@@ -13,7 +13,7 @@ import uuid from 'uuid-random';
 
 export default function listaRecursos() {
 
-  const { listaRecursos, deleteRecurso, saveRecurso } = RecursoService()
+  const { listaRecursos, originalData, setListaRecursos, getListaRecursos, deleteRecurso, saveRecurso } = RecursoService()
 
   const [showModal, setShowModal] = useState(false);
   const [showDesc, setShowDesc] = useState(true);

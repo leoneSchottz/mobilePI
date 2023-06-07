@@ -60,7 +60,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, originalData, setOriginalData, getListaRecursos, deleteRecurso, saveRecurso };
+    return { listaRecursos, originalData, setListaRecursos, setOriginalData, getListaRecursos, deleteRecurso, saveRecurso };
 
 }
 

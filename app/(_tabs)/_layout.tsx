@@ -122,7 +122,7 @@ const MenuInferior = () => {
         }}
       />
       <Tabs.Screen
-        name="(arquivos)"
+        name="(arquivos)/index"
         options={{
           //tabBarLabel: 'Arquivos',
           tabBarIcon: ({ size, color }) => (
