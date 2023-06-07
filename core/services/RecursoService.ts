@@ -6,14 +6,26 @@ import { API } from "../../http/API";
 export default function RecursoService() {
 
     const [listaRecursos, setListaRecursos] = useState<Recurso[]>([]);
+    const [originalData, setOriginalData] = useState<Recurso[]>([]);
 
     useEffect(() => {
         API.get<Recurso[]>('Recurso').then((response) => {
             setListaRecursos(response.data);
+            setOriginalData(response.data);
         }
 
         )
     }, []);
+
+    const getListaRecursos = async () => {
+        try {
+            const response = await API.get<Recurso[]>('Recurso');
+            setListaRecursos(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     const deleteRecurso = async (id: number) => {
         try {
@@ -48,7 +60,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, deleteRecurso, saveRecurso };
+    return { listaRecursos, originalData, setOriginalData, getListaRecursos, deleteRecurso, saveRecurso };
 
 }
 
