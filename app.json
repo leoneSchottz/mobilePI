@@ -5,6 +5,11 @@
       "bundler": "metro"
     },
     "name": "testeExpoRouter",
-    "slug": "testeExpoRouter"
+    "slug": "testeExpoRouter",
+    "splash": {
+      "image" : "./assets/images/splash.png",
+      "resizeMode" : "contain",
+      "backgroundColor" : "#FFFFFF"
+    }
   }
 }
