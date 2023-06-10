@@ -57,7 +57,9 @@ const MenuInferior = () => {
         ),
         headerRightContainerStyle: { paddingRight: 15, paddingBottom: 15 },
         headerRight: () => (
-          <TouchableOpacity style={{ width: 50, aspectRatio: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1 }}>
+          <TouchableOpacity
+            onPress={() => router.push("/Notificacoes")}
+            style={{ width: 50, aspectRatio: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1 }}>
             <Icons name='notifications' size={24} color={'black'} />
 
             {/* <Feather
@@ -113,7 +115,7 @@ const MenuInferior = () => {
       />
 
       <Tabs.Screen
-        name="Badges"
+        name="badges"
         options={{
           //tabBarLabel: 'Badges',
           tabBarIcon: ({ size, color }) => (

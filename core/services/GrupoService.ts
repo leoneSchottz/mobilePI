@@ -36,7 +36,7 @@ export function getAllGrupos() {
 
 
 export function getGruposByEstudanteIdByPeriodoId(idEstudante: number, idPeriodo: number) {
- 
+
   const [grupos, setGrupos] = useState<Grupo[]>([])
 
   useEffect(() => {
@@ -65,15 +65,16 @@ export function getGruposByEstudanteIdByPeriodoId(idEstudante: number, idPeriodo
   return { grupos }
 }
 
-export function getGrupo(idGrupo: number){
-  const [grupo, setGrupo] = useState<Grupo>()
+export function ObterGruposByPeriodoAtivoByEstudanteId(idEstudante: number) {
+
+  const [grupos, setGrupos] = useState<Grupo[]>([])
 
   useEffect(() => {
-    API.get<Grupo>(`Grupo/${idGrupo}`)
+    API.get<Grupo[]>(`/Grupo/ObterGruposByPeriodoAtivoByEstudanteId/${idEstudante}`)
     .then((response: AxiosResponse) => {
-      setGrupo(response.data);
+      setGrupos(response.data);
     })
-    .catch((error: AxiosError<Grupo>) => {
+    .catch((error: AxiosError<Grupo[]>) => {
       switch (error.response?.status) {
         case 404: {
           alert('Erro de endereçamento');
@@ -88,6 +89,38 @@ export function getGrupo(idGrupo: number){
         }
       }
     })
+
+  },[])
+
+  return { grupos }
+}
+
+export function getGrupo(idGrupo: string | string[]) {
+  const [grupo, setGrupo] = useState<Grupo>()
+
+  useEffect(() => {
+    const fetchGrupo = async () => {
+      try {
+        const {data} = await API.get<Grupo>(`/Grupo/${idGrupo}`)
+        setGrupo(data)
+      } catch (error) {
+        switch (error.response?.status) {
+          case 404: {
+            alert('Erro de endereçamento');
+            break;
+          }
+          case 400: {
+            alert('Erro de cliente');
+            break;
+          }
+          case 500: {
+            alert('Erro de servidor');
+          }
+        }
+      }
+    }
+
+    fetchGrupo()
   },[])
 
   return { grupo }

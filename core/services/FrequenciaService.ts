@@ -8,9 +8,9 @@ export function getAllFrequenciasPorEstudanteId(idEstudante: number) {
 
   const idPeriodo = 2;
   const [frequencias, setFrequencias] = useState<ControleExecucao[]>([]);
-  
-  
-    API.get<ControleExecucao[]>(`/ControleExecucao/FilterByPeriodoIdByEstudanteId/${idPeriodo}/${idEstudante}`)
+
+    useEffect(() => {
+      API.get<ControleExecucao[]>(`/ControleExecucao/FilterByPeriodoIdByEstudanteId/${idPeriodo}/${idEstudante}`)
     .then((response: AxiosResponse) => {
       setFrequencias(response.data);
     })
@@ -29,7 +29,8 @@ export function getAllFrequenciasPorEstudanteId(idEstudante: number) {
         }
       }
     })
-    
+    },[])
+
   return frequencias;
 }
 

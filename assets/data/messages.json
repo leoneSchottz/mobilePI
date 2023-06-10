@@ -1,0 +1,124 @@
+[
+  {
+    "id": "m1",
+    "text": "Como você está, Lucas!",
+    "time": "2023-06-10T12:48:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m2",
+    "text": "Estou bem, bem",
+    "time": "2023-06-03T14:49:00.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m3",
+    "text": "E você?",
+    "time": "2023-06-03T14:49:40.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m4",
+    "text": "Também estou bem, me preparando para a transmissão agora.",
+    "time": "2023-06-03T14:50:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m5",
+    "text": "Como está indo a sua universidade?",
+    "time": "2023-06-03T14:51:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m6",
+    "text": "Está um pouco difícil, pois estou fazendo duas especializações. E a sua? Você está gostando?",
+    "time": "2023-06-03T14:49:00.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m7",
+    "text": "Big Data é realmente interessante. Mal posso esperar para passar por todo o material.",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m8",
+    "text": "Lorem Ipsum é simplesmente um texto fictício da indústria de impressão e editoração.",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m9",
+    "text": "Lorem Ipsum tem sido o texto fictício padrão da indústria desde os anos 1500, quando um impressor desconhecido juntou um tipo de texto e o embaralhou para fazer um livro de amostra",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m10",
+    "text": "Ele sobreviveu não apenas a cinco séculos, mas também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Foi popularizado em",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m11",
+    "text": "Ok.",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u2",
+      "name": "Lucas"
+    }
+  },
+  {
+    "id": "m12",
+    "text": "Lorem Ipsum é simplesmente um texto fictício da indústria de impressão e editoração.",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  },
+  {
+    "id": "m13",
+    "text": "Ele sobreviveu não apenas a cinco séculos, mas também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Foi popularizado em",
+    "time": "2023-06-03T14:53:00.000Z",
+    "user": {
+      "id": "u1",
+      "name": "Vlad"
+    }
+  }
+]
+  
+  
+  
+  
+  

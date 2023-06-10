@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { Usuario } from '../../models/Usuario';
 
 export function getUsuarioByUsuarioId(idUsuario: string) {
- 
+
   const [usuario, setUsuario] = useState<Usuario>();
 
   useEffect(() => {

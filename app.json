@@ -6,6 +6,7 @@
     },
     "name": "testeExpoRouter",
     "slug": "testeExpoRouter",
+    "orientation" : "portrait",
     "splash": {
       "image" : "./assets/images/splash.png",
       "resizeMode" : "contain",
