@@ -5,10 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Feather } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useRouter } from 'expo-router';
 
 function HeaderUc(props) {
     const navigation = useNavigation();
-
+    const {push} = useRouter();
     return (
         // <SafeAreaView>
         <View style={styles.header}>
@@ -34,7 +35,7 @@ function HeaderUc(props) {
                         <Feather name="message-circle" size={20} color="#FFF" />
                     </TouchableOpacity> */}
 
-                <TouchableOpacity style={styles.buttonIcon} onPress={() => navigation.navigate("NotificacaoScreem")}>
+                <TouchableOpacity style={styles.buttonIcon} onPress={() => push('/Notificacoes')}>
                     <FontAwesome name="bell" size={20} color="#205395" />
                 </TouchableOpacity>
 

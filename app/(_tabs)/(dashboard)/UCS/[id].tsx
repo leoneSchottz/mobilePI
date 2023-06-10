@@ -103,7 +103,7 @@ export default function UcDetails() {
                     </View>
                 </ScrollView>
             </View>
-            <TopTabsUc grupoId={id}/>
+            <TopTabsUc grupoId={id} unidadeCurricularId={grupo?.unidadeCurricularId}/>
 
         </>
     );

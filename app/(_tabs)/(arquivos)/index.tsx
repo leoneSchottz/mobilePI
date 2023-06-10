@@ -1,8 +1,7 @@
 import { View, Text, FlatList, StyleSheet, Platform, Alert } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import * as nativeBase from "native-base";
-import { Avatar, Card, IconButton, AnimatedFAB, Button, TextInput } from 'react-native-paper';
-import { NativeBaseProvider, Modal, Input } from 'native-base';
+import { Avatar, Card, IconButton, AnimatedFAB, TextInput } from 'react-native-paper';
+import { NativeBaseProvider, Modal, Input, Toast, Divider, Center, Button, Box, Stack, Heading } from 'native-base';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import { Recurso } from '../../../models/Recurso';
@@ -47,7 +46,7 @@ export default function listaRecursos() {
                   text: 'Sim',
                   onPress: () => {
                     deleteRecurso(item.id).catch((error) => {
-                      nativeBase.Toast.show({
+                      Toast.show({
                         title: "Erro ao apagar arquivo!",
                         placement: "top",
                         backgroundColor: "amber.500",
@@ -56,7 +55,7 @@ export default function listaRecursos() {
                     }).
                       then(() => {
                         getListaRecursos(),
-                          nativeBase.Toast.show({
+                          Toast.show({
                             title: "Arquivo apagado com sucesso!",
                             placement: "top",
                             backgroundColor: "green.500",
@@ -78,7 +77,7 @@ export default function listaRecursos() {
             )} />}
         />
         <NativeBaseProvider>
-          <nativeBase.Divider />
+          <Divider />
         </NativeBaseProvider>
       </View>
 
@@ -115,7 +114,7 @@ export default function listaRecursos() {
 
   const ModalUpload = () => {
 
-    return <nativeBase.Center>
+    return <Center>
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
@@ -124,17 +123,17 @@ export default function listaRecursos() {
             <UploadBox />
           </Modal.Body>
           <Modal.Footer>
-            <nativeBase.Button.Group space={2}>
-              <nativeBase.Button variant="ghost" colorScheme="blueGray" onPress={() => {
+            <Button.Group space={2}>
+              <Button variant="ghost" colorScheme="blueGray" onPress={() => {
                 setShowModal(false);
               }}>
                 Cancel
-              </nativeBase.Button>
-              <nativeBase.Button colorScheme='blue' onPress={
+              </Button>
+              <Button colorScheme='blue' onPress={
                 () => {
 
                   saveRecurso(recurso).catch((error) => {
-                    nativeBase.Toast.show({
+                    Toast.show({
                       title: "Erro ao salvar arquivo!",
                       placement: "top",
                       backgroundColor: "amber.500",
@@ -143,7 +142,7 @@ export default function listaRecursos() {
                   }).
                     then(() => {
                       getListaRecursos(),
-                        nativeBase.Toast.show({
+                        Toast.show({
                           title: "Arquivo salvo com sucesso!",
                           placement: "top",
                           backgroundColor: "green.500",
@@ -153,17 +152,17 @@ export default function listaRecursos() {
 
                 }}>
                 Save
-              </nativeBase.Button>
-            </nativeBase.Button.Group>
+              </Button>
+            </Button.Group>
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-    </nativeBase.Center>;
+    </Center>;
   };
 
   const UploadBox = () => {
-    return <nativeBase.Box alignItems="center">
-      <nativeBase.Box w="250" maxW="250" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+    return <Box alignItems="center">
+      <Box w="250" maxW="250" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
         borderColor: "coolGray.600",
         backgroundColor: "gray.700"
       }} _web={{
@@ -172,16 +171,16 @@ export default function listaRecursos() {
       }} _light={{
         backgroundColor: "gray.50"
       }}>
-        <nativeBase.Stack p="4" space={3}>
-          <nativeBase.Stack space={2}>
-            <nativeBase.Heading size="md" ml="-1">
-              <nativeBase.Button colorScheme='blue' onPress={() => { pickDocument(), setShowDesc(false) }}>
+        <Stack p="4" space={3}>
+          <Stack space={2}>
+            <Heading size="md" ml="-1">
+              <Button colorScheme='blue' onPress={() => { pickDocument(), setShowDesc(false) }}>
                 Escolher arquivo
-              </nativeBase.Button>
-            </nativeBase.Heading>
+              </Button>
+            </Heading>
             <Text>Nome: {nomeArquivo}</Text>
             <Input size="lg" placeholder="Descrição" isDisabled={showDesc} value={desc} onChangeText={text => setText(text)} />
-          </nativeBase.Stack>
+          </Stack>
           {fileResponse.map((file, index) => (
             <Text
               key={index.toString()}
@@ -190,9 +189,9 @@ export default function listaRecursos() {
               {file?.uri}
             </Text>
           ))}
-        </nativeBase.Stack>
-      </nativeBase.Box>
-    </nativeBase.Box>;
+        </Stack>
+      </Box>
+    </Box>;
   };
 
 
@@ -220,9 +219,9 @@ export default function listaRecursos() {
   return (
     <NativeBaseProvider>
       <View>
-        <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+        <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
           Arquivos
-        </nativeBase.Heading>
+        </Heading>
 
         <TextInput
           placeholder='Pesquisar'

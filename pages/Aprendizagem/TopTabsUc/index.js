@@ -13,7 +13,7 @@ import DescricaoUC from '../DescricaoUC';
 
 const Tab = createMaterialTopTabNavigator();
 
-function TopTabsUc({grupoId}) {
+function TopTabsUc({grupoId, unidadeCurricularId}) {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -80,7 +80,7 @@ function TopTabsUc({grupoId}) {
             />
             <Tab.Screen
                 name="Competências"
-                children={() => <Competencia />}
+                children={() => <Competencia unidadeCurricularId = {unidadeCurricularId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,
