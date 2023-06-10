@@ -3,7 +3,7 @@ import { API } from "../../http/API"
 import { Encontro } from "../../models/Encontro";
 import { AxiosError } from "axios";
 
-export function getEnconstrosByGrupoIdByEstudanteId(idGrupo: number, idEstudante: number) {
+export function getEnconstrosByGrupoIdByEstudanteId(idGrupo: number | string, idEstudante: number) {
 
     const [encontros, setEncontros] = useState<Encontro[]>([])
 

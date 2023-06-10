@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, Fla
 
 
 import { useNavigation } from '@react-navigation/native';
-import HeaderUc from '../../../components/Header/HeaderUc';
-import CardEncontro from '../../../components/Cards/CardEncontro';
-import { CardAtividade } from '../../../components/Cards/CardAtividade';
-import { CardSituacaoAprendizagem } from '../../../components/Cards/CardSituacaoAprendizagem';
-import { API } from '../../../http/API';
+import HeaderUc from '../../../../components/Header/HeaderUc';
+import CardEncontro from '../../../../components/Cards/CardEncontro';
+import { CardAtividade } from '../../../../components/Cards/CardAtividade';
+import { CardSituacaoAprendizagem } from '../../../../components/Cards/CardSituacaoAprendizagem';
+import { API } from '../../../../http/API';
 
 
 export default function SituacoesAprendizagens(props) {

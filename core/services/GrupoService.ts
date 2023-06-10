@@ -95,7 +95,7 @@ export function ObterGruposByPeriodoAtivoByEstudanteId(idEstudante: number) {
   return { grupos }
 }
 
-export function getGrupo(idGrupo: string | string[]) {
+export function getGrupo(idGrupo: number | string) {
   const [grupo, setGrupo] = useState<Grupo>()
 
   useEffect(() => {

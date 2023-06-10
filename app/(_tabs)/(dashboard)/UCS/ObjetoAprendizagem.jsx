@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, ScrollView, FlatList } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import HeaderUc from '../../../components/Header/HeaderUc';
-import { CardObjetoAprendizagem } from '../../../components/Cards/CardObjetoAprendizagem';
-import { CardAtividade } from '../../../components/Cards/CardAtividade';
+import HeaderUc from '../../../../components/Header/HeaderUc';
+import { CardObjetoAprendizagem } from '../../../../components/Cards/CardObjetoAprendizagem';
+import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { Card } from 'react-native-paper'
-import FabButton from '../../../components/Buttons/FabButton';
-import { API } from '../../../http/API';
+import FabButton from '../../../../components/Buttons/FabButton';
+import { API } from '../../../../http/API';
 
 
 export default function ObjetoAprendizagem(props) {

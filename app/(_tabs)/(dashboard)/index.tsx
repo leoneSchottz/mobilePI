@@ -8,7 +8,7 @@ import ListaGrupo from '../../../components/ListaGrupo';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 
 export default function ListaUC() {
-  
+
   const idPeriodo = 2;
   const idEstudante = 1;
   const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList,Button } from 'react-native';
-import HeaderUc from '../../../components/Header/HeaderUc';
+import HeaderUc from '../../../../components/Header/HeaderUc';
 import { useNavigation } from '@react-navigation/native';
 
 
