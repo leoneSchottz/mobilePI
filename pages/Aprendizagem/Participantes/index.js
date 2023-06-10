@@ -18,7 +18,6 @@ export default function Participantes({grupoId}) {
 
         fetchData();
     }, []);
-    console.log(data)
 
     const RenderItem = ({ item }) => {
         return (

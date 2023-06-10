@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity, CheckBox } from 'react-native
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { Avatar, Card, IconButton } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
 export function CardSituacaoAprendizagem({ data }) {
-    const navigation = useNavigation();
+    const router = useRouter();
 
     const [isSelected, setSelection] = useState(false);
 
@@ -13,7 +14,7 @@ export function CardSituacaoAprendizagem({ data }) {
     const descricao = data.descricao;
 
     return (
-        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("ObjetoAprendizagenScreem", { id, descricao })}>
+        <TouchableOpacity style={styles.card} onPress={() => router.push({pathname: "/ucs/ObjetoAprendizagem", params: { id: id, descricao: descricao }})}>
             <View style={styles.start}>
     
             <Card.Title

@@ -31,7 +31,7 @@ function TopTabsUc({grupoId}) {
         >
             <Tab.Screen
                 name="Descrição"
-                component={DescricaoUC}
+                children={() => <DescricaoUC grupoId = {grupoId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,
@@ -80,7 +80,7 @@ function TopTabsUc({grupoId}) {
             />
             <Tab.Screen
                 name="Competências"
-                component={Competencia}
+                children={() => <Competencia />}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,
@@ -95,7 +95,7 @@ function TopTabsUc({grupoId}) {
             />
             <Tab.Screen
                 name="Notas"
-                component={Notas}
+                children={() => <Notas grupoId = {grupoId}/>}
                 options={{
                     tabBarShowLabel: false,
                     headerShown: false,

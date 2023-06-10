@@ -8,6 +8,7 @@ import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { Card } from 'react-native-paper'
 import FabButton from '../../../../components/Buttons/FabButton';
 import { API } from '../../../../http/API';
+import { useSearchParams } from 'expo-router/src/navigationStore';
 
 
 export default function ObjetoAprendizagem(props) {
@@ -15,16 +16,14 @@ export default function ObjetoAprendizagem(props) {
 
   const [objetos, setObjetos] = useState([]);
 
-  const id = props.route.params.id;
+  const params = useSearchParams();
 
   useEffect(() => {
     async function getSituacaoAprendizagen() {
       try {
-        const response = await API.get(`/ObjetoAprendizagem/FiltrarObjetoAprendizagemBySituacaoAprendizagemId/${id}`);
+        const {data} = await API.get(`/ObjetoAprendizagem/FiltrarObjetoAprendizagemBySituacaoAprendizagemId/${params.id}`);
 
-        setObjetos(
-          response.data
-        );
+        setObjetos(data);
 
       } catch (err) {
         console.log(err);
@@ -32,11 +31,12 @@ export default function ObjetoAprendizagem(props) {
     }
 
     getSituacaoAprendizagen();
-  }, []);
+  }, [params]);
 
+  console.log("id " + params.id, " objetos " + objetos)
   return (
     <>
-      <HeaderUc data={props.route.params.descricao} />
+      <HeaderUc data={params.descricao} />
 
       <View style={styles.container}>
 

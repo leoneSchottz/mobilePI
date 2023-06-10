@@ -16,7 +16,6 @@ export default function SituacoesAprendizagens(props) {
     const params = useSearchParams()
     const [situacaoAprendizagens, setSituacaoAprendizagens] = useState({});
 
-    console.log(params)
     useEffect(() => {
         async function getSituacaoAprendizagen() {
             try {

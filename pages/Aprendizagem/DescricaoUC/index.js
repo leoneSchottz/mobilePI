@@ -4,14 +4,14 @@ import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-nativ
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function DescricaoUC() {
+export default function DescricaoUC({grupoId}) {
 
     const [data, setData] = useState(null);
     const [UcDescription, setUcDescription] = useState("N/A");
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch("http://academico3.rj.senac.br/api/PlanejamentoUC/FiltrarPlanejamentoUCByGrupoId/1");
+            const resp = await fetch(`http://academico3.rj.senac.br/api/PlanejamentoUC/FiltrarPlanejamentoUCByGrupoId/${grupoId}`);
             const data = await resp.json();
             setUcDescription(data.grupo?.unidadeCurricular?.nome);
             setData(data);

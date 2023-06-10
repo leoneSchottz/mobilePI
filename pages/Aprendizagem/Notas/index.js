@@ -7,9 +7,9 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
     UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-export default function Notas() {
+export default function Notas({grupoId}) {
     const navigation = useNavigation();
-
+    const idEstudante = 1; // vai receber esse id do AuthContext
     const [expandedItems, setExpandedItems] = useState([]);
 
     // Função para alternar o estado expandido de um item
@@ -28,7 +28,7 @@ export default function Notas() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch("http://academico3.rj.senac.br/api/RegistroAvaliacao/TodosRegistrosPeriodoAtivoFilterByEstudanteId/1");
+            const resp = await fetch(`http://academico3.rj.senac.br/api/RegistroAvaliacao/TodosRegistrosPeriodoAtivoFilterByEstudanteIdByGrupoId/${idEstudante}/${grupoId}`);
             const data = await resp.json();
             setData(data);
         };
