@@ -13,7 +13,7 @@ import DescricaoUC from '../DescricaoUC';
 
 const Tab = createMaterialTopTabNavigator();
 
-function TopTabsUc() {
+function TopTabsUc({grupoId}) {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -46,7 +46,7 @@ function TopTabsUc() {
             />
             <Tab.Screen
                 name="Encontros"
-                component={Encontros}
+                children={() => <Encontros grupoId = {grupoId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,
@@ -61,7 +61,7 @@ function TopTabsUc() {
             />
             <Tab.Screen
                 name="Participantes"
-                component={Participantes}
+                children={() => <Participantes grupoId = {grupoId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,

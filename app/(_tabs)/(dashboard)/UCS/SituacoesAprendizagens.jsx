@@ -8,15 +8,19 @@ import CardEncontro from '../../../../components/Cards/CardEncontro';
 import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { CardSituacaoAprendizagem } from '../../../../components/Cards/CardSituacaoAprendizagem';
 import { API } from '../../../../http/API';
+import { useSearchParams } from 'expo-router';
 
 
 export default function SituacoesAprendizagens(props) {
 
+    const params = useSearchParams()
     const [situacaoAprendizagens, setSituacaoAprendizagens] = useState({});
+
+    console.log(params)
     useEffect(() => {
         async function getSituacaoAprendizagen() {
             try {
-                const response = await API.get(`/SituacaoAprendizagem/FiltrarSituacoesAprendizagemPorEncontroId/${props.route.params.id}`);
+                const response = await API.get(`/SituacaoAprendizagem/FiltrarSituacoesAprendizagemPorEncontroId/${params.id}`);
     
                 setSituacaoAprendizagens(
                     response.data
@@ -28,11 +32,11 @@ export default function SituacoesAprendizagens(props) {
         }
     
          getSituacaoAprendizagen();
-    }, []);
+    }, [params]);
     
     return (
         <>
-            <HeaderUc data={props.route.params.name} />
+            <HeaderUc data={params.name} />
             <View style={styles.container}>
                 {/* <Text>{props.route.params.id}</Text> */}
     

@@ -4,20 +4,21 @@ import { View, Text, StyleSheet, StatusBar, FlatList } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default function Participantes() {
+export default function Participantes({grupoId}) {
     const navigation = useNavigation();
 
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch("http://academico3.rj.senac.br/api/Estudante/FiltrarEstudanteByGrupoId/1");
+            const resp = await fetch(`http://academico3.rj.senac.br/api/Estudante/FiltrarEstudanteByGrupoId/${grupoId}`);
             const data = await resp.json();
             setData(data);
         };
 
         fetchData();
     }, []);
+    console.log(data)
 
     const RenderItem = ({ item }) => {
         return (

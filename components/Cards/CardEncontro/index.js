@@ -1,23 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-import { useNavigation } from '@react-navigation/native';
+function CardEncontro({ encontro }) {
 
-function CardEncontro({ data }) {
+    const router = useRouter();
 
-    const navigation = useNavigation();
-
-    const id = data.id;
-    const name = data.descricao;
+    const id = encontro.id;
+    const name = encontro.observacao;
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('SituacoesAprendizagensScreem', { id, name} )} >
+        <TouchableOpacity onPress={() => router.push({pathname: '/ucs/SituacoesAprendizagens', params: { id: id , name: name} })} >
             <View style={styles.container}>
-                <Text style={styles.cardText}>{data.descricao}</Text>
-                <Text style={styles.cardText}>{data.data}</Text>
-                <Text style={styles.cardText}>{data.dia}</Text>
+                <Text style={styles.cardText}>{encontro.observacao}</Text>
+                <Text style={styles.cardText}>{encontro.encontro}</Text>
+                <Text style={styles.cardText}>{encontro.diaLetivo.dia}/{encontro.diaLetivo.mes}</Text>
             </View>
         </TouchableOpacity>
     );
