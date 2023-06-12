@@ -1,34 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList,Button } from 'react-native';
 import HeaderUc from '../../../../components/Header/HeaderUc';
 import { useNavigation } from '@react-navigation/native';
+import { useSearchParams } from 'expo-router/src/navigationStore';
+import { API } from '../../../../http/API';
 
 
-export default function ObjetoAprendizagemDetails(props) {
+export default function ObjetoAprendizagemDetails() {
     const navigation = useNavigation();
-    const id = props.route.params.id;
-    const descricao = props.route.params.descricao;
+    const params = useSearchParams();
+    const [objeto, setObjeto] = useState()
+
+    useEffect(() => {
+        async function getObjetoAprendizagem() {
+            try {
+                const {data} = await API.get(`ObjetoAprendizagem/${params.id}`);
+                setObjeto(data);
+            } catch (err) {
+                alert(err);
+            }
+        }
+        getObjetoAprendizagem();
+    }, [params]);
     return (
-    <>  
-        <HeaderUc data={props.route.params.descricao} />  
-        <View style={styles.container}>
+    <>
+        <HeaderUc data={params.descricao} />
+       {objeto && <View style={styles.container}>
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Descrição do Objeto</Text>
-        </View>
+            </View>
             <Text style={styles.text}>
-                Tipo: PDF
+                id do objeto: {objeto.id}
             </Text>
             <Text style={styles.text}>
-                Tamanho: 1,5 MB
+                status do objeto: {objeto.status}
             </Text>
             <Text style={styles.text}>
-                Criado: 16/05/2021
+                Grau de dificuldade: {objeto.grauDificuldade.descricao}
             </Text>
             <Text style={styles.text}>
-                Última modificação: 25/06/2021
+               --- este endpoint nao traz informaçoes sobre o tamanho do arquivo, quando foi criado, ultima modificacao, tipo de arquivo ---
             </Text>
-         
-        </View>
+        </View>}
 
         <Button title="Baixar Arquivo"/>
     </>

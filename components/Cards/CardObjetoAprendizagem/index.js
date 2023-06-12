@@ -3,10 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, CheckBox } from 'react
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { Avatar, Card, IconButton } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
 export function CardObjetoAprendizagem({ data }) {
     const navigation = useNavigation();
-
+    const router = useRouter();
     const [isSelected, setSelection] = useState(false);
 
     const id = data.id;
@@ -43,7 +44,7 @@ export function CardObjetoAprendizagem({ data }) {
         //         <TouchableOpacity style={styles.checkBox}></TouchableOpacity>
         //     </View>
         // </TouchableOpacity>
-        <TouchableOpacity style={styles.card} onPress={()=> navigation.navigate('ObjetoDetailsScreem',{id,descricao})}>
+        <TouchableOpacity style={styles.card} onPress={()=> router.push({pathname: '/ucs/ObjetoAprendizagemDetails',params: {id: id,descricao: descricao}})}>
         <Card.Title
             title={data.descricao}
             left={(props) => <Avatar.Icon backgroundColor='#205395'{...props} icon="file" />}

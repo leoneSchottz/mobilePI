@@ -36,7 +36,7 @@ export default function RootLayout() {
     <>
     {UsuarioLogado ? <UsarioContext.Provider value={usuario}>
       <AuthContext.Provider value="3b700ecc-cec9-4be4-8c00-48bced543861">
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <Drawer screenOptions={{ headerShown: false }}>
           <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
           <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} />
@@ -45,7 +45,7 @@ export default function RootLayout() {
         </Drawer>
       </AuthContext.Provider>
     </UsarioContext.Provider>
-    : <View><Text>Logue primeiro</Text></View>}
+    : <View><Text>Faça o login</Text></View>}
     </>
   )
 }

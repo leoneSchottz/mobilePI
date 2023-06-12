@@ -10,7 +10,8 @@ import { InputNativeBase } from '../../../components/nativeBase/Input';
 import { ModalNativeBase } from '../../../components/nativeBase/Modal';
 import { Text, View } from '../../../components/custom/Themed';
 import { Badge } from '../../../models/Badge';
-import { getAllBadges } from '../../../core/services/BadgeService';
+import { getAllBadges } from '../../../core/services/badge/BadgeService';
+
 
 
 export default function ListBadgesScreen() {
@@ -55,7 +56,7 @@ export default function ListBadgesScreen() {
   });
 
   function handlePress(badge: Badge) {
-    router.push(`/badges/detail`);
+    router.push({pathname: `/badges/detail`, params: {id : badge.id}});
   }
 
   const searchFilter = (text: string) => {
