@@ -24,6 +24,7 @@ const MenuInferior = () => {
 
       initialRouteName="(dashboard)"
       screenOptions={{
+        headerShown: true,
         //   tabBarStyle: {
         //     position: 'absolute',
         //   },

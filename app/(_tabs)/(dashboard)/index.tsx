@@ -6,6 +6,8 @@ import { getFrequenciaByEstudanteIdByPeriodoId } from '../../../core/services/Fr
 import { getAllGrupos, getGruposByEstudanteIdByPeriodoId } from '../../../core/services/GrupoService';
 import ListaGrupo from '../../../components/ListaGrupo';
 import { Header } from 'react-native/Libraries/NewAppScreen';
+import ProfileScreen from '../../../components/Dashboard/ProfileScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ListaUC() {
 
@@ -32,14 +34,15 @@ export default function ListaUC() {
 
   return (
     <View style={styles.container}>
-    {isLoaded && <FlashList
+      <ProfileScreen />
+      {isLoaded && <FlashList
         ListHeaderComponent={<HeaderCursos/>}
         data={grupos}
         estimatedItemSize={8}
         numColumns={1}
         renderItem = { ({item}) => <ListaGrupo {...item}/>}
         keyExtractor={(item) => item.id.toString()}
-      />}
+        />}
       </View>
   )
 }

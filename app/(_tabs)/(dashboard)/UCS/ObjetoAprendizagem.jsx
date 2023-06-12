@@ -33,7 +33,7 @@ export default function ObjetoAprendizagem(props) {
     getSituacaoAprendizagen();
   }, [params]);
 
-  console.log("id " + params.id, " objetos " + objetos)
+
   return (
     <>
       <HeaderUc data={params.descricao} />

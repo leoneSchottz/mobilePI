@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList, ProgressBarAndroid } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, ProgressBarAndroid } from 'react-native';
 
 
 import HeaderUc from '../../../../components/Header/HeaderUc';
@@ -10,6 +10,7 @@ import TopTabsUc from '../../../../pages/Aprendizagem/TopTabsUc';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { getEnconstrosByGrupoIdByEstudanteId } from '../../../../core/services/EncontroService';
 import { getGrupo } from '../../../../core/services/GrupoService';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function UcDetails() {
 
@@ -111,7 +112,6 @@ export default function UcDetails() {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         backgroundColor: '#205395',
     },
     sectionProgress: {
