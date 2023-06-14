@@ -20,7 +20,9 @@ export default function Encontros({grupoId}) {
                 alert(error)
             }
         }
+        
         fetchData();
+        console.log('fetching')
     },[])
 
     // const encontros = [

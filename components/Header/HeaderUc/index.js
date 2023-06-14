@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
+import Constants from 'expo-constants'
 
 function HeaderUc(props) {
     const navigation = useNavigation();
@@ -35,9 +36,9 @@ function HeaderUc(props) {
                         <Feather name="message-circle" size={20} color="#FFF" />
                     </TouchableOpacity> */}
 
-                <TouchableOpacity style={styles.buttonIcon} onPress={() => push('/Notificacoes')}>
+                {/* <TouchableOpacity style={styles.buttonIcon} onPress={() => push('/Notificacoes')}>
                     <FontAwesome name="bell" size={20} color="#205395" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity style={styles.buttonIcon} >
                     <FontAwesome name="gear" size={22} color="#205395" />
@@ -54,6 +55,7 @@ export default HeaderUc;
 
 const styles = StyleSheet.create({
     header: {
+        paddingTop: Constants.statusBarHeight,
         backgroundColor: '#205395',
         flexDirection: 'row',
         alignItems: 'center',
@@ -61,7 +63,6 @@ const styles = StyleSheet.create({
         //marginTop: 50,
         paddingRight: 10,
         paddingLeft: 10,
-        height: 60,
         shadowOffset: {
             width: 0,
             height: 2,

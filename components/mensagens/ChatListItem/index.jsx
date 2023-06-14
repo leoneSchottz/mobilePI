@@ -2,14 +2,15 @@ import { View, Text, Image,StyleSheet,Pressable } from "react-native";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useRouter } from "expo-router";
 dayjs.extend(relativeTime);
 
 
 
 const ChatListItem = ({ chat }) => {
-  const navigation = useNavigation();
+  const router = useRouter();
   return (
-    <Pressable onPress={() => navigation.navigate('Chat', {id:chat.id,name: chat.user.name})} 
+    <Pressable onPress={() => router.push({pathname: 'Chat', params: {id:chat.id,name: chat.user.name}})}
       style={styles.container}>
       <Image source={{ uri: chat.user.image }} style={styles.image} />
 
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       marginVertical: 5,
       height: 70,
+      flex: 1
     },
     image: {
       width: 60,

@@ -10,6 +10,11 @@ import { AuthContext } from '../../contexts/AuthContext'
 import SearchBar from '../../components/SearchBar'
 import Constants from 'expo-constants'
 import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService'
+import UserCard from '../../components/Dashboard/UserCard'
+import { StyleSheet } from 'react-native'
+import { Card } from 'react-native-elements'
+import { fetchSenacCoin } from '../../core/services/api'
+import { SenacCoin } from '../../models/SenacCoin'
 
 const MenuInferior = () => {
   const router = useRouter();
@@ -17,6 +22,17 @@ const MenuInferior = () => {
   const headerHeight = Constants.statusBarHeight * 1.5
   const idUsuario = useContext(AuthContext)
   const { usuario } = getUsuarioByUsuarioId(idUsuario)
+  const [senacCoin, setSenacCoin] = useState<SenacCoin>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      setSenacCoin(await fetchSenacCoin(idUsuario));
+
+    };
+
+    fetchData();
+  }, []);
 
   return (
 
@@ -24,7 +40,32 @@ const MenuInferior = () => {
 
       initialRouteName="(dashboard)"
       screenOptions={{
-        headerShown: true,
+        header: () => senacCoin
+            ? (
+              <View style={styles.header}>
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: 'data:image/png;base64,' + usuario.foto }}
+                />
+                <View style={styles.userInfo}>
+                  <Text style={styles.name}>{usuario.nomeCompleto}</Text>
+                  <Text style={styles.infoText}>
+                    Senac Coins: <Text style={styles.infoValue}>{senacCoin.saldo}</Text>
+                  </Text>
+                  <Text style={styles.infoText}>
+                    Nível: <Text style={styles.infoValue}>{usuario.status}</Text>
+                  </Text>
+                </View>
+                <View style={styles.notificationIcon}>
+                <TouchableOpacity
+            onPress={() => router.push("/Notificacoes")}
+            style={{ width: 75, aspectRatio: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1 }}>
+            <Icons name='notifications' size={30} color={'white'} />
+          </TouchableOpacity>
+                </View>
+            </View>
+              )
+           : <Text>Carregando</Text>,
         //   tabBarStyle: {
         //     position: 'absolute',
         //   },
@@ -49,8 +90,8 @@ const MenuInferior = () => {
               <Text numberOfLines={1} style={{ fontSize: 18, fontWeight: '600' }}>Olá, {usuario.nomeCompleto} 👋</Text>
 
               <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 3 }}>
-                <Icons name='attach-money' size={15} color={'orange'} />
-                <Text style={{ fontSize: 13 }}>{/*{usuario.senacCoin.saldo}*/}1500</Text>
+                <Icons name='attach-money' size={20} color={'orange'} />
+                <Text style={{ fontSize: 13 }}>{/*{usuario.senacCoin.saldo}*/}</Text>
               </View>
             </View>}
           </>
@@ -84,6 +125,7 @@ const MenuInferior = () => {
 
           </TouchableOpacity>
         )
+
       }}
     >
       <Tabs.Screen
@@ -95,15 +137,6 @@ const MenuInferior = () => {
           )
         }}
       />
-      {/* <Tabs.Screen
-        name="Forum"
-        options={{
-          //tabBarLabel: 'Calendario',
-          tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="forum" size={size} color={color} />
-          )
-        }}
-      /> */}
 
       <Tabs.Screen
         name="Calendario"
@@ -124,6 +157,7 @@ const MenuInferior = () => {
           )
         }}
       />
+
       <Tabs.Screen
         name="(arquivos)/index"
         options={{
@@ -156,3 +190,44 @@ const MenuInferior = () => {
 }
 
 export default MenuInferior
+
+const styles = StyleSheet.create({
+  header: {
+    paddingTop: Constants.statusBarHeight,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#00408D',
+    paddingBottom: 20,
+    paddingHorizontal: 20
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#004A8D',
+    borderRadius: 18
+  },
+  avatar: {
+    width: 75,
+    height: 75,
+    borderRadius: 50
+  },
+  userInfo: {
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white'
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 18
+  },
+  infoValue: {
+    fontWeight: 'bold',
+    color: '#F7941D'
+  },
+  notificationIcon: {
+    alignSelf: 'flex-start'
+  }
+})

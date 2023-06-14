@@ -36,9 +36,7 @@ const ProfileScreen = () => {
 
   return (
     <View>
-      <UserCard user={user} senacCoin={senacCoin} level={user.status} />
       <Ultimas3Badges badges={badges}/>
-      <UCList ucs={unidadesCurriculares} />
 
     </View>
   );
