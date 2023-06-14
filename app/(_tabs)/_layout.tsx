@@ -1,18 +1,12 @@
 import { Tabs, useNavigation, useRouter } from 'expo-router'
-import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import Icons from '@expo/vector-icons/MaterialIcons'
-import { Text, TouchableOpacity, Image, ImageBackground, View } from 'react-native'
-import { API } from '../../http/API'
-import { Usuario } from '../../models/Usuario'
+import { Text, TouchableOpacity, Image, View } from 'react-native'
 import { useContext, useEffect, useState } from 'react';
-import { BlurView } from 'expo-blur';
 import { AuthContext } from '../../contexts/AuthContext'
-import SearchBar from '../../components/SearchBar'
 import Constants from 'expo-constants'
 import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService'
-import UserCard from '../../components/Dashboard/UserCard'
 import { StyleSheet } from 'react-native'
-import { Card } from 'react-native-elements'
 import { fetchSenacCoin } from '../../core/services/api'
 import { SenacCoin } from '../../models/SenacCoin'
 
@@ -43,10 +37,12 @@ const MenuInferior = () => {
         header: () => senacCoin
             ? (
               <View style={styles.header}>
-                <Image
-                  style={styles.avatar}
-                  source={{ uri: 'data:image/png;base64,' + usuario.foto }}
-                />
+                <TouchableOpacity onPress={() => {nav.openDrawer()}}>
+                  <Image
+                    style={styles.avatar}
+                    source={{ uri: 'data:image/png;base64,' + usuario.foto }}
+                  />
+                </TouchableOpacity>
                 <View style={styles.userInfo}>
                   <Text style={styles.name}>{usuario.nomeCompleto}</Text>
                   <Text style={styles.infoText}>
@@ -115,16 +111,16 @@ const MenuInferior = () => {
 
         ),
         headerLeftContainerStyle: { paddingLeft: 15, paddingBottom: 15 },
-        headerLeft: () => (
-          <TouchableOpacity onPress={() => nav.openDrawer()}>
-            {usuario && <Image
-              alt='profilePic'
-              style={{ width: 50, aspectRatio: 1, borderRadius: 50, borderWidth: 1, borderColor: 'gray' }}
-              source={{ uri: `data:image/png;base64,${usuario.foto}` }}
-            />}
+        // headerLeft: () => (
+        //   <TouchableOpacity onPress={() => nav.openDrawer()}>
+        //     {usuario && <Image
+        //       alt='profilePic'
+        //       style={{ width: 50, aspectRatio: 1, borderRadius: 50, borderWidth: 1, borderColor: 'gray' }}
+        //       source={{ uri: `data:image/png;base64,${usuario.foto}` }}
+        //     />}
 
-          </TouchableOpacity>
-        )
+        //   </TouchableOpacity>
+        // )
 
       }}
     >
