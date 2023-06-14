@@ -9,7 +9,7 @@ const ListaGrupo = (grupo: Grupo) => {
 
   return (
     <View style={styles.mainCardContainer} >
-        <TouchableOpacity onPress={() => router.push(`/UCS/${grupo.id}`)}>
+        <TouchableOpacity onPress={() => router.push(`/ucs/${grupo.id}`)}>
 
           <View style={styles.cardContainer}>
             <Image

@@ -15,7 +15,7 @@ export default function ObjetoAprendizagem(props) {
   const navigation = useNavigation();
 
   const [objetos, setObjetos] = useState([]);
-
+  const [atividades, setAtividades] = useState([])
   const params = useSearchParams();
 
   useEffect(() => {
@@ -31,6 +31,16 @@ export default function ObjetoAprendizagem(props) {
     }
 
     getSituacaoAprendizagen();
+
+    async function getAtividades() {
+      try {
+          const {data} = await API.get(`Atividade/FiltrarAtividadeBySituacaoAprendizagemId/${params.id}`);
+          setAtividades(data);
+      } catch (err) {
+          alert(err);
+      }
+    }
+    getAtividades();
   }, [params]);
 
 
@@ -59,16 +69,16 @@ export default function ObjetoAprendizagem(props) {
           <Text style={styles.title}>Atividades</Text>
         </View>
 
-        {/* <View>
+        <View>
           <FlatList
             numColumns={1}
             scrollEnabled={false}
             horizontal={false}
-            data={aprendizagem.atividades}
+            data={atividades}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <CardAtividade data={item} />}
           />
-        </View> */}
+        </View>
 
 
       </View>

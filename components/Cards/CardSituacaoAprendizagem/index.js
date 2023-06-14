@@ -16,7 +16,6 @@ export function CardSituacaoAprendizagem({ data }) {
     return (
         <TouchableOpacity style={styles.card} onPress={() => router.push({pathname: "/ucs/ObjetoAprendizagem", params: { id: id, descricao: descricao }})}>
             <View style={styles.start}>
-    
             <Card.Title
                 title={data.descricao}
                 left={(props) => <Avatar.Icon backgroundColor='#205395'{...props} icon="folder" />}
