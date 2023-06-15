@@ -8,6 +8,7 @@ import ListaGrupo from '../../../components/ListaGrupo';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import ProfileScreen from '../../../components/Dashboard/ProfileScreen';
 import { ScrollView } from 'react-native-gesture-handler';
+import Colors from '../../../common/constants/Colors';
 
 export default function ListaUC() {
 
@@ -56,7 +57,8 @@ export default function ListaUC() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    backgroundColor: Colors.light.background
   },
 
 })

@@ -34,7 +34,7 @@ const MenuInferior = () => {
 
       initialRouteName="(dashboard)"
       screenOptions={{
-        header: () => senacCoin
+        header: () => (usuario && senacCoin)
             ? (
               <View style={styles.header}>
                 <TouchableOpacity onPress={() => {nav.openDrawer()}}>

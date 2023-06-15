@@ -1,6 +1,8 @@
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
+const senacGray5 = '#F5F5F5';
+
 export default {
   light: {
     text: '#000',
@@ -8,6 +10,7 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
+    cardBackground: senacGray5,
   },
   dark: {
     // text: '#fff',
@@ -20,5 +23,5 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
-  },
+  }
 };
