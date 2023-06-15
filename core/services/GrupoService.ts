@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { API } from '../../http/API';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Grupo } from '../../models/Grupo';
+import { FrequenciaViewModel } from '../../models/FrequenciaViewModel';
 
 
 export function getAllGrupos() {
@@ -127,3 +128,47 @@ export function getGrupo(idGrupo: number | string) {
   return { grupo }
 }
 
+export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: number, idPeriodo: number) {
+
+  const [grupos, setGrupos] = useState<Grupo[]>([])
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const {data: grupoData} = await API.get<Grupo[]>(`/Grupo/ObterGruposByEstudanteIdByPeriodoId/${idEstudante}/${idPeriodo}`)
+        const {data: freqData} = await API.get<FrequenciaViewModel[]>(`/Frequencia/obterFrequenciaByEstudanteIdByPeriodoId/${idEstudante}/${idPeriodo}`)
+
+        grupoData.forEach(
+          (g) => {
+              var freq = freqData.filter((f) =>(f.grupoId == g.id));
+              if(freq.length != 0){
+                g.frequencia = freq[0].frequencia;
+              }
+              else {
+                g.frequencia = '0'
+              }
+          }
+        )
+        setGrupos(grupoData)
+
+      } catch (error) {
+        switch (error.message) {
+          case 404: {
+            alert('Erro de endereçamento');
+            break;
+          }
+          case 400: {
+            alert('Erro de cliente');
+            break;
+          }
+          case 500: {
+            alert('Erro de servidor');
+          }
+        }
+      }
+    }
+    fetchData()
+  },[])
+
+  return { grupos }
+}

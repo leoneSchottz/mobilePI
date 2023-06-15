@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FlashList } from '@shopify/flash-list';
 import { Grupo } from "../../../models/Grupo";
 import { getFrequenciaByEstudanteIdByPeriodoId } from '../../../core/services/FrequenciaService';
-import { getAllGrupos, getGruposByEstudanteIdByPeriodoId } from '../../../core/services/GrupoService';
+import { getAllGrupos, getGruposByEstudanteIdByPeriodoId, getGruposByEstudanteIdByPeriodoIdWithFrequency } from '../../../core/services/GrupoService';
 import ListaGrupo from '../../../components/ListaGrupo';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import ProfileScreen from '../../../components/Dashboard/ProfileScreen';
@@ -14,28 +14,15 @@ export default function ListaUC() {
 
   const idPeriodo = 2;
   const idEstudante = 1;
-  const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);
+  // const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);
   //const {grupos} = getAllGrupos();
-  const {grupos} = getGruposByEstudanteIdByPeriodoId(idEstudante, idPeriodo)
+  const {grupos} = getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante, idPeriodo)
   const [isLoaded, setIsLoaded] = useState(false)
 
 
   useEffect(() => {
-    grupos.forEach(
-      (g) => {
-          var freq = frequencias.filter((f) =>(f.grupoId == g.id));
-          if(freq.length != 0){
-            g.frequencia = freq[0].frequencia;
-            console.log(g.unidadeCurricular.nome + '   ' + freq[0].frequencia)
-          }
-          else {
-            g.frequencia = '0'
-          }
-      }
-    )
     setIsLoaded(true)
-  },[grupos, frequencias])
-
+  },[grupos])
 
   return (
     <View style={styles.container}>
