@@ -36,7 +36,7 @@ export default function ObjetoAprendizagemDetails() {
                 status do objeto: {objeto.status}
             </Text>
             <Text style={styles.text}>
-                Grau de dificuldade: {objeto.grauDificuldade.descricao}
+                Grau de dificuldade: {objeto.grauDificuldade?.descricao}
             </Text>
             <Text style={styles.text}>
                --- este endpoint nao traz informaçoes sobre o tamanho do arquivo, quando foi criado, ultima modificacao, tipo de arquivo ---

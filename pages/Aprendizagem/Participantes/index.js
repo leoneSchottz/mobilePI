@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function Participantes({grupoId}) {
     const navigation = useNavigation();
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
