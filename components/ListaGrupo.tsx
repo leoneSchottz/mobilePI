@@ -88,8 +88,8 @@ export default ListaGrupo
 
 const styles = StyleSheet.create({
   mainCardContainer: {
-    paddingHorizontal: 20,
     marginVertical: 8,
+    paddingHorizontal: 10,
   },
   cardContainer: {
     padding: 15,
@@ -98,6 +98,9 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     borderRadius: 15,
     gap: 8,
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   cardHeaderContainer:{
     gap: 5,

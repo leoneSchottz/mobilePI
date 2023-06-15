@@ -26,7 +26,7 @@ const Badges = ({ badges }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#004A8D',
-    borderRadius: 18
+    borderRadius: 18,
   },
   badgesContainer: {
     flexDirection: 'row',

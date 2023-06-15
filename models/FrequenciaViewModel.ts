@@ -1,4 +1,4 @@
 export type FrequenciaViewModel = {
-  grupoId: number
-  frequencia:	string
+    grupoId: number
+    frequencia:	string
   }

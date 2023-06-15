@@ -26,16 +26,19 @@ export default function ListaUC() {
           var freq = frequencias.filter((f) =>(f.grupoId == g.id));
           if(freq.length != 0){
             g.frequencia = freq[0].frequencia;
-            setIsLoaded(true)
+            console.log(g.unidadeCurricular.nome + '   ' + freq[0].frequencia)
+          }
+          else {
+            g.frequencia = '0'
           }
       }
     )
+    setIsLoaded(true)
   },[grupos, frequencias])
 
 
   return (
     <View style={styles.container}>
-      <ProfileScreen />
       {isLoaded && <FlashList
         ListHeaderComponent={<HeaderCursos/>}
         data={grupos}
@@ -44,20 +47,21 @@ export default function ListaUC() {
         renderItem = { ({item}) => <ListaGrupo {...item}/>}
         keyExtractor={(item) => item.id.toString()}
         />}
-      </View>
+      <ProfileScreen />
+    </View>
   )
 }
 
   const HeaderCursos = () => {
     return (
-      <Text style={{margin:5, marginTop: 20, fontSize: 20, fontFamily: 'PoppinsBold'}}>Meus Cursos</Text>
+      <Text style={{paddingHorizontal: 10, marginTop: 20, fontSize: 28, fontWeight: '600', letterSpacing: -0.5}}>Meus Cursos</Text>
     )
   }
 
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    marginHorizontal: 10,
+    paddingHorizontal: 20,
     backgroundColor: Colors.light.background
   },
 

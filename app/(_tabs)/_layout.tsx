@@ -34,7 +34,7 @@ const MenuInferior = () => {
 
       initialRouteName="(dashboard)"
       screenOptions={{
-        header: () => (usuario && senacCoin)
+        header: () => ((usuario && senacCoin)
             ? (
               <View style={styles.header}>
                 <TouchableOpacity onPress={() => {nav.openDrawer()}}>
@@ -53,15 +53,15 @@ const MenuInferior = () => {
                   </Text>
                 </View>
                 <View style={styles.notificationIcon}>
-                <TouchableOpacity
-            onPress={() => router.push("/Notificacoes")}
-            style={{ width: 75, aspectRatio: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1 }}>
-            <Icons name='notifications' size={30} color={'white'} />
-          </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => router.push("/Notificacoes")}
+                    style={{ width: 60, aspectRatio: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 50, borderColor: 'lightgray', borderWidth: 1 }}>
+                    <Icons name='notifications' size={24} color={'white'} />
+                  </TouchableOpacity>
                 </View>
             </View>
               )
-           : <Text>Carregando</Text>,
+           : <Text>Carregando</Text>),
         //   tabBarStyle: {
         //     position: 'absolute',
         //   },
@@ -77,7 +77,7 @@ const MenuInferior = () => {
         //   tabBarLabelStyle: {fontSize: 11},
         //   tabBarInactiveTintColor: '#828282',
         //   tabBarActiveTintColor:'#F47402',
-          headerStatusBarHeight: headerHeight,
+        headerStatusBarHeight: headerHeight,
         //   headerTitleAlign: 'center',
         headerTitleContainerStyle: { paddingBottom: 15 },
         headerTitle: () => (
@@ -190,12 +190,12 @@ export default MenuInferior
 const styles = StyleSheet.create({
   header: {
     paddingTop: Constants.statusBarHeight,
+    paddingBottom: 15,
+    paddingHorizontal: 40,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#00408D',
-    paddingBottom: 20,
-    paddingHorizontal: 20
   },
   container: {
     flexDirection: 'row',
@@ -204,23 +204,22 @@ const styles = StyleSheet.create({
     borderRadius: 18
   },
   avatar: {
-    width: 75,
-    height: 75,
+    width: 60,
+    height: 60,
     borderRadius: 50
   },
   userInfo: {
   },
   name: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'white'
   },
   infoText: {
     color: 'white',
-    fontSize: 18
   },
   infoValue: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#F7941D'
   },
   notificationIcon: {

@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, Platform, Alert } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Platform, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import { Avatar, Card, IconButton, AnimatedFAB, TextInput } from 'react-native-paper';
 import { NativeBaseProvider, Modal, Input, Toast, Divider, Center, Button, Box, Stack, Heading } from 'native-base';
@@ -215,43 +215,45 @@ export default function listaRecursos() {
 
   return (
     <NativeBaseProvider>
-      <View>
-        <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-          Arquivos
-        </Heading>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+            Arquivos
+          </Heading>
 
-        <TextInput
-          placeholder='Pesquisar'
-          style={styles.input}
-          placeholderTextColor={'#999'}
-          onChangeText={(s) => { search(s) }}
-        />
+          <TextInput
+            placeholder='Pesquisar'
+            style={styles.input}
+            placeholderTextColor={'#999'}
+            onChangeText={(s) => { search(s) }}
+          />
 
-        <FlatList
-          // ListHeaderComponent={() => (
-          //   <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-          //     Arquivos
-          //   </nativeBase.Heading>
-          // )}
-          data={listaRecursos}
-          renderItem={RenderRecurso}
-          key={id}
-          style={styles.listaRecursos}
-        />
-        <AnimatedFAB
-          icon={'plus'}
-          extended={false}
-          label={'Label'}
-          onPress={() => setShowModal(true)}
-          visible={true}
-          animateFrom={'right'}
-          iconMode={'static'}
-          color='#F2994A'
-          style={[styles.fabStyle, styles.button]}
-        />
+          <FlatList
+            // ListHeaderComponent={() => (
+            //   <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+            //     Arquivos
+            //   </nativeBase.Heading>
+            // )}
+            data={listaRecursos}
+            renderItem={RenderRecurso}
+            key={id}
+            style={styles.listaRecursos}
+          />
+          <AnimatedFAB
+            icon={'plus'}
+            extended={false}
+            label={'Label'}
+            onPress={() => setShowModal(true)}
+            visible={true}
+            animateFrom={'right'}
+            iconMode={'static'}
+            color='#F2994A'
+            style={[styles.fabStyle, styles.button]}
+          />
 
-        <ModalUpload />
-      </View>
+          <ModalUpload />
+        </View>
+      </TouchableWithoutFeedback>
     </NativeBaseProvider>
 
   )
