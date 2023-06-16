@@ -2,7 +2,7 @@ import {Image, StyleSheet, View} from 'react-native';
 
 
 import {AspectRatio, Box, Button, Heading, NativeBaseProvider, Stack, Text} from "native-base";
-import {useLocalSearchParams, useRouter, useSearchParams} from "expo-router";
+import {useLocalSearchParams, useRouter} from "expo-router";
 import { getBadgeById } from '../../../core/services/badge/BadgeService';
 
 export default function DetailBadgeScreen() {

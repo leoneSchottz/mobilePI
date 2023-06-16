@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Link, useNavigation, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Icon, NativeBaseProvider } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';

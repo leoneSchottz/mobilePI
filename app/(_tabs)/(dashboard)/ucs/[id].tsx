@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, ProgressBarAndroid } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 
 import HeaderUc from '../../../../components/Header/HeaderUc';
@@ -8,9 +7,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import * as Progress from 'react-native-progress';
 import TopTabsUc from '../../../../pages/Aprendizagem/TopTabsUc';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { getEnconstrosByGrupoIdByEstudanteId } from '../../../../core/services/EncontroService';
 import { getGrupo } from '../../../../core/services/GrupoService';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function UcDetails() {
 

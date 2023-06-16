@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 
 
-import { useNavigation } from '@react-navigation/native';
 import HeaderUc from '../../../../components/Header/HeaderUc';
-import CardEncontro from '../../../../components/Cards/CardEncontro';
-import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { CardSituacaoAprendizagem } from '../../../../components/Cards/CardSituacaoAprendizagem';
 import { API } from '../../../../http/API';
 import { useSearchParams } from 'expo-router';

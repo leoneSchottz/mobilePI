@@ -1,21 +1,15 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from 'react-native'
 import { FlashList } from '@shopify/flash-list';
-import { Grupo } from "../../../models/Grupo";
-import { getFrequenciaByEstudanteIdByPeriodoId } from '../../../core/services/FrequenciaService';
-import { getAllGrupos, getGruposByEstudanteIdByPeriodoId, getGruposByEstudanteIdByPeriodoIdWithFrequency } from '../../../core/services/GrupoService';
+import { getGruposByEstudanteIdByPeriodoIdWithFrequency } from '../../../core/services/GrupoService';
 import ListaGrupo from '../../../components/ListaGrupo';
-import { Header } from 'react-native/Libraries/NewAppScreen';
 import ProfileScreen from '../../../components/Dashboard/ProfileScreen';
-import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../../../common/constants/Colors';
 
 export default function ListaUC() {
 
   const idPeriodo = 2;
   const idEstudante = 1;
-  // const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);
-  //const {grupos} = getAllGrupos();
+
   const {grupos, isLoaded} = getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante, idPeriodo)
 
   return (
