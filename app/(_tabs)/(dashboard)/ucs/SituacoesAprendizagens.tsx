@@ -9,12 +9,14 @@ import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { CardSituacaoAprendizagem } from '../../../../components/Cards/CardSituacaoAprendizagem';
 import { API } from '../../../../http/API';
 import { useSearchParams } from 'expo-router';
+import { SituacaoAprendizagem } from '../../../../models/situacaoAprendizagem';
+
 
 
 export default function SituacoesAprendizagens() {
 
     const params = useSearchParams()
-    const [situacaoAprendizagens, setSituacaoAprendizagens] = useState({});
+    const [situacaoAprendizagens, setSituacaoAprendizagens] = useState<SituacaoAprendizagem[]>([]);
 
     useEffect(() => {
         async function getSituacaoAprendizagen() {
@@ -38,7 +40,7 @@ export default function SituacoesAprendizagens() {
                     numColumns={1}
                     horizontal={false}
                     data={situacaoAprendizagens}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item }) => <CardSituacaoAprendizagem data={item} />}
                 />
             </View>
@@ -47,9 +49,9 @@ export default function SituacoesAprendizagens() {
 }
 
 const styles = StyleSheet.create({
-    // container: {
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     marginTop: 10,
-    // }
+    container: {
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // marginTop: 10,
+    }
 })

@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
 import HeaderUc from '../../../../components/Header/HeaderUc';
 import { CardObjetoAprendizagem } from '../../../../components/Cards/CardObjetoAprendizagem';
 import { CardAtividade } from '../../../../components/Cards/CardAtividade';
-import { Card } from 'react-native-paper'
-import FabButton from '../../../../components/Buttons/FabButton';
 import { API } from '../../../../http/API';
-import { useSearchParams } from 'expo-router/src/navigationStore';
+import { useLocalSearchParams, useSearchParams } from 'expo-router/src/navigationStore';
+
+import { Atividade } from '../../../../models/Atividade';
+import { ObjetoAprendizagem } from '../../../../models/ObjetoAprendizagem';
 
 
-export default function ObjetoAprendizagem(props) {
-  const navigation = useNavigation();
+export default function ObjetosDeAprendizagem() {
 
-  const [objetos, setObjetos] = useState([]);
-  const [atividades, setAtividades] = useState([])
-  const params = useSearchParams();
-
+  const [objetos, setObjetos] = useState<ObjetoAprendizagem[]>([]);
+  const [atividades, setAtividades] = useState<Atividade[]>([])
+  // const params = useLocalSearchParams();
+  const {id, descricao} = useLocalSearchParams();
   useEffect(() => {
     async function getSituacaoAprendizagen() {
       try {
-        const {data} = await API.get(`/ObjetoAprendizagem/FiltrarObjetoAprendizagemBySituacaoAprendizagemId/${params.id}`);
+        const {data} = await API.get(`/ObjetoAprendizagem/FiltrarObjetoAprendizagemBySituacaoAprendizagemId/${id}`);
 
         setObjetos(data);
 
@@ -34,19 +33,19 @@ export default function ObjetoAprendizagem(props) {
 
     async function getAtividades() {
       try {
-          const {data} = await API.get(`Atividade/FiltrarAtividadeBySituacaoAprendizagemId/${params.id}`);
+          const {data} = await API.get(`Atividade/FiltrarAtividadeBySituacaoAprendizagemId/${id}`);
           setAtividades(data);
       } catch (err) {
           alert(err);
       }
     }
     getAtividades();
-  }, [params]);
+  }, [id]);
 
 
   return (
     <>
-      <HeaderUc data={params.descricao} />
+      <HeaderUc data={descricao} />
 
       <View style={styles.container}>
 
@@ -59,8 +58,7 @@ export default function ObjetoAprendizagem(props) {
             scrollEnabled={true}
             horizontal={false}
             data={objetos}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <CardObjetoAprendizagem data={item} />}
+            renderItem={({ item }) => <CardObjetoAprendizagem key={item.id} data={item} />}
           />
         </View>
 
@@ -75,8 +73,7 @@ export default function ObjetoAprendizagem(props) {
             scrollEnabled={false}
             horizontal={false}
             data={atividades}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <CardAtividade data={item} />}
+            renderItem={({ item }) => <CardAtividade key={item.id} data={item} />}
           />
         </View>
 

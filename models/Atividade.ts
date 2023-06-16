@@ -1,4 +1,4 @@
-export class Ativade {
+export class Atividade {
     id: number = 0;
     descricao: string = "";
     dataInicio: Date = new Date();

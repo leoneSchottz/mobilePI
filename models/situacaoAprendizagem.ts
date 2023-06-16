@@ -1,7 +1,9 @@
-import {GrauDificuldade} from "./grauDificuldade";
+
 import {Badge} from "./Badge";
+import { GrauDificuldade } from "./GrauDificuldade";
 
 export class SituacaoAprendizagem {
+    id: number = 0;
     titulo: string = "";
     descricao: string = "";
     duracao: null = null;

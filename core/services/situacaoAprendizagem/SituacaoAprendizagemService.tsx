@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
 
 import {AxiosError, AxiosResponse} from 'axios';
-import { SituacaoAprendizagem } from '../../../models/situacaoAprendizagem';
+
 import { API } from '../../../http/API';
+import { SituacaoAprendizagem } from '../../../models/situacaoAprendizagem';
 
 
 

@@ -17,7 +17,6 @@ export default function Competencia({unidadeCurricularId}) {
         fetch();
     },[unidadeCurricularId])
 
-
     return (
         <View style={styles.container}>
             <Text>Competências</Text>

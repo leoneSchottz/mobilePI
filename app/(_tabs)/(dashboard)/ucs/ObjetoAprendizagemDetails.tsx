@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList,Button } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import HeaderUc from '../../../../components/Header/HeaderUc';
-import { useNavigation } from '@react-navigation/native';
-import { useSearchParams } from 'expo-router/src/navigationStore';
+import { useLocalSearchParams } from 'expo-router/src/navigationStore';
 import { API } from '../../../../http/API';
+import { ObjetoAprendizagem } from '../../../../models/ObjetoAprendizagem';
 
 
 export default function ObjetoAprendizagemDetails() {
-    const navigation = useNavigation();
-    const params = useSearchParams();
-    const [objeto, setObjeto] = useState()
+
+    const {id, descricao} = useLocalSearchParams();
+    const [objeto, setObjeto] = useState<ObjetoAprendizagem>()
 
     useEffect(() => {
         async function getObjetoAprendizagem() {
             try {
-                const {data} = await API.get(`ObjetoAprendizagem/${params.id}`);
+                const {data} = await API.get(`ObjetoAprendizagem/${id}`);
                 setObjeto(data);
             } catch (err) {
                 alert(err);
             }
         }
         getObjetoAprendizagem();
-    }, [params]);
+    }, [id]);
     return (
     <>
-        <HeaderUc data={params.descricao} />
+        <HeaderUc data={descricao} />
        {objeto && <View style={styles.container}>
             <View style={styles.contentTitle}>
                 <Text style={styles.title}>Descrição do Objeto</Text>
