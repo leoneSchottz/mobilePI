@@ -16,26 +16,24 @@ export default function ListaUC() {
   const idEstudante = 1;
   // const {frequencias} = getFrequenciaByEstudanteIdByPeriodoId(idEstudante,idPeriodo);
   //const {grupos} = getAllGrupos();
-  const {grupos} = getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante, idPeriodo)
-  const [isLoaded, setIsLoaded] = useState(false)
-
-
-  useEffect(() => {
-    setIsLoaded(true)
-  },[grupos])
+  const {grupos, isLoaded} = getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante, idPeriodo)
 
   return (
-    <View style={styles.container}>
-      {isLoaded && <FlashList
-        ListHeaderComponent={<HeaderCursos/>}
-        data={grupos}
-        estimatedItemSize={8}
-        numColumns={1}
-        renderItem = { ({item}) => <ListaGrupo {...item}/>}
-        keyExtractor={(item) => item.id.toString()}
-        />}
-      <ProfileScreen />
-    </View>
+    <>
+    {isLoaded
+    ? <View style={styles.container}>
+        <FlashList
+          ListHeaderComponent={<HeaderCursos/>}
+          data={grupos}
+          estimatedItemSize={8}
+          numColumns={1}
+          renderItem = { ({item}) => <ListaGrupo {...item}/>}
+          keyExtractor={(item) => item.id.toString()}
+          />
+        <ProfileScreen />
+      </View>
+    :<Text>Carregando..</Text>}
+    </>
   )
 }
 

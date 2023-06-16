@@ -34,7 +34,7 @@ export default function RootLayout() {
   //3b700ecc-cec9-4be4-8c00-48bced543861
   return (
     <>
-    {UsuarioLogado 
+    {UsuarioLogado
     ? <UsarioContext.Provider value={usuario}>
         <AuthContext.Provider value="3b700ecc-cec9-4be4-8c00-48bced543861">
           <StatusBar style="light" />

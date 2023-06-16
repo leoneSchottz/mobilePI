@@ -14,7 +14,7 @@ function CardEncontro({ encontro }) {
         <TouchableOpacity onPress={() => router.push({pathname: '/ucs/SituacoesAprendizagens', params: { id: id , name: name} })} >
             <View style={styles.container}>
                 <Text style={styles.cardText}>{encontro.observacao}</Text>
-                <Text style={styles.cardText}>{encontro.encontro}</Text>
+                <Text style={styles.cardText}>{encontro.encontroStatus.statusCursada}</Text>
                 <Text style={styles.cardText}>{encontro.diaLetivo.dia}/{encontro.diaLetivo.mes}</Text>
             </View>
         </TouchableOpacity>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     container: {
         width: 120,
         height: 130,
-        backgroundColor: '#FFF',
+        backgroundColor: '#fff',
         margin: 5,
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -47,6 +47,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         elevation: 10
     },
+    cursada: {
+        backgroundColor: '#fff'
+    },
+    naoCursada: {
+        backgroundColor: '#000'
+    }
 })
 
 export default CardEncontro;

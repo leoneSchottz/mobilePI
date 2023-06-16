@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from 'react-native';
 
 
@@ -9,84 +9,22 @@ import { API } from '../../../http/API';
 export default function Encontros({grupoId}) {
     const navigation = useNavigation();
     const [encontros, setEncontros] = useState([])
+    const estudanteId = 1
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const {data} = await API.get(`Encontro/FilterByGrupoId/${grupoId}`);
+                const {data} = await API.get(`Encontro/FilterByGrupoIdByEstudanteId/${grupoId}/${estudanteId}`);
             setEncontros(data);
 
             } catch (error) {
                 alert(error)
             }
         }
-        
-        fetchData();
-        console.log('fetching')
-    },[])
 
-    // const encontros = [
-    //     {
-    //         id: 1,
-    //         data: '09/02',
-    //         descricao: 'Encontro 01',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 2,
-    //         data: '09/02',
-    //         descricao: 'Encontro 02',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 3,
-    //         data: '09/02',
-    //         descricao: 'Encontro 03',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 4,
-    //         data: '09/02',
-    //         descricao: 'Encontro 04',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 5,
-    //         data: '09/02',
-    //         descricao: 'Encontro 05',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 6,
-    //         data: '09/02',
-    //         descricao: 'Encontro 06',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 7,
-    //         data: '09/02',
-    //         descricao: 'Encontro 07',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 8,
-    //         data: '09/02',
-    //         descricao: 'Encontro 08',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 9,
-    //         data: '09/02',
-    //         descricao: 'Encontro 09',
-    //         dia: 'segunda-feira'
-    //     },
-    //     {
-    //         id: 10,
-    //         data: '09/02',
-    //         descricao: 'Encontro 10',
-    //         dia: 'segunda-feira'
-    //     }
-    // ]
+        fetchData();
+
+    },[])
 
     return (
         <View>

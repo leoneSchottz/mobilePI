@@ -131,6 +131,7 @@ export function getGrupo(idGrupo: number | string) {
 export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: number, idPeriodo: number) {
 
   const [grupos, setGrupos] = useState<Grupo[]>([])
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () =>{
@@ -150,6 +151,7 @@ export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: numb
           }
         )
         setGrupos(grupoData)
+        setIsLoaded(true)
 
       } catch (error) {
         switch (error.message) {
@@ -168,7 +170,8 @@ export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: numb
       }
     }
     fetchData()
+
   },[])
 
-  return { grupos }
+  return { grupos, isLoaded }
 }
