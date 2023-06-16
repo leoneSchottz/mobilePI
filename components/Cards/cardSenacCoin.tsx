@@ -2,9 +2,11 @@ import * as React from 'react';
 import { Card } from 'react-native-paper';
 import { StyleSheet, Text, Image } from 'react-native';
 
+import { useLocalSearchParams } from 'expo-router/src/navigationStore';
+import { SenacCoinMovimentacao } from '../../models/SenacCoinMovimentacao';
 
-export default function CardSenacCoin({data}) { 
 
+export default function CardSenacCoin({...data} : SenacCoinMovimentacao) {
     return(
         <Card.Title
             style={styles.card}

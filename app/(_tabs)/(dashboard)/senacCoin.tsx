@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, StatusBar, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { API } from '../../../http/API';
 import HeaderSenacCoin from '../../../components/headerSenacCoin';
 import CardSenacCoin from '../../../components/Cards/cardSenacCoin';
+import { SenacCoinMovimentacao } from '../../../models/SenacCoinMovimentacao';
+
 
 export default function SenacCoin() {
-  const [movimentacoes, setMovimentacoes] = useState([]);
+  const [movimentacoes, setMovimentacoes] = useState<SenacCoinMovimentacao[]>([]);
   useEffect(() => {
     async function getSenacCoin() {
-        const response = await API.get('/SenacCoinMovimentacao');
+        const {data} = await API.get<SenacCoinMovimentacao[]>('/SenacCoinMovimentacao');
 
-        setMovimentacoes(response.data);
+        setMovimentacoes(data);
     }
 
     getSenacCoin();
@@ -24,8 +27,7 @@ export default function SenacCoin() {
       <FlatList
         numColumns={1}
         data={movimentacoes}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <CardSenacCoin data={item} />}
+        renderItem={({ item }) => <CardSenacCoin key={item.id} {...item} />}
       />
     </View>
   );
