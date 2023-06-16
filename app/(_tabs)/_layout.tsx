@@ -45,9 +45,11 @@ const MenuInferior = () => {
                 </TouchableOpacity>
                 <View style={styles.userInfo}>
                   <Text style={styles.name}>{usuario.nomeCompleto}</Text>
-                  <Text style={styles.infoText}>
-                    Senac Coins: <Text style={styles.infoValue}>{senacCoin.saldo}</Text>
-                  </Text>
+                  <TouchableOpacity onPress={() => {router.push('/senacCoin')}}>
+                    <Text style={styles.infoText}>
+                      Senac Coins: <Text style={styles.infoValue}>{senacCoin.saldo}</Text>
+                    </Text>
+                  </TouchableOpacity>
                   <Text style={styles.infoText}>
                     Nível: <Text style={styles.infoValue}>{usuario.status}</Text>
                   </Text>
