@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Feather } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-import Encontros from '../Encontros';
+import Encontros from '../Encontros/Encontros';
 import Participantes from '../Participantes';
 import Competencia from '../Copetencia';
 import Notas from '../Notas';
