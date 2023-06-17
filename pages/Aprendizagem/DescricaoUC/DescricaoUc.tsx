@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { PlanejamentoUC } from '../../../models/PlanejamentoUC';
+import { API } from '../../../http/API';
+import { StatusBar } from 'expo-status-bar';
 
 
-import { useNavigation } from '@react-navigation/native';
 
 export default function DescricaoUC({grupoId}) {
 
-    const [data, setData] = useState(null);
-    const [UcDescription, setUcDescription] = useState("N/A");
+    const [planejamentoUc, setPlanejamentoUc] = useState<PlanejamentoUC>();
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch(`http://academico3.rj.senac.br/api/PlanejamentoUC/FiltrarPlanejamentoUCByGrupoId/${grupoId}`);
-            const data = await resp.json();
-            setUcDescription(data.grupo?.unidadeCurricular?.nome);
-            setData(data);
+            const { data } = await API.get<PlanejamentoUC>(`PlanejamentoUC/FiltrarPlanejamentoUCByGrupoId/${grupoId}`);
+            setPlanejamentoUc(data);
         };
 
         fetchData();
@@ -23,7 +22,7 @@ export default function DescricaoUC({grupoId}) {
     const RenderItem = ({ item }) => {
         return (
             <View style={styles.main}>
-                <Text style={{fontWeight:'bold', fontSize:24}}>Descrição</Text>
+                <Text style={{fontWeight:'bold', fontSize:24, marginBottom: 5}}>Descrição</Text>
                 <Text style={{fontSize:18}}>{item?.descricao}</Text>
             </View>
         );
@@ -31,7 +30,7 @@ export default function DescricaoUC({grupoId}) {
 
     return (
         <View style={styles.container}>
-            <RenderItem item={data} />
+            <RenderItem item={planejamentoUc} />
             <StatusBar style="auto" />
         </View>
     );

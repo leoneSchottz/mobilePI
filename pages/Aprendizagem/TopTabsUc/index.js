@@ -9,7 +9,7 @@ import Encontros from '../Encontros/Encontros';
 import Participantes from '../Participantes/Participantes';
 import Competencia from '../Copetencia';
 import Notas from '../Notas';
-import DescricaoUC from '../DescricaoUC';
+import DescricaoUC from '../DescricaoUC/DescricaoUc';
 
 const Tab = createMaterialTopTabNavigator();
 
