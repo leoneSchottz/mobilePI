@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, StatusBar, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 
-import { useNavigation } from '@react-navigation/native';
+import { API } from '../../../http/API';
+import { Usuario } from '../../../models/Usuario';
 
 export default function Participantes({grupoId}) {
-    const navigation = useNavigation();
 
-    const [data, setData] = useState();
+    const [participantes, setParticipantes] = useState<Usuario[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch(`http://academico3.rj.senac.br/api/Estudante/FiltrarEstudanteByGrupoId/${grupoId}`);
-            const data = await resp.json();
-            setData(data);
+            const {data} = await API.get<Usuario[]>(`/Estudante/FiltrarEstudanteByGrupoId/${grupoId}`);
+            setParticipantes(data);
         };
 
         fetchData();
@@ -31,8 +30,8 @@ export default function Participantes({grupoId}) {
         <View style={styles.container}>
             <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Participantes</Text>
             <FlatList
-                data={data}
-                renderItem={({item}) => <RenderItem item={item}/>}
+                data={participantes}
+                renderItem={({item}) => <RenderItem key={item.id} item={item}/>}
             />
         </View>
     );
