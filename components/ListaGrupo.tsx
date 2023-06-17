@@ -89,7 +89,7 @@ export default ListaGrupo
 const styles = StyleSheet.create({
   mainCardContainer: {
     marginVertical: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 30,
   },
   cardContainer: {
     padding: 15,

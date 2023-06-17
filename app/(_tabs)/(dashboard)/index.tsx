@@ -24,7 +24,7 @@ export default function ListaUC() {
           renderItem = { ({item}) => <ListaGrupo {...item}/>}
           keyExtractor={(item) => item.id.toString()}
           />
-        <ProfileScreen />
+        {/* <ProfileScreen /> */}
       </View>
     :<Text>Carregando..</Text>}
     </>
@@ -33,14 +33,13 @@ export default function ListaUC() {
 
   const HeaderCursos = () => {
     return (
-      <Text style={{paddingHorizontal: 10, marginTop: 20, fontSize: 28, fontWeight: '600', letterSpacing: -0.5}}>Meus Cursos</Text>
+      <Text style={{paddingHorizontal: 30, marginTop: 20, fontSize: 28, fontWeight: '600', letterSpacing: -0.5}}>Meus Cursos</Text>
     )
   }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    paddingHorizontal: 20,
+    flex: 1,
     backgroundColor: Colors.light.background
   },
 
