@@ -5,7 +5,7 @@ import HeaderUc from '../../../../components/Header/HeaderUc';
 import { CardObjetoAprendizagem } from '../../../../components/Cards/CardObjetoAprendizagem';
 import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { API } from '../../../../http/API';
-import { useLocalSearchParams, useSearchParams } from 'expo-router/src/navigationStore';
+import { useLocalSearchParams, useSearchParams } from 'expo-router';
 
 import { Atividade } from '../../../../models/Atividade';
 import { ObjetoAprendizagem } from '../../../../models/ObjetoAprendizagem';
