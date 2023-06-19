@@ -1,5 +1,5 @@
 import { Grupo } from "./Grupo";
-import { SituacaoAprendizagem } from "./situacaoAprendizagem";
+import { SituacaoAprendizagem } from "./SituacaoAprendizagem";
 
 export type PlanejamentoUC = {
   id:                    number;

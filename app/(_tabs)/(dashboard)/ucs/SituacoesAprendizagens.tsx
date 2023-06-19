@@ -11,6 +11,7 @@ import { SituacaoAprendizagem } from '../../../../models/SituacaoAprendizagem';
 
 
 
+
 export default function SituacoesAprendizagens() {
 
     const params = useSearchParams()

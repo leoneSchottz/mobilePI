@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {AxiosError, AxiosResponse} from 'axios';
 
 import { API } from '../../../http/API';
-import { SituacaoAprendizagem } from '../../../models/situacaoAprendizagem';
+import { SituacaoAprendizagem } from '../../../models/SituacaoAprendizagem';
 
 
 
