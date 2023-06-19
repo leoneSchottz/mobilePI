@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import HeaderUc from '../../../../components/Header/HeaderUc';
-import { useLocalSearchParams } from 'expo-router/src/navigationStore';
+import { useLocalSearchParams } from 'expo-router';
 import { API } from '../../../../http/API';
 import { ObjetoAprendizagem } from '../../../../models/ObjetoAprendizagem';
 

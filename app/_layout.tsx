@@ -1,11 +1,10 @@
 import { Drawer } from 'expo-router/drawer'
-import { AuthContext } from '../contexts/AuthContext'
+import { AuthProvider } from '../contexts/AuthContext'
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import { UsarioContext } from '../contexts/UsuarioContext'
 import { getUsuarioByUsuarioId } from '../core/services/UsuarioService'
 import { useEffect } from 'react'
-import { Text, View } from 'react-native'
 
 
 export {
@@ -33,10 +32,8 @@ export default function RootLayout() {
 
   //3b700ecc-cec9-4be4-8c00-48bced543861
   return (
-    <>
-    {UsuarioLogado
-    ? <UsarioContext.Provider value={usuario}>
-        <AuthContext.Provider value="3b700ecc-cec9-4be4-8c00-48bced543861">
+    <AuthProvider>
+      <UsarioContext.Provider value={usuario}>
           <StatusBar style="light" />
           <Drawer screenOptions={{ headerShown: false }}>
             <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
@@ -44,9 +41,7 @@ export default function RootLayout() {
             <Drawer.Screen name="(mensagens)" options={{ drawerLabel: 'Mensagens' }} />
             <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações' }}/>
           </Drawer>
-        </AuthContext.Provider>
       </UsarioContext.Provider>
-    : <View><Text>Faça o login</Text></View>}
-    </>
+    </AuthProvider>
   )
 }

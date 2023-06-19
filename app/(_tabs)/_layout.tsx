@@ -14,7 +14,7 @@ const MenuInferior = () => {
   const router = useRouter();
   const nav = useNavigation();
   const headerHeight = Constants.statusBarHeight * 1.5
-  const idUsuario = useContext(AuthContext)
+  const idUsuario = "3b700ecc-cec9-4be4-8c00-48bced543861"
   const { usuario } = getUsuarioByUsuarioId(idUsuario)
   const [senacCoin, setSenacCoin] = useState<SenacCoin>();
 

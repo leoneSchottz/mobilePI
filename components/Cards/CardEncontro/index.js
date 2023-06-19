@@ -14,7 +14,7 @@ function CardEncontro({ encontro }) {
         <TouchableOpacity onPress={() => router.push({pathname: '/ucs/SituacoesAprendizagens', params: { id: id , name: name} })} >
             <View style={styles.container}>
                 <Text style={styles.cardText}>{encontro.observacao}</Text>
-                <Text style={styles.cardText}>{encontro.encontroStatus.statusCursada}</Text>
+                {/* <Text style={styles.cardText}>{encontro.encontroStatus.presenca}</Text> */}
                 <Text style={styles.cardText}>{encontro.diaLetivo.dia}/{encontro.diaLetivo.mes}</Text>
             </View>
         </TouchableOpacity>

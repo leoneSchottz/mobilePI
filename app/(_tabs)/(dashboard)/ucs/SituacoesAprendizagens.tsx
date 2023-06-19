@@ -6,7 +6,8 @@ import HeaderUc from '../../../../components/Header/HeaderUc';
 import { CardSituacaoAprendizagem } from '../../../../components/Cards/CardSituacaoAprendizagem';
 import { API } from '../../../../http/API';
 import { useSearchParams } from 'expo-router';
-import { SituacaoAprendizagem } from '../../../../models/situacaoAprendizagem';
+import { SituacaoAprendizagem } from '../../../../models/SituacaoAprendizagem';
+
 
 
 
