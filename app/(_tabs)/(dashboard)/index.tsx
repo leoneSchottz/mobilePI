@@ -4,12 +4,12 @@ import { getGruposByEstudanteIdByPeriodoIdWithFrequency } from '../../../core/se
 import ListaGrupo from '../../../components/ListaGrupo';
 import ProfileScreen from '../../../components/Dashboard/ProfileScreen';
 import Colors from '../../../common/constants/Colors';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function ListaUC() {
 
   const idPeriodo = 2;
-  const idEstudante = 1;
-
+  const idEstudante = useAuth().authState.userData.estudanteId;
   const {grupos, isLoaded} = getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante, idPeriodo)
 
   return (

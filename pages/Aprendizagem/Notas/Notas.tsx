@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, LayoutAnimation, UIManager, Platform, StyleSheet } from 'react-native';
-
-import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../../contexts/AuthContext';
+import { API } from '../../../http/API';
+import { RegistroAvaliacao } from '../../../models/RegistroAvaliacao';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
 export default function Notas({grupoId}) {
-    const navigation = useNavigation();
-    const idEstudante = 1; // vai receber esse id do AuthContext
+    const idEstudante = useAuth().authState.userData.estudanteId
     const [expandedItems, setExpandedItems] = useState([]);
 
     // Função para alternar o estado expandido de um item
@@ -24,12 +24,11 @@ export default function Notas({grupoId}) {
         }
     };
 
-    const [data, setData] = useState("");
+    const [data, setData] = useState<RegistroAvaliacao[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const resp = await fetch(`http://academico3.rj.senac.br/api/RegistroAvaliacao/TodosRegistrosPeriodoAtivoFilterByEstudanteIdByGrupoId/${idEstudante}/${grupoId}`);
-            const data = await resp.json();
+            const { data } = await API.get<RegistroAvaliacao[]>(`RegistroAvaliacao/TodosRegistrosPeriodoAtivoFilterByEstudanteIdByGrupoId/${idEstudante}/${grupoId}`);
             setData(data);
         };
 
@@ -99,4 +98,3 @@ const styles = StyleSheet.create({
       paddingRight: 5
     }
   });
-  

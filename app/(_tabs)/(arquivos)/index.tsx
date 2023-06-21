@@ -7,6 +7,7 @@ import * as FileSystem from 'expo-file-system';
 import { Recurso } from '../../../models/Recurso';
 import RecursoService from '../../../core/services/RecursoService';
 import uuid from 'uuid-random';
+import { useAuth } from '../../../contexts/AuthContext';
 
 
 
@@ -21,7 +22,7 @@ export default function listaRecursos() {
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
-  const idUsuarioLogado = "3b700ecc-cec9-4be4-8c00-48bced543861";
+  const idUsuarioLogado = useAuth().authState.userData.usuarioId;
   const id = uuid();
 
 

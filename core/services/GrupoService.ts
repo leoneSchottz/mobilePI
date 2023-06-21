@@ -128,7 +128,7 @@ export function getGrupo(idGrupo: number | string) {
   return { grupo }
 }
 
-export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: number, idPeriodo: number) {
+export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: number | string, idPeriodo: number) {
 
   const [grupos, setGrupos] = useState<Grupo[]>([])
   const [isLoaded, setIsLoaded] = useState(false);

@@ -1,5 +1,5 @@
 import { Drawer } from 'expo-router/drawer'
-import { AuthProvider } from '../contexts/AuthContext'
+import { AuthProvider, useAuth } from '../contexts/AuthContext'
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import { UsarioContext } from '../contexts/UsuarioContext'
@@ -13,8 +13,8 @@ export {
 } from 'expo-router';
 
 export default function RootLayout() {
-  const {usuario} = getUsuarioByUsuarioId("3b700ecc-cec9-4be4-8c00-48bced543861");
-  const UsuarioLogado : boolean = true;
+
+
   const [fontsLoaded, error] = useFonts({
     Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
     PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf'),
@@ -29,19 +29,24 @@ export default function RootLayout() {
     return undefined
   }
 
+  const Layout = () => {
+    const { authState } = useAuth();
 
-  //3b700ecc-cec9-4be4-8c00-48bced543861
+    return (
+          <Drawer screenOptions={{ headerShown: false }} >
+            <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} redirect={!authState.authenticated}/>
+            <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} redirect={!authState.authenticated}/>
+            <Drawer.Screen name="(mensagens)" options={{ drawerLabel: 'Mensagens' }} redirect={!authState.authenticated}/>
+            <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações'}} redirect={!authState.authenticated} />
+            <Drawer.Screen name="Login" redirect={authState.authenticated}/>
+          </Drawer>)
+  }
+
+
   return (
     <AuthProvider>
-      <UsarioContext.Provider value={usuario}>
-          <StatusBar style="light" />
-          <Drawer screenOptions={{ headerShown: false }}>
-            <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} />
-            <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} />
-            <Drawer.Screen name="(mensagens)" options={{ drawerLabel: 'Mensagens' }} />
-            <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações' }}/>
-          </Drawer>
-      </UsarioContext.Provider>
+      <StatusBar style="light" />
+      <Layout/>
     </AuthProvider>
   )
 }

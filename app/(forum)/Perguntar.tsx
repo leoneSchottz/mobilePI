@@ -10,7 +10,7 @@ import { obterTags } from '../../core/services/TagService';
 import { faker } from '@faker-js/faker';
 import { adicionarChapterAssunto, obterChaptersAssunto } from '../../core/services/ChapterAssuntoService';
 import moment from 'moment';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService';
 import { UsarioContext } from '../../contexts/UsuarioContext';
 
@@ -19,10 +19,9 @@ import { UsarioContext } from '../../contexts/UsuarioContext';
 export default function Perguntar(){
     const router = useRouter();
 
-    // const idUsuario = useContext(AuthContext)
-    // const {usuario} = getUsuarioByUsuarioId(idUsuario)
-  
-    const usuario = useContext(UsarioContext)
+    const idUsuario = useAuth().authState.userData.usuarioId
+    const {usuario} = getUsuarioByUsuarioId(idUsuario)
+
 
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true);
@@ -63,7 +62,7 @@ export default function Perguntar(){
             respondida: false
         }
         adicionarChapterAssunto(assunto);
-        router.replace({ pathname: 'Topico', params: { title: assunto.title, descricao: assunto.description, autor: assunto.author.apelido, time: assunto.time } })
+        router.replace({ pathname: 'Topico', params: { title: assunto.title, descricao: assunto.description, autor: assunto.author?.apelido, time: assunto.time } })
     }
 
     return(
@@ -71,7 +70,7 @@ export default function Perguntar(){
         <NativeBaseProvider>
             <View style={{flex: 1, justifyContent: 'flex-start', alignItems:'center'}}>
                 {/* {navBar()} */}
-            <Text>{usuario.apelido}</Text>
+            <Text>{usuario?.apelido}</Text>
                 <ScrollView style={{flex: 1, width: '100%'}}>
                     <View style={{alignItems: 'center'}}>
                         <Title style={{marginTop: 10}}>Faça sua Pergunta</Title>

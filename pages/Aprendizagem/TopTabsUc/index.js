@@ -7,8 +7,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import Encontros from '../Encontros/Encontros';
 import Participantes from '../Participantes/Participantes';
-import Competencia from '../Copetencia';
-import Notas from '../Notas';
+import Competencias from '../Copetencia/Competencia';
+import Notas from '../Notas/Notas';
 import DescricaoUC from '../DescricaoUC/DescricaoUc';
 
 const Tab = createMaterialTopTabNavigator();
@@ -80,7 +80,7 @@ function TopTabsUc({grupoId, unidadeCurricularId}) {
             />
             <Tab.Screen
                 name="Competências"
-                children={() => <Competencia unidadeCurricularId = {unidadeCurricularId}/>}
+                children={() => <Competencias unidadeCurricularId = {unidadeCurricularId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,

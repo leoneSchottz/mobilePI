@@ -6,10 +6,11 @@ import UCList from './UCList';
 import { fetchUsuario, fetchSenacCoin, fetchBadge, fetchEstudante, fetchUnidadesCurriculares } from '../../core/services/api';
 import { ObterGruposByPeriodoAtivoByEstudanteId, getGruposByEstudanteIdByPeriodoId } from '../../core/services/GrupoService';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const ProfileScreen = () => {
-  const userId = '3b700ecc-cec9-4be4-8c00-48bced543861'; // Substitua pelo ID do usuário
+  const userId = useAuth().authState.userData.usuarioId;
 
   const [user, setUser] = useState([]);
   const [senacCoin, setSenacCoin] = useState([]);

@@ -3,18 +3,18 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import Icons from '@expo/vector-icons/MaterialIcons'
 import { Text, TouchableOpacity, Image, View } from 'react-native'
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../contexts/AuthContext'
 import Constants from 'expo-constants'
 import { getUsuarioByUsuarioId } from '../../core/services/UsuarioService'
 import { StyleSheet } from 'react-native'
 import { fetchSenacCoin } from '../../core/services/api'
 import { SenacCoin } from '../../models/SenacCoin'
+import { useAuth } from '../../contexts/AuthContext';
 
 const MenuInferior = () => {
   const router = useRouter();
   const nav = useNavigation();
   const headerHeight = Constants.statusBarHeight * 1.5
-  const idUsuario = "3b700ecc-cec9-4be4-8c00-48bced543861"
+  const idUsuario = useAuth().authState.userData.usuarioId
   const { usuario } = getUsuarioByUsuarioId(idUsuario)
   const [senacCoin, setSenacCoin] = useState<SenacCoin>();
 
