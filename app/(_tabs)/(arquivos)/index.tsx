@@ -13,7 +13,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 
 export default function listaRecursos() {
 
-  const { listaRecursos, originalData, setListaRecursos, getListaRecursos, deleteRecurso, saveRecurso } = RecursoService()
+  const { listaRecursos, originalData, setListaRecursos, getListaRecursoPorUsuarioId, deleteRecurso, saveRecurso } = RecursoService()
 
   const [showModal, setShowModal] = useState(false);
   const [showDesc, setShowDesc] = useState(true);
@@ -22,7 +22,7 @@ export default function listaRecursos() {
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
-  const idUsuarioLogado = useAuth().authState.userData.usuarioId;
+  const usuarioId = useAuth().authState.userData.usuarioId;
   const id = uuid();
 
 
@@ -55,7 +55,7 @@ export default function listaRecursos() {
                       console.log(error);
                     }).
                       then(() => {
-                        getListaRecursos(),
+                        getListaRecursoPorUsuarioId(usuarioId),
                           Toast.show({
                             title: "Arquivo apagado com sucesso!",
                             placement: "top",
@@ -101,7 +101,7 @@ export default function listaRecursos() {
         arquivo: base64,
         dataCadastro: new Date().toISOString(),
         status: 1,
-        usuarioId: idUsuarioLogado,
+        usuarioId: usuarioId,
       };
       setRecurso(Recurso)
       console.log(recurso)
@@ -140,7 +140,7 @@ export default function listaRecursos() {
                     console.log(error);
                   }).
                     then(() => {
-                      getListaRecursos(),
+                      getListaRecursoPorUsuarioId(usuarioId),
                         Toast.show({
                           title: "Arquivo salvo com sucesso!",
                           placement: "top",

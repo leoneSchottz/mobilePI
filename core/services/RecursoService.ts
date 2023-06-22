@@ -1,26 +1,34 @@
 import { useState, useEffect } from "react";
 import { Recurso } from "../../models/Recurso";
 import { API } from "../../http/API";
+import { useAuth } from "../../contexts/AuthContext";
 
 
 export default function RecursoService() {
 
     const [listaRecursos, setListaRecursos] = useState<Recurso[]>([]);
     const [originalData, setOriginalData] = useState<Recurso[]>([]);
+    const usuarioId = useAuth().authState.userData.usuarioId
 
     useEffect(() => {
-        API.get<Recurso[]>('Recurso').then((response) => {
-            setListaRecursos(response.data);
-            setOriginalData(response.data);
-        }
-
-        )
+        getListaRecursoPorUsuarioId(usuarioId)
     }, []);
+
+    const getListaRecursoPorUsuarioId = async (usuarioId: string) => {
+        try {
+            const { data } = await API.get<Recurso[]>(`Recurso/FiltrarRecursosByUsuarioId/${usuarioId}`);
+            setListaRecursos(data);
+            setOriginalData(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const getListaRecursos = async () => {
         try {
             const response = await API.get<Recurso[]>('Recurso');
             setListaRecursos(response.data);
+            setOriginalData(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -60,7 +68,7 @@ export default function RecursoService() {
         }
     };
 
-    return { listaRecursos, originalData, setListaRecursos, setOriginalData, getListaRecursos, deleteRecurso, saveRecurso };
+    return { listaRecursos, originalData, setListaRecursos, setOriginalData, getListaRecursos, getListaRecursoPorUsuarioId, deleteRecurso, saveRecurso };
 
 }
 
