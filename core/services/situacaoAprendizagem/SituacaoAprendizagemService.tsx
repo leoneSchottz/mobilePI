@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 import {AxiosError, AxiosResponse} from 'axios';
 
-import { API } from '../../../http/API';
+import { API, handleError } from '../../../http/API';
 import { SituacaoAprendizagem } from '../../../models/SituacaoAprendizagem';
 
 
@@ -18,19 +18,7 @@ export function getAllSituacoesAprendizagem() {
                 setSituacaoAprendizagem(response.data);
             })
             .catch((error: AxiosError<SituacaoAprendizagem[]>) => {
-                switch (error.response?.status) {
-                    case 404: {
-                        alert('Erro de endereçamento');
-                        break;
-                    }
-                    case 400: {
-                        alert('Erro de cliente');
-                        break;
-                    }
-                    case 500: {
-                        alert('Erro de servidor');
-                    }
-                }
+                handleError(error)
             })
             .finally(() => setIsLoading(true));
     }, []);

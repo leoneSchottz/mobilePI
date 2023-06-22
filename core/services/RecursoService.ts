@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Recurso } from "../../models/Recurso";
-import { API } from "../../http/API";
+import { API, handleError } from "../../http/API";
 import { useAuth } from "../../contexts/AuthContext";
 
 
@@ -20,7 +20,7 @@ export default function RecursoService() {
             setListaRecursos(data);
             setOriginalData(data);
         } catch (error) {
-            console.log(error);
+            handleError(error)
         }
     }
 
@@ -30,7 +30,7 @@ export default function RecursoService() {
             setListaRecursos(response.data);
             setOriginalData(response.data);
         } catch (error) {
-            console.log(error);
+            handleError(error)
         }
     };
 
@@ -42,7 +42,7 @@ export default function RecursoService() {
                 prevListaRecursos.filter((recurso) => recurso.id !== id)
             );
         } catch (error) {
-            console.log(error);
+            handleError(error)
         }
     };
 
@@ -64,7 +64,7 @@ export default function RecursoService() {
                 }
             });
         } catch (error) {
-            console.log(error);
+            handleError(error)
         }
     };
 

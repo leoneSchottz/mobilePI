@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 
 import {Axios, AxiosError, AxiosResponse} from 'axios';
 import { Badge } from '../../../models/Badge';
-import { API } from '../../../http/API';
+import { API, handleError } from '../../../http/API';
 
 export function getAllBadges() {
     // const [badges, setBadges] = useState<Badge[]>([]);
@@ -39,19 +39,7 @@ export function getAllBadges() {
                 setFilteredData(response.data);
             })
             .catch((error: AxiosError<Badge[]>) => {
-                switch (error.response?.status) {
-                    case 404: {
-                        alert('Erro de endereçamento');
-                        break;
-                    }
-                    case 400: {
-                        alert('Erro de cliente');
-                        break;
-                    }
-                    case 500: {
-                        alert('Erro de servidor');
-                    }
-                }
+                handleError(error)
             })
             .finally(() => setIsLoading(true));
     }, []);
@@ -84,19 +72,7 @@ export function filtrarBadgeByGrupoId(id: Badge['id']) {
                 setFilteredData(response.data);
             })
             .catch((error: AxiosError<Badge[]>) => {
-                switch (error.response?.status) {
-                    case 404: {
-                        alert('Erro de endereçamento');
-                        break;
-                    }
-                    case 400: {
-                        alert('Erro de cliente');
-                        break;
-                    }
-                    case 500: {
-                        alert('Erro de servidor');
-                    }
-                }
+                handleError(error)
             })
             .finally(() => setIsLoading(true));
     }, []);
@@ -114,19 +90,7 @@ export function getBadgeById(id: number | string) {
                 setBadges(data);
             } catch (error: unknown) {
                 if( error instanceof AxiosError) {
-                    switch (error.response?.status) {
-                        case 404: {
-                            alert('Erro de endereçamento');
-                            break;
-                        }
-                        case 400: {
-                            alert('Erro de cliente');
-                            break;
-                        }
-                        case 500: {
-                            alert('Erro de servidor');
-                        }
-                    }
+                    handleError(error)
                 }
                 else {
                     alert(error)
@@ -150,19 +114,7 @@ export function createBadge(badgeModel: Badge) {
                 setBadges(response.data);
             })
             .catch((error: AxiosError<Badge>) => {
-                switch (error.response?.status) {
-                    case 404: {
-                        alert('Erro de endereçamento');
-                        break;
-                    }
-                    case 400: {
-                        alert('Erro de cliente');
-                        break;
-                    }
-                    case 500: {
-                        alert('Erro de servidor');
-                    }
-                }
+                handleError(error)
             })
             .finally(() => setIsLoading(true));
     }, [badgeModel]);

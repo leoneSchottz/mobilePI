@@ -1,6 +1,6 @@
 import { ControleExecucao } from '../../models/ControleExecucao';
 import { useEffect, useState } from 'react';
-import { API } from '../../http/API';
+import { API, handleError } from '../../http/API';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Grupo } from '../../models/Grupo';
 import { FrequenciaViewModel } from '../../models/FrequenciaViewModel';
@@ -16,19 +16,7 @@ export function getAllGrupos() {
         setGrupos(response.data);
       })
       .catch((error: AxiosError<Grupo[]>) => {
-        switch (error.response?.status) {
-          case 404: {
-            alert('Erro de endereçamento');
-            break;
-          }
-          case 400: {
-            alert('Erro de cliente');
-            break;
-          }
-          case 500: {
-            alert('Erro de servidor');
-          }
-        }
+        handleError(error)
       })
   }, []);
 
@@ -46,19 +34,7 @@ export function getGruposByEstudanteIdByPeriodoId(idEstudante: number, idPeriodo
         const {data} = await API.get<Grupo[]>(`/Grupo/ObterGruposByEstudanteIdByPeriodoId/${idEstudante}/${idPeriodo}`)
         setGrupos(data);
       } catch (error) {
-        switch (error.message) {
-          case 404: {
-            alert('Erro de endereçamento');
-            break;
-          }
-          case 400: {
-            alert('Erro de cliente');
-            break;
-          }
-          case 500: {
-            alert('Erro de servidor');
-          }
-        }
+        handleError(error)
       }
     }
     fetchData()
@@ -77,19 +53,7 @@ export function ObterGruposByPeriodoAtivoByEstudanteId(idEstudante: number) {
       setGrupos(response.data);
     })
     .catch((error: AxiosError<Grupo[]>) => {
-      switch (error.response?.status) {
-        case 404: {
-          alert('Erro de endereçamento');
-          break;
-        }
-        case 400: {
-          alert('Erro de cliente');
-          break;
-        }
-        case 500: {
-          alert('Erro de servidor');
-        }
-      }
+      handleError(error)
     })
 
   },[])
@@ -106,19 +70,7 @@ export function getGrupo(idGrupo: number | string) {
         const {data} = await API.get<Grupo>(`/Grupo/${idGrupo}`)
         setGrupo(data)
       } catch (error) {
-        switch (error.response?.status) {
-          case 404: {
-            alert('Erro de endereçamento');
-            break;
-          }
-          case 400: {
-            alert('Erro de cliente');
-            break;
-          }
-          case 500: {
-            alert('Erro de servidor');
-          }
-        }
+        handleError(error)
       }
     }
 
@@ -154,19 +106,7 @@ export function getGruposByEstudanteIdByPeriodoIdWithFrequency(idEstudante: numb
         setIsLoaded(true)
 
       } catch (error) {
-        switch (error.message) {
-          case 404: {
-            alert('Erro de endereçamento');
-            break;
-          }
-          case 400: {
-            alert('Erro de cliente');
-            break;
-          }
-          case 500: {
-            alert('Erro de servidor');
-          }
-        }
+        handleError(error)
       }
     }
     fetchData()
