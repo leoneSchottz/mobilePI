@@ -20,11 +20,8 @@ const MenuInferior = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       setSenacCoin(await fetchSenacCoin(idUsuario));
-
     };
-
     fetchData();
   }, []);
 
@@ -36,7 +33,7 @@ const MenuInferior = () => {
         header: () => ((usuario && senacCoin)
             ? (
               <View style={styles.header}>
-                <TouchableOpacity onPress={() => {nav.openDrawer()}}>
+                <TouchableOpacity>
                   <Image
                     style={styles.avatar}
                     source={{ uri: 'data:image/png;base64,' + usuario.foto }}
@@ -63,9 +60,9 @@ const MenuInferior = () => {
             </View>
               )
            : <Text>Carregando</Text>),
-        tabBarShowLabel: true,
         headerStatusBarHeight: headerHeight,
         headerTitleContainerStyle: { paddingBottom: 15 },
+
         // headerTitle: () => (
         //   <>
         //     {usuario && <View>
@@ -87,6 +84,7 @@ const MenuInferior = () => {
         //   </TouchableOpacity>
         // ),
         // headerLeftContainerStyle: { paddingLeft: 15, paddingBottom: 15 },
+        tabBarShowLabel: true,
       }}
     >
       <Tabs.Screen

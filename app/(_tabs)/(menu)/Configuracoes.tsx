@@ -3,13 +3,20 @@ import React from 'react'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useAuth } from '../../../contexts/AuthContext'
+
 
 const Configuracoes = () => {
+
+  const {onLogout} = useAuth()
   return (
-    <SafeAreaView>
-      <Text>Configuracoes</Text>
+    <View>
+      <TouchableOpacity onPress={() => {onLogout()}}>
+        <Text>Sair</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   )
 }
 

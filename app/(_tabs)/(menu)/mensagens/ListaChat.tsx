@@ -1,6 +1,6 @@
-import chats from "../../assets/data/chats.json";
+import chats from "../../../../assets/data/chats.json";
 import {View,Text,FlatList} from "react-native";
-import ChatListItem from "../../components/mensagens/ChatListItem";
+import ChatListItem from "../../../../components/mensagens/ChatListItem";
 import { FlashList } from "@shopify/flash-list";
 
 

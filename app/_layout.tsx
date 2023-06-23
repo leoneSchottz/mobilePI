@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font'
 import { UsarioContext } from '../contexts/UsuarioContext'
 import { getUsuarioByUsuarioId } from '../core/services/UsuarioService'
 import { useEffect } from 'react'
+import { Stack } from 'expo-router'
 
 
 export {
@@ -33,13 +34,10 @@ export default function RootLayout() {
     const { authState } = useAuth();
 
     return (
-          <Drawer screenOptions={{ headerShown: false }} >
-            <Drawer.Screen name="(_tabs)" options={{ drawerLabel: 'Home' }} redirect={!authState.authenticated}/>
-            <Drawer.Screen name="(forum)" options={{ drawerLabel: 'Fórum' }} redirect={!authState.authenticated}/>
-            <Drawer.Screen name="(mensagens)" options={{ drawerLabel: 'Mensagens' }} redirect={!authState.authenticated}/>
-            <Drawer.Screen name="Configuracoes" options={{ drawerLabel: 'Configurações'}} redirect={!authState.authenticated} />
-            <Drawer.Screen name="Login" redirect={authState.authenticated}/>
-          </Drawer>)
+          <Stack screenOptions={{ headerShown: false }} >
+            <Stack.Screen name="(_tabs)" redirect={!authState.authenticated}/>
+            <Stack.Screen name="Login" redirect={authState.authenticated}/>
+          </Stack>)
   }
 
 

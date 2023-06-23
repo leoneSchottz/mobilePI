@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 const ChatListItem = ({ chat }) => {
   const router = useRouter();
   return (
-    <Pressable onPress={() => router.push({pathname: 'Chat', params: {id:chat.id,name: chat.user.name}})}
+    <Pressable onPress={() => router.push({pathname: './Chat', params: {id:chat.id,name: chat.user.name}})}
       style={styles.container}>
       <Image source={{ uri: chat.user.image }} style={styles.image} />
 

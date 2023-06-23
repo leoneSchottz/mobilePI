@@ -1,10 +1,10 @@
 import { View, Text, ImageBackground,StyleSheet,FlatList} from "react-native";
-import messages from "../../assets/data/messages.json";
+import messages from "../../../../assets/data/messages.json";
 
 import { useRoute,useNavigation } from "@react-navigation/native";
 import{useEffect} from "react";
-import InputBox from "../../components/mensagens/InputBox";
-import Message from "../../components/mensagens/Message";
+import InputBox from "../../../../components/mensagens/InputBox";
+import Message from "../../../../components/mensagens/Message";
 import { Stack, useLocalSearchParams, useSearchParams } from "expo-router";
 
 type chatParams = {
@@ -24,7 +24,7 @@ const ChatScreen = () => {
   //   }, [route.params.name]);
 
   return (
-    <ImageBackground source={require('../../assets/images/BG.png')} style={styles.bg}>
+    <ImageBackground source={require('../../../../assets/images/BG.png')} style={styles.bg}>
       <Stack.Screen
         options={{
           title: props.name,
