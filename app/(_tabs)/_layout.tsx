@@ -141,8 +141,10 @@ const MenuInferior = () => {
         }}
       />
       <Tabs.Screen
-        name="Menu"
+        name="(menu)"
         options={{
+          headerShown: false,
+          tabBarLabel: 'Menu',
           tabBarIcon: ({ size, color  }) => (
             <MaterialIcons name="menu" size={size} color={color} />
           )
