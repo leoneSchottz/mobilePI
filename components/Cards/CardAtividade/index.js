@@ -20,16 +20,15 @@ export function CardAtividade({ data }) {
                         name="book-open"
                         color="orange"
                         size={20}
-                        style={{ marginRight: 15, elevation: 10 }}
+                        style={styles.cardImage}
                     />
                 </TouchableOpacity>
                 <Text style={styles.text}>
                     {data.descricao}
                 </Text>
-            </View>
-
-            <View style={styles.end}>
-                <TouchableOpacity style={styles.checkBox}></TouchableOpacity>
+                <View style={styles.end}>
+                    <TouchableOpacity style={styles.checkBox}></TouchableOpacity>
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -38,22 +37,28 @@ export function CardAtividade({ data }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#205395',
+        // backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
         // marginBottom: 4,
-        marginTop: 4,
+        marginTop: 10,
         paddingVertical: 12,
         paddingHorizontal: 12,
         borderRadius: 4,
         borderWidth: 1,
         borderColor: '#8a8a8a',
-        width: '95%',
-        alignSelf: 'center'
+        width: '100%',
+        alignSelf: 'center',
+        height: 100
     },
     text: {
-        color: '#FFF',
+        color: '#ffffff',
+        // color: '#000000',
+        fontWeight: 'bold',
+        fontSize: 15,
         elevation: 10,
+        flex: 7
         // fontSize: 15,
         // fontWeight: 'bold'
     },
@@ -79,6 +84,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginRight: 15,
+        elevation: 10
     }
 });
 // import React, { useState } from 'react';
