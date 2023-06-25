@@ -24,3 +24,22 @@ export function getAllAtividades() {
 
     return {atividades, isLoading};
 }
+
+export function getAtividade(idAtividade: number | string) {
+    const [atividade, setAtividade] = useState<Atividade>();
+  
+    useEffect(() => {
+      const fetchAtividade = async () => {
+        try {
+          const {data} = await API.get<Atividade>(`Atividade/${idAtividade}`)
+          setAtividade(data)
+        } catch (error) {
+          handleError(error)
+        }
+      }
+  
+      fetchAtividade()
+    },[])
+  
+    return { atividade }
+  }
