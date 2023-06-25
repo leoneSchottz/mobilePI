@@ -6,7 +6,7 @@ import ProfileScreen from "../../../components/Dashboard/ProfileScreen";
 import Colors from "../../../common/constants/Colors";
 import { useAuth } from "../../../contexts/AuthContext";
 import { getAllAtividades } from "../../../core/services/ativade/AtividadeService";
-import ProximasAtividades from "./ucs/ProximasAtividades";
+import ProximasAtividades from "../../../components/ProximasAtividades/ProximasAtividades";
 
 export default function ListaUC() {
   const idPeriodo = 2;
