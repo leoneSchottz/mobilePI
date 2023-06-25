@@ -6,7 +6,7 @@ import { Badge } from '../../../models/Badge';
 import { API, handleError } from '../../../http/API';
 
 
-export function getAllAtivades() {
+export function getAllAtividades() {
 
     const [atividades, setAtividades] = useState<Atividade[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export function getAllAtivades() {
             .then((response: AxiosResponse) => {
                 setAtividades(response.data);
             })
-            .catch((error: AxiosError<Badge[]>) => {
+            .catch((error: AxiosError<Atividade[]>) => {
                 handleError(error)
             })
             .finally(() => setIsLoading(true));
@@ -24,3 +24,22 @@ export function getAllAtivades() {
 
     return {atividades, isLoading};
 }
+
+export function getAtividade(idAtividade: number | string) {
+    const [atividade, setAtividade] = useState<Atividade>();
+  
+    useEffect(() => {
+      const fetchAtividade = async () => {
+        try {
+          const {data} = await API.get<Atividade>(`Atividade/${idAtividade}`)
+          setAtividade(data)
+        } catch (error) {
+          handleError(error)
+        }
+      }
+  
+      fetchAtividade()
+    },[])
+  
+    return { atividade }
+  }
