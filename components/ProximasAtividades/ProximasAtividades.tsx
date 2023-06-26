@@ -1,55 +1,59 @@
 import { Feather, Entypo } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import Moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import 'moment/locale/pt-br';
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import Constants from 'expo-constants'
 import { getAllAtividades } from '../../core/services/ativade/AtividadeService';
+import { Atividade } from '../../models/Atividade';
 
-const { width } = Dimensions.get("window");
-
+const  { width } = Dimensions.get('window');
 const ProximasAtividades = () => {
-  Moment.locale('pt-br');
+
   const router = useRouter();
   const { atividades } = getAllAtividades();
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => router.push(`/${item.id}`)} style={styles.container}>
-      <View style={styles.start}>
-        <View>
-          <Feather
-            name="book-open"
-            color="orange"
-            size={30}
-            style={styles.cardImage}
-          />
+  const RenderAtividade = ( item: Atividade) => (
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => router.push(`/atividades/${item.id}`)}>
+        <View style={styles.cardContainer}>
+          <View style={styles.cardIconContainer}>
+            <Feather
+              name="book-open"
+              color="orange"
+              size={30}
+              style={styles.cardImage}
+            />
+          </View>
+          <View style={styles.cardContentContainer}>
+            <Text style={styles.title}>Término:</Text>
+            <Text style={styles.title}>{Moment(item.dataFim).format('llll')}</Text>
+            <Text style={styles.text}>{item.descricao}</Text>
+          </View>
         </View>
-        <View style={styles.content}>
-          <Text style={styles.title}>Término:</Text>
-          <Text style={styles.title}>{Moment(item.dataFim).format('LLLL')}</Text>
-          <Text style={styles.text}>{item.descricao}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
     <View>
       <View style={styles.headerAtividadesPendentes}>
-        <HeaderProximasAtividades />
-        <Link href={'/atividades/atividades'} style={{backgroundColor: '#235395', padding: 5, borderRadius: 10}}> 
+        <Text style={styles.headerTitle}>
+          Atividades Pendentes
+        </Text>
+        <Link href={'/atividades'} style={{backgroundColor: '#235395', padding: 5, borderRadius: 10}}>
           <Entypo name="list" size={30} color="orange" />
         </Link>
       </View>
-      <View style={styles.atividadesDashboard}>
+      <View>
         <FlatList
           data={atividades}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
+          renderItem={({ item }) => <RenderAtividade {...item} />}
           snapToAlignment="start"
         />
       </View>
@@ -66,24 +70,27 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 30,
   },
-  atividadesDashboard: {
-    paddingTop: 1,
-    paddingBottom: 1,
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "600",
+    letterSpacing: -0.5,
   },
   container: {
+    flex : 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  cardContainer: {
     // backgroundColor: "#205395",
     backgroundColor: "#ffffff",
-    alignItems: "flex-start",
-    flexDirection: "column",
-    // marginBottom: 4,
-    marginTop: 10,
-    margin: 10,
-    paddingTop: 12,
-    borderRadius: 6,
-    alignSelf: "center",
-    height: width * 0.42,
-    width: width/1.2,
-    elevation: 10,
+    flexDirection: "row",
+    height: width * 0.5,
+    width: width,
+    padding: 20,
+    justifyContent: 'space-around',
+    gap: 5
+
   },
   title:{
     color: "#000000",
@@ -93,41 +100,20 @@ const styles = StyleSheet.create({
   text: {
     // color: "#ffffff",
     color: "#000000",
-    fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 16,
     // fontSize: 15,
     // fontWeight: 'bold'
   },
-  start: {
-    justifyContent: "space-between",
-    alignItems: 'flex-start',
-    flexDirection: "row",
-    width: 320,
-    marginHorizontal: 10,
+  cardIconContainer: {
+    width: '10%',
+    alignItems: 'center'
   },
   cardImage: {
-    width: 30,
-    height: 30,
-    marginRight: 15,
-    elevation: 10,
+
   },
-  content: {
-    justifyContent: "center",
-    flex: 2,
+  cardContentContainer: {
+    flex : 1
   },
 });
 
-const HeaderProximasAtividades = () => {
-  return (
-    <Text
-      style={{
-        fontSize: 28,
-        fontWeight: "600",
-        letterSpacing: -0.5,
-      }}
-    >
-      Atividades Pendentes
-    </Text>
-  );
-};
 

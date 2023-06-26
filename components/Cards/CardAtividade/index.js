@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, CheckBox } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export function CardAtividade({ data }) {
+
+    const { push } = useRouter();
     const navigation = useNavigation();
 
     const [isSelected, setSelection] = useState(false);
@@ -13,7 +16,7 @@ export function CardAtividade({ data }) {
     const image = `data:image/png;base64,${data.blob}`;
 
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => push(`/atividades/${data.id}`)}>
             <View style={styles.start}>
                 <TouchableOpacity>
                     <Feather

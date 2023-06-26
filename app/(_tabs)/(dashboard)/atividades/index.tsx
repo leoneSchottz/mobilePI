@@ -17,16 +17,13 @@ export default function Atividades(){
     })
   }, []);
 
-  const renderItem = ({ item }) => (
-    <CardAtividade data={item} />
-  )
 
   return (
     <View style={styles.container}>
       <FlatList
         data={atividades}
-        keyExtractor={(index) => index.toString()}
-        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({item}) => <CardAtividade data={item} />}
       />
     </View>
   );
