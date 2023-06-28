@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { API } from '../http/API';
+import { API, handleLoginError } from '../http/API';
 import jwt_decode from "jwt-decode";
 import * as SecureStore from 'expo-secure-store';
 
@@ -54,7 +54,7 @@ export const AuthProvider = ({children}) => {
       await SecureStore.setItemAsync(TOKEN_KEY, data.tokenUsuarioLogado)
 
     } catch (error) {
-      console.log(error)
+      handleLoginError(error)
     }
   }
 
@@ -64,12 +64,13 @@ export const AuthProvider = ({children}) => {
       token: null,
       userData: null
     })
+    await SecureStore.deleteItemAsync(TOKEN_KEY)
   }
 
   const defineUserData = async (token: string) => {
 
     API.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    
+
     const decodedTokenPayload = jwt_decode(token)
     const decodedUsuarioId = decodedTokenPayload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
     const decodedRole = decodedTokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];

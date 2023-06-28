@@ -1,7 +1,7 @@
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
-const senacGray5 = '#F5F5F5';
+const senacGray5 = '#F4F3F3';
 
 export default {
   light: {

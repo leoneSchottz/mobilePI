@@ -1,16 +1,29 @@
-import { Button, StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../contexts/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../common/constants/Colors';
 import * as LocalAuthentication from 'expo-local-authentication'
+import { Formik } from 'formik'
+import * as yup from 'yup'
+const { width } = Dimensions.get('screen')
+
+
+const loginValidationSchema = yup.object().shape({
+  cpf: yup
+    .string()
+    .length(11, "CPF deve ter 11 números")
+    .required('Digite o CPF'),
+  senha: yup
+    .string()
+    .min(3, ({ min }) => `Password must be at least ${min} characters`)
+    .required('Digite a senha'),
+})
 
 const UserLogin = () => {
   const { onLogin } = useAuth()
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
-  const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -19,52 +32,69 @@ const UserLogin = () => {
     })();
   },[]);
 
-  const handleLogin = () => {
-    // Aqui você pode adicionar a lógica para autenticar o usuário com o email e senha fornecidos
-    // por exemplo, fazendo uma chamada para a API ou validando localmente.
+  type loginProps = {cpf: string, senha: string }
+  const handleLogin = ({cpf, senha}: loginProps) => {
     console.log('logando..')
     onLogin(cpf, senha);
-    // Resetar os campos de email e senha
-    setCpf('');
-    setSenha('');
   };
 
   const handleForgotPassword = () => {
-    // Aqui você pode adicionar a lógica para lidar com a recuperação de senha.
-    // Isso pode incluir a exibição de um modal, redirecionamento para outra tela, envio de um email de recuperação, etc.
-    console.log('Esqueci a senha');
+    Alert.alert(':(','Resetar senha');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.loginContainer}>
-        <StatusBar style='dark'/>
-        <Image
+       <StatusBar style='dark'/>
+       <Image
           source={require('../assets/images/senac-logo.png')}
-          style={{width: 200, height: 200}}
+          style={{width: 200, height: 200, alignSelf: 'center'}}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="CPF"
-          value={cpf}
-          onChangeText={setCpf}
-          keyboardType='numeric'
-          autoFocus
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          secureTextEntry
-          value={senha}
-          onChangeText={setSenha}
-        />
-        <Button title="Login" onPress={handleLogin} />
-
-        <Button
-          title="Esqueci a senha"
-          onPress={handleForgotPassword}
-          color="#888"
-        />
+      <View style={styles.loginContainer}>
+        <Formik
+            validationSchema={loginValidationSchema}
+            initialValues={{ cpf: '', senha: '' }}
+            onSubmit={(values) => handleLogin(values)}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, isValid, errors, touched }) => (
+              <>
+                <TextInput
+                  placeholder="CPF"
+                  style={styles.input}
+                  onChangeText={handleChange('cpf')}
+                  onBlur={handleBlur('cpf')}
+                  value={values.cpf}
+                  keyboardType="numeric"
+                  maxLength={11}
+                />
+                {(errors.cpf && touched.cpf) &&
+         <Text style={{ fontSize: 10, color: 'red', position: 'absolute', top: 45, left: 50 }}>{errors.cpf}</Text>
+       }
+                <TextInput
+                  placeholder="senha"
+                  style={styles.input}
+                  onChangeText={handleChange('senha')}
+                  onBlur={handleBlur('senha')}
+                  value={values.senha}
+                  secureTextEntry
+                />
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={[styles.button, styles.buttonForgotPassword]}
+                    onPress={handleForgotPassword}
+                  >
+                    <Text style={styles.buttonTextForgotPassword}>Esqueceu a senha?</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    disabled={!isValid}
+                    style={[styles.button, !isValid? styles.buttonLoginDisabled : styles.buttonLogin]}
+                    onPress={() => handleSubmit()}
+                  >
+                    <Text style={styles.buttonText}>Entrar</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+        </Formik>
         <Text> {isBiometricSupported
           ? 'Your device is compatible with Biometrics'
           : 'Face or Fingerprint scanner is available on this device'}
@@ -84,15 +114,48 @@ const styles = StyleSheet.create({
   loginContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: width*0.1,
+    gap: 20
   },
   input: {
     width: '100%',
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
     paddingHorizontal: 10,
-    margin: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor: 'white'
   },
+  inputFocus: {
+    borderColor: '#004A90'
+  },
+  inputBlur: {
+    borderColor: 'lightgray'
+  },
+  buttonContainer:{
+    width: '100%',
+    gap: 20
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    borderRadius: 12
+  },
+  buttonLogin: {
+    backgroundColor: '#004A90'
+  },
+  buttonLoginDisabled: {
+    backgroundColor: 'lightgray'
+  },
+  buttonForgotPassword: {
+    alignSelf: 'flex-end',
+  },
+  buttonTextForgotPassword: {
+    color: '#004A90'
+  },
+  buttonText: {
+    color: '#fff'
+  }
+
+  
+
 });
