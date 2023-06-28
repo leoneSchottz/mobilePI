@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../contexts/AuthContext';
@@ -24,6 +24,7 @@ const loginValidationSchema = yup.object().shape({
 const UserLogin = () => {
   const { onLogin } = useAuth()
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+  const [ LoggingIn, setLoggingIn ] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -33,9 +34,11 @@ const UserLogin = () => {
   },[]);
 
   type loginProps = {cpf: string, senha: string }
-  const handleLogin = ({cpf, senha}: loginProps) => {
-    console.log('logando..')
-    onLogin(cpf, senha);
+
+  const handleLogin = async ({cpf, senha}: loginProps) => {
+    setLoggingIn(true);
+    await onLogin(cpf, senha);
+    setLoggingIn(false);
   };
 
   const handleForgotPassword = () => {
@@ -51,6 +54,7 @@ const UserLogin = () => {
         />
       <View style={styles.loginContainer}>
         <Formik
+            validateOnMount={true}
             validationSchema={loginValidationSchema}
             initialValues={{ cpf: '', senha: '' }}
             onSubmit={(values) => handleLogin(values)}
@@ -67,8 +71,8 @@ const UserLogin = () => {
                   maxLength={11}
                 />
                 {(errors.cpf && touched.cpf) &&
-         <Text style={{ fontSize: 10, color: 'red', position: 'absolute', top: 45, left: 50 }}>{errors.cpf}</Text>
-       }
+                  <Text style={{ fontSize: 10, color: 'red', position: 'absolute', top: 45, left: 50 }}>{errors.cpf}</Text>
+                }
                 <TextInput
                   placeholder="senha"
                   style={styles.input}
@@ -77,6 +81,9 @@ const UserLogin = () => {
                   value={values.senha}
                   secureTextEntry
                 />
+                {(errors.senha && touched.senha) &&
+                  <Text style={{ fontSize: 10, color: 'red', position: 'absolute', top: 105, left: 50 }}>{errors.senha}</Text>
+                }
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={[styles.button, styles.buttonForgotPassword]}
@@ -95,10 +102,8 @@ const UserLogin = () => {
               </>
             )}
         </Formik>
-        <Text> {isBiometricSupported
-          ? 'Your device is compatible with Biometrics'
-          : 'Face or Fingerprint scanner is available on this device'}
-        </Text>
+
+        {LoggingIn && <ActivityIndicator size={'large'} />}
       </View>
     </SafeAreaView>
   );

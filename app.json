@@ -11,6 +11,14 @@
       "image" : "./assets/images/splash.png",
       "resizeMode" : "contain",
       "backgroundColor" : "#FFFFFF"
-    }
+    },
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ]
+    ]
   }
 }

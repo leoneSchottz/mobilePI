@@ -95,7 +95,7 @@ useEffect(() => {setChaptersAssunto(obterChaptersAssunto())}, [])
     <NativeBaseProvider>
       <View style={styles.container}>
         <View>
-        <Link href={'Perguntar'} asChild ><Button style={styles.pergunta} labelStyle={{fontSize: 16, color: 'white'}}>Pergunta</Button></Link>
+        <Link href={'/forum/Perguntar'} asChild ><Button style={styles.pergunta} labelStyle={{fontSize: 16, color: 'white'}}>Pergunta</Button></Link>
           {ListTags(chaptersAssunto, setChaptersAssunto)}
         </View>
         <View style={{flex: 1}}>
