@@ -102,6 +102,13 @@ export default function ListBadgesScreen() {
                         fontWeight: 'medium',
                       },
                     }}
+                    _ios={{
+                      bg: 'contrastThreshold',
+                      _text: {
+                        color: 'coolGray.800',
+                        fontWeight: 'medium',
+                      },
+                    }}
                     _pressed={{
                       bg: 'coolGray.300',
                       _text: {
@@ -174,6 +181,13 @@ export default function ListBadgesScreen() {
                   fontWeight: 'medium',
                 },
               }}
+              _ios={{
+                bg: 'amber.100',
+                _text: {
+                  color: 'coolGray.800',
+                  fontWeight: 'medium',
+                },
+              }}
               _pressed={{
                 bg: 'amber.400',
                 _text: {
@@ -191,6 +205,13 @@ export default function ListBadgesScreen() {
                     size='sm'
                     borderRadius={'2xl'}
                     _android={{
+                      bg: 'blue.100',
+                      _text: {
+                        color: 'coolGray.800',
+                        fontWeight: 'medium',
+                      },
+                    }}
+                    _ios={{
                       bg: 'blue.100',
                       _text: {
                         color: 'coolGray.800',

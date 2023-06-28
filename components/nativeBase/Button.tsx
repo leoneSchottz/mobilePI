@@ -12,6 +12,7 @@ type Props = {
   >;
   _pressed?: Partial<IButtonProps> | undefined;
   _android?: Partial<IButtonProps> | undefined;
+  _ios?: Partial<IButtonProps> | undefined;
   borderRadius?: ResponsiveValue<
     'lg' | 'md' | 'sm' | 'xs' | 'xl' | '2xl' | (string & {}) | 'none' | (number & {}) | '3xl' | 'full'
   >;
@@ -29,6 +30,7 @@ export function ButtonNativeBase(props: Props): JSX.Element {
         shadow={props.shadow}
         _pressed={props._pressed}
         _android={props._android}
+        _ios={props._ios}
         onPress={props.onPress}
       >
         {props.children}

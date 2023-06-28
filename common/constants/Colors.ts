@@ -6,11 +6,11 @@ const senacGray5 = '#F5F5F5';
 export default {
   light: {
     text: '#000',
-    background: '#fff',
+    background: senacGray5,
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
-    cardBackground: senacGray5,
+    cardBackground: '#fff',
   },
   dark: {
     // text: '#fff',

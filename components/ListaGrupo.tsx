@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Platform, Dimensions } from 'react-native'
 import React from 'react'
 import { Grupo } from '../models/Grupo'
 import { ProgressBar } from 'react-native-paper'
@@ -7,13 +7,15 @@ import Colors from '../common/constants/Colors'
 import CircularProgress from 'react-native-circular-progress-indicator'
 import { Ionicons } from '@expo/vector-icons';
 
+
+const {width} = Dimensions.get('screen')
 const ListaGrupo = (grupo: Grupo) => {
   const router = useRouter()
 
   return (
     <View style={styles.mainCardContainer} >
         <TouchableOpacity onPress={() => router.push(`/ucs/${grupo.id}`)}>
-          <View style={styles.cardContainer}>
+          <View style={[styles.cardContainer, Platform.OS === "android" ? styles.cardContainerAndroid : styles.cardContainerIos]}>
             {/* <Image
               style={{height:50, width: 50, borderRadius: 50}}
               resizeMode='contain'
@@ -89,7 +91,7 @@ export default ListaGrupo
 const styles = StyleSheet.create({
   mainCardContainer: {
     marginVertical: 8,
-    paddingHorizontal: 30,
+    paddingHorizontal: width*0.08,
   },
   cardContainer: {
     padding: 15,
@@ -98,9 +100,15 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     borderRadius: 15,
     gap: 8,
+    
+  },
+  cardContainerIos: {
     shadowOffset: {width: 2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
+  },
+  cardContainerAndroid: {
+    elevation: 5
   },
   cardHeaderContainer:{
     gap: 5,

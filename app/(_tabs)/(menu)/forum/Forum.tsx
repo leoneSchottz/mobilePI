@@ -65,7 +65,7 @@ function listarChaptersAssunto(setChaptersAssunto: Dispatch<ChapterAssunto[]>, l
     const router = useRouter();
     return(
         (list.map(assunto => (
-            <Card style={styles.card} key={assunto.key} onPress={() => router.push({ pathname: 'Topico', params: { title: assunto.title, descricao: assunto.description, autor: assunto.author.apelido, time: assunto.time } })}>
+            <Card style={styles.card} key={assunto.key} onPress={() => router.push({ pathname: '/forum/Topico', params: { title: assunto.title, descricao: assunto.description, autor: assunto.author.apelido, time: assunto.time } })}>
                <Card.Content style={styles.cardConteudo}>
                  <View style={styles.cardTopSide}>
                    <Title style={{fontSize: 20, width: '85%'}}>{assunto.title}</Title>

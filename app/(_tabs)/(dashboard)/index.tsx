@@ -7,6 +7,8 @@ import Colors from "../../../common/constants/Colors";
 import { useAuth } from "../../../contexts/AuthContext";
 import { getAllAtividades } from "../../../core/services/ativade/AtividadeService";
 import ProximasAtividades from "../../../components/ProximasAtividades/ProximasAtividades";
+import UserCard from "../../../components/Dashboard/UserCard";
+import { Divider } from "native-base";
 
 export default function ListaUC() {
   const idPeriodo = 2;
@@ -20,9 +22,14 @@ export default function ListaUC() {
     <>
       {isLoaded ? (
         <View style={styles.container}>
-          <ProximasAtividades/>
           <FlashList
-            ListHeaderComponent={<HeaderCursos />}
+            ListHeaderComponent={
+              <>
+                <UserCard/>
+                <ProximasAtividades/>
+                <HeaderCursos />
+              </>
+            }
             data={grupos}
             estimatedItemSize={8}
             numColumns={1}
@@ -43,8 +50,8 @@ const HeaderCursos = () => {
     <Text
       style={{
         paddingHorizontal: 30,
-        marginTop: 20,
-        fontSize: 28,
+        marginTop: 10,
+        fontSize: 24,
         fontWeight: "600",
         letterSpacing: -0.5,
       }}
