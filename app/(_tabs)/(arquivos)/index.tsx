@@ -216,6 +216,7 @@ export default function listaRecursos() {
 
   return (
     <NativeBaseProvider>
+      {usuarioId &&
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
           <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
@@ -254,7 +255,7 @@ export default function listaRecursos() {
 
           <ModalUpload />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>}
     </NativeBaseProvider>
 
   )
