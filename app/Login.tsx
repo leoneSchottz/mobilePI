@@ -74,7 +74,7 @@ const UserLogin = () => {
                   <Text style={{ fontSize: 10, color: 'red', position: 'absolute', top: 45, left: 50 }}>{errors.cpf}</Text>
                 }
                 <TextInput
-                  placeholder="senha"
+                  placeholder="Senha"
                   style={styles.input}
                   onChangeText={handleChange('senha')}
                   onBlur={handleBlur('senha')}
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     borderRadius: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   inputFocus: {
     borderColor: '#004A90'

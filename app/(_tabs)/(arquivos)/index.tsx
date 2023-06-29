@@ -1,9 +1,10 @@
-import { View, Text, FlatList, StyleSheet, Platform, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Platform, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Avatar, Card, IconButton, AnimatedFAB, TextInput } from 'react-native-paper';
 import { NativeBaseProvider, Modal, Input, Toast, Divider, Center, Button, Box, Stack, Heading } from 'native-base';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 import { Recurso } from '../../../models/Recurso';
 import RecursoService from '../../../core/services/RecursoService';
 import uuid from 'uuid-random';
@@ -22,10 +23,25 @@ export default function listaRecursos() {
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
-  const usuarioId = useAuth().authState.userData.usuarioId;
+  const { usuarioId } = useAuth().authState.userData;
   const id = uuid();
 
 
+  const saveFileInDevice = async (arquivo: string, nomeArquivo: string) => {
+    // const fileExtension = nomeArquivo.split(".")[1]
+    // const filePath = FileSystem.documentDirectory + `download.${fileExtension}`;
+    // const fileUri = "data:image/png;base64," + arquivo
+
+    //console.log(filename)
+    // FileSystem.downloadAsync(fileUri, filename)
+    // .then(({ uri }) => {
+    //   console.log('Finished downloading to ', uri);
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    // });
+    // await MediaLibrary.saveToLibraryAsync(filename);
+  }
 
 
   type RenderRecursoProps = {
@@ -38,7 +54,11 @@ export default function listaRecursos() {
         <Card.Title
           title={item.nomeArquivo}
           subtitle={item.descricao}
-          left={(props) => <Avatar.Icon {...props} style={styles.button} icon="content-save" />}
+          left={(props) =>
+            (<TouchableOpacity onPress={() => saveFileInDevice(item.arquivo, item.nomeArquivo)}>
+              <Avatar.Icon {...props} style={styles.button} icon="content-save" />
+            </TouchableOpacity>
+            )}
           right={(props) => <IconButton {...props} icon="close" onPress={() =>
             Alert.alert("",
               "Tem certeza que deseja apagar o arquivo?",
