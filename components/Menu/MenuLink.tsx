@@ -13,13 +13,13 @@ const MenuLink = ({name, route}: menuLinksProps) => {
   const {push} = useRouter()
 
   return(
-    <View style={styles.container}>
-      <View style={[styles.linkContainer, Platform.OS === "android" ? styles.shadowAndroid : styles.shadowIos]}>
-        <TouchableOpacity onPress={() => push(route)}>
+    <TouchableOpacity onPress={() => push(route)}>
+      <View style={styles.container}>
+        <View style={[styles.linkContainer, Platform.OS === "android" ? styles.shadowAndroid : styles.shadowIos]}>
           <Text>{name}</Text>
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -27,8 +27,8 @@ export default MenuLink
 
 const styles = StyleSheet.create({
   container: {
-    width: width*0.4,
-    height: width*0.15,
+    width: width*0.45,
+    height: width*0.25,
     justifyContent: 'center',
     padding: 10
   },
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flex:1 ,
     backgroundColor: '#fff',
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     paddingLeft: 5
   },

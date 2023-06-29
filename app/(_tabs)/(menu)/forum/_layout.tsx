@@ -6,6 +6,8 @@ const forumLayout = () => {
                 <Stack.Screen name='Forum' />
                 <Stack.Screen name='Topico' />
                 <Stack.Screen name='Perguntar'/>
+                <Stack.Screen name='Comunidades'/>
+                <Stack.Screen name='NovaPergunta'/>
         </Stack>
     )
 }

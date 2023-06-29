@@ -2,13 +2,16 @@ import axios, { AxiosError } from 'axios'
 import { Alert } from 'react-native'
 export const API = axios.create({
   baseURL: 'http://academico3.rj.senac.br/api/',
-  timeout: 1000
+  timeout: 1000,
+
 })
 
 export const handleError = ( error: AxiosError) => {
+
   if (error.code === 'ECONNABORTED')
     console.log('timeout');
     console.log(error.message)
+    console.log(error.request)
   switch (error.response?.status) {
     case 404: {
       alert('Erro de endereçamento');

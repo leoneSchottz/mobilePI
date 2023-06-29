@@ -1,18 +1,18 @@
+import { Chapter } from "./Chapter";
 import { Tag } from "./Tag";
 import { Usuario } from "./Usuario";
 
 
 export interface ChapterAssunto{
     id: number;
-    key: number,
-    title: string,
-    description: string,
-    author: Usuario,
-    tags: Tag[] | undefined,
-    time: string,
-    views: number,
-    comments: number,
-    like: number,
-    unlike: number,
-    respondida: boolean
+    descricao?: number;
+    contadorVisualizacao: number;
+    status:number;
+    verificacao: number;
+    chapterId: number;
+    chapter: Chapter;
+    usuarioId: number;
+    usuario: Usuario;
+    usuarioIdVerificacao: number;
+    usuarioVerificacao: Usuario;
 }

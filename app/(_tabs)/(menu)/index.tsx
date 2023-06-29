@@ -15,11 +15,11 @@ const Menu = () => {
 
       <MenuLink name='Comunidades' route='/forum'/>
       <MenuLink name='Badges' route='/badges'/>
-      <MenuLink name='Senac Coin' route='/ucs/senacCoin'/>
+      <MenuLink name='Senac Coin' route='/senacCoin'/>
       <MenuLink name='Perfil' route='/Configuracoes'/>
-      <MenuLink name='Requerimento Web' route='/Configuracoes'/>
-      <MenuLink name='Ajuda' route='/Configuracoes'/>
       <MenuLink name='Configurações' route='/Configuracoes'/>
+      <MenuLink name='Ajuda' route='/forum/Comunidades'/>
+      <MenuLink name='Requerimento Web' route='/Configuracoes'/>
 
     </View>
   )
@@ -29,10 +29,10 @@ export default Menu
 
 const styles = StyleSheet.create({
   container: {
-    padding: width*0.1,
+    padding: width*0.05,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
   },
 
 })
