@@ -4,6 +4,7 @@ import { Avatar, Card, IconButton, AnimatedFAB, TextInput } from 'react-native-p
 import { NativeBaseProvider, Modal, Input, Toast, Divider, Center, Button, Box, Stack, Heading } from 'native-base';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
+import { shareAsync } from 'expo-sharing'
 import * as MediaLibrary from 'expo-media-library';
 import { Recurso } from '../../../models/Recurso';
 import RecursoService from '../../../core/services/RecursoService';
@@ -28,19 +29,36 @@ export default function listaRecursos() {
 
 
   const saveFileInDevice = async (arquivo: string, nomeArquivo: string) => {
-    // const fileExtension = nomeArquivo.split(".")[1]
-    // const filePath = FileSystem.documentDirectory + `download.${fileExtension}`;
-    // const fileUri = "data:image/png;base64," + arquivo
+    const fileExtension = nomeArquivo.split(".")[1]
 
-    //console.log(filename)
-    // FileSystem.downloadAsync(fileUri, filename)
+    const filePath = FileSystem.documentDirectory + nomeArquivo
+
+    console.log(filePath)
+
+    //FileSystem.writeAsStringAsync(filePath, arquivo, { encoding: 'base64' });
+    // FileSystem.downloadAsync(fileUri, filePath)
     // .then(({ uri }) => {
     //   console.log('Finished downloading to ', uri);
     // })
     // .catch(error => {
     //   console.error(error);
     // });
-    // await MediaLibrary.saveToLibraryAsync(filename);
+    if( Platform.OS === 'android') {
+      const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+      if(permissions.granted) {
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, nomeArquivo, fileExtension)
+          .then(async (filePath) => {
+            await FileSystem.writeAsStringAsync(filePath, arquivo, { encoding: 'base64' });
+          })
+          .catch (e => console.log(e))
+      };
+    }
+    else{
+      shareAsync(filePath)
+    }
+    
+
+    // await MediaLibrary.saveToLibraryAsync(filePath); SALVA NA BIBLIOTECA, teoricamente só funciona com imagens, videos, pdf
   }
 
 
