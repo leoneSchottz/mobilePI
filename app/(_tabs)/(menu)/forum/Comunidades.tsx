@@ -46,7 +46,7 @@ const TopicoCard = (topico: ChapterAssunto) => {
     <View style={styles.topicosContainer}>
       <TouchableOpacity onPress={() => push(`/forum/${topico.id}`)}>
         <View style={styles.cardContainer}>
-          <Text numberOfLines={2} style={styles.cardTitle}>{topico.descricao}</Text>
+          <Text numberOfLines={2} style={styles.cardTitle}>{topico.titulo}</Text>
           <Text>{topico.chapter.nome}</Text>
           <Text>{topico.usuario.nomeCompleto}</Text>
         </View>

@@ -61,6 +61,43 @@ export function ObterGruposByPeriodoAtivoByEstudanteId(idEstudante: number) {
   return { grupos }
 }
 
+export function ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency(idEstudante: number | string) {
+
+  const [grupos, setGrupos] = useState<Grupo[]>([])
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const {data: grupoData} = await API.get<Grupo[]>(`/Grupo/ObterGruposByPeriodoAtivoByEstudanteId/${idEstudante}`)
+        const idPeriodo = grupoData[0]?.periodoId
+        const {data: freqData} = await API.get<FrequenciaViewModel[]>(`/Frequencia/obterFrequenciaByEstudanteIdByPeriodoId/${idEstudante}/${idPeriodo}`)
+
+        grupoData.forEach(
+          (g) => {
+              var freq = freqData.filter((f) =>(f.grupoId == g.id));
+              if(freq.length != 0){
+                g.frequencia = freq[0].frequencia;
+              }
+              else {
+                g.frequencia = '0'
+              }
+          }
+        )
+        setGrupos(grupoData)
+        setIsLoaded(true)
+
+      } catch (error) {
+        handleError(error)
+      }
+    }
+    fetchData()
+
+  },[])
+
+  return { grupos, isLoaded }
+}
+
 export function getGrupo(idGrupo: number | string) {
   const [grupo, setGrupo] = useState<Grupo>()
 

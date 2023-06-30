@@ -18,11 +18,11 @@ const ChapterAssuntoDetails = () => {
     <View style={styles.container}>
       { (chapterAssunto && chapterAssuntoComentarios) &&
       <>
-        <Text>{ chapterAssunto.descricao}</Text>
-        <Text>{ chapterAssunto.chapter.usuario.nomeCompleto }</Text>
+        <Text>{ chapterAssunto.descricao} por </Text>
+        <Text>{ chapterAssunto.usuario.nomeCompleto }</Text>
         {chapterAssuntoComentarios.map((comentario) => (
 
-            <Text key={comentario.id}>{comentario.texto} + id: {comentario.id}</Text>
+            <Text key={comentario.id}>{comentario.texto} = id: {comentario.id} : por {comentario.usuario.nomeCompleto}</Text>
 
         ))}
       </>

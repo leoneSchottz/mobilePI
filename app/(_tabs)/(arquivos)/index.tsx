@@ -15,6 +15,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 
 export default function listaRecursos() {
 
+  const { usuarioId } = useAuth().authState.userData;
   const { listaRecursos, originalData, setListaRecursos, getListaRecursoPorUsuarioId, deleteRecurso, saveRecurso } = RecursoService()
 
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +25,7 @@ export default function listaRecursos() {
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
   const [desc, setText] = useState('');
-  const { usuarioId } = useAuth().authState.userData;
+
   const id = uuid();
 
 
@@ -32,8 +33,6 @@ export default function listaRecursos() {
     const fileExtension = nomeArquivo.split(".")[1]
 
     const filePath = FileSystem.documentDirectory + nomeArquivo
-
-    console.log(filePath)
 
     //FileSystem.writeAsStringAsync(filePath, arquivo, { encoding: 'base64' });
     // FileSystem.downloadAsync(fileUri, filePath)

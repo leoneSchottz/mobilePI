@@ -2,8 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Alert } from 'react-native'
 export const API = axios.create({
   baseURL: 'http://academico3.rj.senac.br/api/',
-  timeout: 1000,
-
+  timeout: 2000,
 })
 
 export const handleError = ( error: AxiosError) => {

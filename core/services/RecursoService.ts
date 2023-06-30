@@ -8,11 +8,11 @@ export default function RecursoService() {
 
     const [listaRecursos, setListaRecursos] = useState<Recurso[]>([]);
     const [originalData, setOriginalData] = useState<Recurso[]>([]);
-    const usuarioId = useAuth().authState.userData.usuarioId
+    const { usuarioId } = useAuth().authState.userData
 
     useEffect(() => {
         getListaRecursoPorUsuarioId(usuarioId)
-    }, []);
+    }, [usuarioId]);
 
     const getListaRecursoPorUsuarioId = async (usuarioId: string) => {
         try {

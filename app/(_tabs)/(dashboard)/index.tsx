@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { getGruposByEstudanteIdByPeriodoIdWithFrequency } from "../../../core/services/GrupoService";
+import { ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency } from "../../../core/services/GrupoService";
 import ListaGrupo from "../../../components/ListaGrupo";
 import ProfileScreen from "../../../components/Dashboard/ProfileScreen";
 import Colors from "../../../common/constants/Colors";
@@ -11,11 +11,10 @@ import UserCard from "../../../components/Dashboard/UserCard";
 import { Divider } from "native-base";
 
 export default function ListaUC() {
-  const idPeriodo = 2;
+
   const idEstudante = useAuth().authState.userData.estudanteId;
-  const { grupos, isLoaded } = getGruposByEstudanteIdByPeriodoIdWithFrequency(
+  const { grupos, isLoaded } = ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency(
     idEstudante,
-    idPeriodo
   );
 
   return (

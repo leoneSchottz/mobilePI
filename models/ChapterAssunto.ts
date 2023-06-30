@@ -5,7 +5,8 @@ import { Usuario } from "./Usuario";
 
 export interface ChapterAssunto{
     id: number;
-    descricao?: number;
+    titulo: string;
+    descricao?: string;
     contadorVisualizacao: number;
     status:number;
     verificacao: number;
