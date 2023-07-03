@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import { API } from '../../../http/API';
@@ -13,26 +13,28 @@ export default function SenacCoin() {
   const [movimentacoes, setMovimentacoes] = useState<SenacCoinMovimentacao[]>([]);
 
   const idUsuario = useAuth().authState.userData.usuarioId
-  console.log(idUsuario)
   useEffect(() => {
-    async function getSenacCoin() {
+    async function getMovimentacaoSenacCoin() {
         const {data} = await API.get<SenacCoinMovimentacao[]>(`SenacCoinMovimentacao/FilterByUsuarioId/${idUsuario}`);
-
         setMovimentacoes(data);
     }
 
-    getSenacCoin();
+    getMovimentacaoSenacCoin();
   }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <HeaderSenacCoin />
-      <FlatList
-        numColumns={1}
-        data={movimentacoes}
-        renderItem={({ item }) => <CardSenacCoin key={item.id} {...item} />}
-      />
+      {movimentacoes &&
+      <>
+        <HeaderSenacCoin saldo={movimentacoes[0]?.senacCoin?.saldo} />
+        <FlatList
+          numColumns={1}
+          data={movimentacoes}
+          renderItem={({ item }) => <CardSenacCoin key={item.id} {...item} />}
+        />
+      </>
+      }
     </View>
   );
 }

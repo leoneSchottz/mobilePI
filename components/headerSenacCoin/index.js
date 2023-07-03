@@ -6,9 +6,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
 
-function HeaderSenacCoin() {
+function HeaderSenacCoin({saldo}) {
     const router = useRouter()
-
+    var saldoFormatado = ""
+    if(saldo) {
+        saldoFormatado = saldo.toLocaleString('pt-br', {minimumFractionDigits: 2});
+    }
     return (
         <View style={styles.header}>
             <View style={styles.logo}>
@@ -32,8 +35,8 @@ function HeaderSenacCoin() {
                     Saldo Senac Coin
                 </Text>
                 <View style={styles.saldo}>
-                    <Image style={styles.image} source={require('../../assets/images/chinese-coin.png')} /> 
-                    <Text style={{ fontSize: 15, color: '#FFF', marginLeft:10, fontWeight: 'bold' }}>1.600,00</Text>
+                    <Image style={styles.image} source={require('../../assets/images/chinese-coin.png')} />
+                    <Text style={{ fontSize: 15, color: '#FFF', marginLeft:10, fontWeight: 'bold' }}>{saldoFormatado}</Text>
                 </View>
             </View>
 
