@@ -5,5 +5,7 @@ export default () => {
             <Stack.Screen name="index" options={{headerTitle: 'Menu'}}/>
             <Stack.Screen name="Configuracoes" options={{headerTitle: 'Configurações'}}/>
             <Stack.Screen name="forum" options={{headerTitle: 'Fórum', headerShown: false}}/>
+            <Stack.Screen name="EditarPerfil" options={{headerTitle: 'Editar Perfil', headerShown: false}}/>
+            <Stack.Screen name="RequerimentoWeb" options={{headerTitle: 'Requerimento Web'}}/>
           </Stack>)
 }

@@ -16,10 +16,10 @@ const Menu = () => {
       <MenuLink name='Comunidades' route='/forum'/>
       <MenuLink name='Badges' route='/badges'/>
       <MenuLink name='Senac Coin' route='/senacCoin'/>
-      <MenuLink name='Perfil' route='/Configuracoes'/>
+      <MenuLink name='Perfil' route='/EditarPerfil'/>
       <MenuLink name='Configurações' route='/Configuracoes'/>
       <MenuLink name='Ajuda' route='/forum/Comunidades'/>
-      <MenuLink name='Requerimento Web' route='/Configuracoes'/>
+      <MenuLink name='Requerimento Web' route='/RequerimentoWeb'/>
 
     </View>
   )
