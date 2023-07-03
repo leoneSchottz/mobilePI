@@ -1,18 +1,23 @@
 import { Dimensions, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { getAllChaptersAssunto } from '../../../../core/services/chapter/ChapterAssuntoService'
-import { ChapterAssunto } from '../../../../models/ChapterAssunto';
 import { ChapterTag } from '../../../../models/ChapterTag';
 import { getAllChapterTags } from '../../../../core/services/chapter/ChapterTagService';
 import { useRouter } from 'expo-router';
+import { useAuth } from '../../../../contexts/AuthContext';
+import ChapterAssuntoCard from '../../../../components/Forum/ChapterAssuntoCard';
+
 
 const { width } = Dimensions.get('screen')
 const Comunidades = () => {
+
 
   const { chaptersAssunto } = getAllChaptersAssunto();
   const { chapterTags } = getAllChapterTags();
 
   const { push } = useRouter()
+  const { usuarioId, usuarioRole } = useAuth().authState.userData
+
 
   return (
     <View style={styles.container}>
@@ -21,7 +26,7 @@ const Comunidades = () => {
         ListHeaderComponent={
           <>
             <View style={styles.Buttoncontainer}>
-              <View style={[styles.askButtoncontainer, Platform.OS === "android" ? styles.shadowAndroid : styles.shadowIos]}>
+              <View style={[styles.askButtoncontainer]}>
                 <TouchableOpacity onPress={() => push('/forum/NovaPergunta')}>
                   <Text>Nova Pergunta</Text>
                 </TouchableOpacity>
@@ -31,26 +36,9 @@ const Comunidades = () => {
           </>
         }
         data={chaptersAssunto}
-        renderItem={({item}) => <TopicoCard {...item}/>}
+        renderItem={({item}) => <ChapterAssuntoCard topico={item} usuarioId={usuarioId} usuarioRole={usuarioRole} />}
         keyExtractor={(item) => (item.id.toString())}
       />}
-    </View>
-  )
-}
-
-
-const TopicoCard = (topico: ChapterAssunto) => {
-
-  const { push } = useRouter()
-  return (
-    <View style={styles.topicosContainer}>
-      <TouchableOpacity onPress={() => push(`/forum/${topico.id}`)}>
-        <View style={styles.cardContainer}>
-          <Text numberOfLines={2} style={styles.cardTitle}>{topico.titulo}</Text>
-          <Text>{topico.chapter.nome}</Text>
-          <Text>{topico.usuario.nomeCompleto}</Text>
-        </View>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -78,24 +66,13 @@ const TagsCard = ({tags} : tagsCardProp) => {
   )
 }
 
+
+
 export default Comunidades
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-  },
-  topicosContainer:{
-    alignItems: 'center',
-  },
-  cardContainer:{
-    margin: 5,
-    width: width * 0.9,
-    padding: width * 0.03,
-    backgroundColor: '#fff',
-    borderRadius: 15,
-  },
-  cardTitle: {
-    fontWeight: '600'
   },
   TagsCardContainer: {
     flex:1,
@@ -124,14 +101,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    paddingLeft: 5
-  },
-  shadowIos: {
-    shadowOffset: {width: 2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-  },
-  shadowAndroid: {
-    elevation: 5
-  },
+    paddingLeft: 5,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {width: 2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 5
+      }
+    })
+  }
 })

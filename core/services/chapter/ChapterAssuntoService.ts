@@ -37,3 +37,18 @@ export function getChaptersAssuntoById(id: number | string) {
 
   return { chapterAssunto }
 }
+
+
+export async function createChaptersAssunto(newChapterAssunto) {
+
+  const response = await API.post<ChapterAssunto>(`ChapterAssunto`, newChapterAssunto)
+  return(response.status)
+
+}
+
+export async function deleteChapterAssunto(id: number | string) {
+
+  const response = await API.delete<ChapterAssunto>(`ChapterAssunto/${id}`)
+
+  return {response}
+}

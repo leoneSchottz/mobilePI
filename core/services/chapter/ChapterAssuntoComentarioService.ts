@@ -3,20 +3,34 @@ import { ChapterAssuntoComentario } from "../../../models/ChapterAssuntoComentar
 import { API, handleError } from "../../../http/API";
 
 
-export function getChapterAssuntoComentariosFilterByChapterAssuntoId(id: number | string) {
+export async function getChapterAssuntoComentariosFilterByChapterAssuntoId(id: number | string) {
 
-  const [chapterAssuntoComentarios, getChapterAssuntoComentarios] = useState<ChapterAssuntoComentario[]>()
+  const { data } = await API.get(`ChapterAssuntoComentario/filterByChapterAssuntoId/${id}`)
+  return data
 
-  useEffect(() => {
-    (async() => {
-      try {
-        const { data } = await API.get(`ChapterAssuntoComentario/filterByChapterAssuntoId/${id}`)
-        getChapterAssuntoComentarios(data)
-      } catch (error) {
-        handleError(error)
-      }
-    })()
-  },[])
+}
 
-  return { chapterAssuntoComentarios }
+export async function deleteChapterAssuntoComentario(id: number | string) {
+  (async() => {
+    try {
+      const response = await API.delete<ChapterAssuntoComentario>(`ChapterAssuntoComentario/${id}`)
+      return(response.status)
+    } catch (error) {
+      handleError(error)
+    }
+  })()
+}
+
+
+type createProps = {
+  texto: string,
+  data: string,
+  pai?: number,
+  chapterAssuntoComentarioReferenciaPai?: number,
+  chapterAssuntoId: number,
+  usuarioId: string
+}
+export async function createChapterAssuntoComentario(form: createProps) {
+    const response = await API.post<createProps>(`ChapterAssuntoComentario`, form)
+    return(response.status)
 }

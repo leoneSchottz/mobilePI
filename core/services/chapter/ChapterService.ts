@@ -18,5 +18,5 @@ export function getAllChapters() {
     })()
   },[])
 
-  return { chapters }
+  return { chapters, setChapters }
 }

@@ -8,9 +8,7 @@ export const API = axios.create({
 export const handleError = ( error: AxiosError) => {
 
   if (error.code === 'ECONNABORTED')
-    console.log('timeout');
     console.log(error.message)
-    console.log(error.request)
   switch (error.response?.status) {
     case 404: {
       alert('Erro de endereçamento');
