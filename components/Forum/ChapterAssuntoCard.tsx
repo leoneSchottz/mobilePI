@@ -26,8 +26,7 @@ const ChapterAssuntoCard = ({topico, usuarioId, usuarioRole}: TopicoProps) => {
           text: "Sim",
           onPress: async () => {
             const response = await deleteChapterAssunto(id)
-            console.log(response)
-            if( response ) {
+            if( response.response.status == 200 ) {
               replace('forum/Comunidades')
             }
           },
@@ -65,11 +64,11 @@ const ChapterAssuntoCard = ({topico, usuarioId, usuarioRole}: TopicoProps) => {
             </View>
             <View style={styles.iconContainer}>
               <Ionicons name="eye-outline" size={20} color="black" />
-              <Text>50</Text>
+              <Text>{topico.contadorVisualizacao}</Text>
             </View>
             <View style={styles.iconContainer}>
               <Ionicons name="chatbox-ellipses-outline" size={20} color="black" />
-              <Text>5</Text>
+              <Text>{topico.totalComentarios}</Text>
             </View>
           </View>
             {(usuarioId === topico.usuarioId || usuarioRole === 'Administrador') &&

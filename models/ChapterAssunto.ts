@@ -17,4 +17,5 @@ export interface ChapterAssunto{
     usuario: Usuario;
     usuarioIdVerificacao: string;
     usuarioVerificacao: Usuario;
+    totalComentarios: number
 }

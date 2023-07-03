@@ -1,20 +1,20 @@
 import { Alert, Dimensions, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { useRouter } from 'expo-router'
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 const { width } = Dimensions.get('screen')
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { deleteChapterAssunto } from '../../core/services/chapter/ChapterAssuntoService';
 import { ChapterAssuntoComentario } from '../../models/ChapterAssuntoComentario';
+import { deleteChapterAssuntoComentario } from '../../core/services/chapter/ChapterAssuntoComentarioService';
 
 type ComentarioProps = {
   comentario: ChapterAssuntoComentario,
   usuarioId: string,
-  usuarioRole: string
+  usuarioRole: string,
+  handleResponderComentario: (id: number) => any
 }
 
-const ChapterAssuntoComentarioCard = ({comentario, usuarioId, usuarioRole}: ComentarioProps) => {
+const ChapterAssuntoComentarioCard = ({comentario, usuarioId, usuarioRole, handleResponderComentario}: ComentarioProps) => {
 
   return (
     <View style={styles.topicosContainer}>
@@ -34,17 +34,16 @@ const ChapterAssuntoComentarioCard = ({comentario, usuarioId, usuarioRole}: Come
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
 
           <View  style={styles.cardIconsContainer}>
+            <TouchableOpacity>
             <View style={styles.iconContainer}>
               <Ionicons name="heart-outline" size={20} color="black" />
               <Text>5</Text>
             </View>
+            </TouchableOpacity>
             <View style={styles.iconContainer}>
-              <Ionicons name="eye-outline" size={20} color="black" />
-              <Text>50</Text>
-            </View>
-            <View style={styles.iconContainer}>
-              <Ionicons name="chatbox-ellipses-outline" size={20} color="black" />
-              <Text>5</Text>
+              <TouchableOpacity onPress={() => handleResponderComentario(comentario.id)}>
+                <MaterialCommunityIcons name="reply-outline" size={20} color="black" />
+              </TouchableOpacity>
             </View>
           </View>
             {(usuarioId === comentario.usuarioId || usuarioRole === 'Administrador') &&
@@ -70,13 +69,13 @@ const ChapterAssuntoComentarioCard = ({comentario, usuarioId, usuarioRole}: Come
 
 const showConfirmDeleteDialog = (id: string | number) => {
   return Alert.alert(
-    "Remover pergunta",
-    "Tem certeza que quer remover essa pergunta?",
+    "Excluir",
+    "Tem certeza?",
     [
       {
         text: "Sim",
         onPress: () => {
-          deleteChapterAssunto(id);
+          deleteChapterAssuntoComentario(id);
         },
       },
       {
@@ -85,6 +84,7 @@ const showConfirmDeleteDialog = (id: string | number) => {
     ]
   );
 };
+
 
 export default ChapterAssuntoComentarioCard
 

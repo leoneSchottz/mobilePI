@@ -49,6 +49,6 @@ export async function createChaptersAssunto(newChapterAssunto) {
 export async function deleteChapterAssunto(id: number | string) {
 
   const response = await API.delete<ChapterAssunto>(`ChapterAssunto/${id}`)
-
+  
   return {response}
 }

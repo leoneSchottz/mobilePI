@@ -1,14 +1,12 @@
-import { Button, Dimensions, FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Dimensions, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router/src/navigationStore'
 import { getChaptersAssuntoById } from '../../../../core/services/chapter/ChapterAssuntoService'
-import { createChapterAssuntoComentario, deleteChapterAssuntoComentario, getChapterAssuntoComentariosFilterByChapterAssuntoId } from '../../../../core/services/chapter/ChapterAssuntoComentarioService'
+import { createChapterAssuntoComentario, getChapterAssuntoComentariosFilterByChapterAssuntoId } from '../../../../core/services/chapter/ChapterAssuntoComentarioService'
 import { ChapterAssuntoComentario } from '../../../../models/ChapterAssuntoComentario'
 import { useAuth } from '../../../../contexts/AuthContext'
-import { AntDesign } from '@expo/vector-icons';
 import ChapterAssuntoCard from '../../../../components/Forum/ChapterAssuntoCard'
-import ChapterAssuntoComentarioCard from '../../../../components/Forum/ChapterAssuntoCardComentario'
-import moment from 'moment'
+import ChapterAssuntoComentarioCard from '../../../../components/Forum/ChapterAssuntoComentarioCard'
 
 const { width } = Dimensions.get('screen')
 
@@ -31,6 +29,7 @@ const ChapterAssuntoDetails = () => {
   const { chapterAssuntoId } = useLocalSearchParams<ChapterAssuntoParam>()
   const { chapterAssunto } = getChaptersAssuntoById(chapterAssuntoId)
   const [chapterAssuntoComentarios, setChapterAssuntoComentarios] = useState<ChapterAssuntoComentario[]>()
+  const refInput = useRef(null)
 
   useEffect(() => {
     getComentarios(chapterAssuntoId)
@@ -64,7 +63,11 @@ const ChapterAssuntoDetails = () => {
       getComentarios(chapterAssuntoId)
       setCreateForm({...createForm, texto: ""})
     }).catch(e => console.log(e))
+  }
 
+  const handleResponderComentario = (id: number) => {
+    setCreateForm({...createForm, pai: id});
+    refInput.current.focus()
   }
 
   return (
@@ -76,9 +79,9 @@ const ChapterAssuntoDetails = () => {
         <FlatList
           data={chapterAssuntoComentarios}
           renderItem={({item}) => 
-            <ChapterAssuntoComentarioCard comentario={item} usuarioId={usuarioId} usuarioRole={usuarioRole}/>}
+            <ChapterAssuntoComentarioCard comentario={item} usuarioId={usuarioId} usuarioRole={usuarioRole} handleResponderComentario={handleResponderComentario}/>}
           keyExtractor={(item) => item.id.toString()}
-          ListHeaderComponent={<ChapterAssuntoCard topico={chapterAssunto} usuarioId={usuarioId} usuarioRole={usuarioRole} />}
+          ListHeaderComponent={<ChapterAssuntoCard topico={chapterAssunto} usuarioId={usuarioId} usuarioRole={usuarioRole}/>}
         />
         <View style={styles.inputContainer}>
 
@@ -87,6 +90,7 @@ const ChapterAssuntoDetails = () => {
             value={createForm.texto}
             style={[styles.input, styles.inputDescription]}
             multiline
+            ref={refInput}
           />
 
             <TouchableOpacity

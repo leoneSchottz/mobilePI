@@ -29,7 +29,7 @@ export default Menu
 
 const styles = StyleSheet.create({
   container: {
-    padding: width*0.05,
+    padding: width*0.04,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',

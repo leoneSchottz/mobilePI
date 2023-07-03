@@ -27,8 +27,8 @@ export default MenuLink
 
 const styles = StyleSheet.create({
   container: {
-    width: width*0.45,
-    height: width*0.25,
+    width: width*0.4,
+    height: width*0.2,
     justifyContent: 'center',
     padding: 10
   },
