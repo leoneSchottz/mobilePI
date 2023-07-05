@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { CardAtividade } from "../../../../components/Cards/CardAtividade";
+import { CardAtividade } from "../../../../components/Cards/222";
 import { Atividade } from "../../../../models/Atividade";
 import { API } from "../../../../http/API";
 import { getAllAtividades } from "../../../../core/services/ativade/AtividadeService";
