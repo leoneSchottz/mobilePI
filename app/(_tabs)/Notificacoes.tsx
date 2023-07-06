@@ -1,31 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams} from 'expo-router';
 
 const NotificationScreen = () => {
-  const notifications = [
-    {
-      sender: 'Programação Web',
-      date: '2023-05-19',
-      time: '15:30',
-      message: 'Você enviou sua tarefa para Implemente o método apagarUsuario...',
-    },
-    {
-      sender: 'Lógica de Programação',
-      date: '2023-05-19',
-      time: '16:45',
-      message: 'Você enviou sua tarefa para Implemente o método atualizarUsuario',
-    },
-    {
-      sender: 'SENAC',
-      date: '2023-05-19',
-      time: '16:45',
-      message: 'Lembre-se do nosso encontro amanhã!',
-    },
+  const [notifications, setNotifications] = useState([]);
+  const {id} = useLocalSearchParams();
+  const idUsuario ='3b700ecc-cec9-4be4-8c00-48bced543861'
 
-  ];
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(`http://academico3.rj.senac.br/api/Notificacao/FiltrarNotificacaoByUsuarioId/${idUsuario}`);
+      const data = await response.json();
+      setNotifications(data);
+      console.log(data);
+    } catch (error) {
+      console.log('Ocorreu um erro ao buscar as notificações:', error);
+    }
+  };
 
   const handleLearnMore = () => {
-
     console.log('Botão "Ver Mais" pressionado!');
   };
 
@@ -34,13 +31,14 @@ const NotificationScreen = () => {
       {notifications.map((notification, index) => (
         <View key={index} style={styles.cardContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.senderText}>{notification.sender}</Text>
+            <Text style={styles.senderText}>{notification.usuarioIdAutor}</Text>
             <View style={styles.dateTimeContainer}>
-              <Text style={styles.timeText}>{notification.time}</Text>
-              <Text style={styles.dateText}>{notification.date}</Text>
+              <Text style={styles.dateText}>{notification.data}</Text>
             </View>
           </View>
-          <Text numberOfLines={3} style={styles.messageText}>{notification.message}</Text>
+          <Text numberOfLines={3} style={styles.messageText}>
+            {notification.notificacaoTexto}
+          </Text>
           <TouchableOpacity style={styles.learnMoreButton} onPress={handleLearnMore}>
             <Text style={styles.learnMoreButtonText}>Ver Mais</Text>
           </TouchableOpacity>
