@@ -1,25 +1,47 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency } from "../../../core/services/GrupoService";
+import { ObterGruposByPeriodoAtivoByEstudanteId } from "../../../core/services/GrupoService";
 import ListaGrupo from "../../../components/ListaGrupo";
-import ProfileScreen from "../../../components/Dashboard/ProfileScreen";
 import Colors from "../../../common/constants/Colors";
 import { useAuth } from "../../../contexts/AuthContext";
-import { getAllAtividades } from "../../../core/services/ativade/AtividadeService";
 import ProximasAtividades from "../../../components/ProximasAtividades/ProximasAtividades";
 import UserCard from "../../../components/Dashboard/UserCard";
-import { Divider } from "native-base";
+import { useEffect, useMemo, useState } from "react";
+import { FrequenciaViewModel } from "../../../models/FrequenciaViewModel";
+import { Grupo } from "../../../models/Grupo";
+import { obterFrequenciaByEstudanteIdByPeriodoId } from "../../../core/services/FrequenciaService";
+import { handleError } from "../../../http/API";
 
 export default function ListaUC() {
 
-  const idEstudante = useAuth().authState.userData.estudanteId;
-  const { grupos, isLoaded } = ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency(
-    idEstudante,
-  );
+  const {estudanteId} = useAuth().authState.userData;
+  const [grupos, setGrupos] = useState<Grupo[]>([])
+  const [frequencia, setFrequencia] = useState<FrequenciaViewModel[]>([])
+
+  useEffect(() => {
+    if(estudanteId){
+      Promise.all([ObterGruposByPeriodoAtivoByEstudanteId(estudanteId), obterFrequenciaByEstudanteIdByPeriodoId(estudanteId, 2)])
+        .then(res => {
+          setGrupos(res[0])
+          setFrequencia(res[1])
+        })
+        .catch(err => handleError(err))
+    }
+  },[estudanteId])
+
+  useMemo(() => {
+    grupos.forEach(
+      (g) => {
+          var freq = frequencia.find((f) =>(f.grupoId == g.id));
+          g.frequencia = freq.frequencia;
+        }
+    )
+    setGrupos(grupos)
+  },[frequencia])
 
   return (
     <>
-      {isLoaded ? (
+      {(grupos) ? (
         <View style={styles.container}>
           <FlashList
             ListHeaderComponent={

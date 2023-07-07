@@ -43,22 +43,9 @@ export function getGruposByEstudanteIdByPeriodoId(idEstudante: number, idPeriodo
   return { grupos }
 }
 
-export function ObterGruposByPeriodoAtivoByEstudanteId(idEstudante: number) {
-
-  const [grupos, setGrupos] = useState<Grupo[]>([])
-
-  useEffect(() => {
-    API.get<Grupo[]>(`/Grupo/ObterGruposByPeriodoAtivoByEstudanteId/${idEstudante}`)
-    .then((response: AxiosResponse) => {
-      setGrupos(response.data);
-    })
-    .catch((error: AxiosError<Grupo[]>) => {
-      handleError(error)
-    })
-
-  },[])
-
-  return { grupos }
+export const ObterGruposByPeriodoAtivoByEstudanteId = async (idEstudante: number | string) => {
+  const { data } = await API.get<Grupo[]>(`Grupo/ObterGruposByPeriodoAtivoByEstudanteId/${idEstudante}`)
+  return data
 }
 
 export function ObterGruposByPeriodoAtivoByEstudanteIdWithFrequency(idEstudante: number | string) {
