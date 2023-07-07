@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 import HeaderUc from '../../../../components/Header/HeaderUc';
 import { CardObjetoAprendizagem } from '../../../../components/Cards/CardObjetoAprendizagem';
-import { CardAtividade } from '../../../../components/Cards/222';
+import { CardAtividade } from '../../../../components/Cards/CardAtividade';
 import { API } from '../../../../http/API';
 import { useLocalSearchParams, useSearchParams } from 'expo-router';
 
