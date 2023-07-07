@@ -12,7 +12,6 @@ const Menu = () => {
 
   return (
     <View style={styles.container}>
-
       <MenuLink name='Comunidades' route='/forum'/>
       <MenuLink name='Badges' route='/badges'/>
       <MenuLink name='Senac Coin' route='/senacCoin'/>
@@ -21,6 +20,7 @@ const Menu = () => {
       <MenuLink name='Ajuda' route='/forum/Comunidades'/>
       <MenuLink name='Requerimento Web' route='/RequerimentoWeb'/>
       <MenuLink name='Feed de Notícias' route='/noticias/Feed'/>
+      <MenuLink name='Trilha do Curso' route='/TrilhaCurso'/>
     </View>
   )
 }
