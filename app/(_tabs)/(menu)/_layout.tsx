@@ -7,5 +7,6 @@ export default () => {
             <Stack.Screen name="forum" options={{headerTitle: 'Fórum', headerShown: false}}/>
             <Stack.Screen name="EditarPerfil" options={{headerTitle: 'Editar Perfil', headerShown: true}}/>
             <Stack.Screen name="RequerimentoWeb" options={{headerTitle: 'Requerimento Web'}}/>
+            <Stack.Screen name="TrilhaCurso" options={{headerTitle: 'Trilha do Curso'}}/>
           </Stack>)
 }
