@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { API } from '../../../../http/API';
 
-import { getAtividade } from '../../../../core/services/ativade/AtividadeService';
+import { getAtividade } from '../../../../core/services/atividade/AtividadeService';
 
 
 interface AtividadeParam {

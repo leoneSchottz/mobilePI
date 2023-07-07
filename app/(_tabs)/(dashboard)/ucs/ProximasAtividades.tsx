@@ -11,7 +11,7 @@ import {
 import { CardAtividade } from "../../../../components/Cards/222";
 import { Atividade } from "../../../../models/Atividade";
 import { API } from "../../../../http/API";
-import { getAllAtividades } from "../../../../core/services/ativade/AtividadeService";
+import { getAllAtividades } from "../../../../core/services/atividade/AtividadeService";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import Moment from 'moment';

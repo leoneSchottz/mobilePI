@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getAllSituacoesAprendizagem } from '../../../core/services/situacaoAprendizagem/SituacaoAprendizagemService';
-import { getAllAtivades } from '../../../core/services/ativade/AtividadeService';
+import { getAllAtivades } from '../../../core/services/atividade/AtividadeService';
 import { getAllBadges } from '../../../core/services/badge/BadgeService';
 
 export default function CreateScreen() {

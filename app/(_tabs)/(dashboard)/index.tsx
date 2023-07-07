@@ -20,14 +20,12 @@ export default function ListaUC() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if(estudanteId){
       Promise.all([ObterGruposByPeriodoAtivoByEstudanteId(estudanteId), obterFrequenciaByEstudanteIdByPeriodoId(estudanteId, 2)])
         .then(res => {
           setGrupos(res[0])
           setFrequencia(res[1])
         })
         .catch(err => handleError(err))
-    }
   },[estudanteId])
 
   useMemo(() => {

@@ -5,7 +5,7 @@ import 'moment/locale/pt-br';
 import { Dimensions, FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Constants from 'expo-constants'
-import { getAllAtividades } from '../../core/services/ativade/AtividadeService';
+import { getAllAtividades } from '../../core/services/atividade/AtividadeService';
 import { Atividade } from '../../models/Atividade';
 
 const  { width } = Dimensions.get('screen');
