@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Alert } from 'react-native'
 export const API = axios.create({
   baseURL: 'http://academico3.rj.senac.br/api/',
-  timeout: 2000,
+  timeout: 10000,
 })
 
 export const handleError = ( error: AxiosError) => {
@@ -29,7 +29,7 @@ export const handleError = ( error: AxiosError) => {
 
 export const handleLoginError = ( error: AxiosError) => {
   if (error.code === 'ECONNABORTED')
-    console.log('timeout');
+    console.log(error.message)
   switch (error.response?.status) {
     case 404: {
       Alert.alert('Erro','CPF ou senha errados. Por favor tente outra vez.');
