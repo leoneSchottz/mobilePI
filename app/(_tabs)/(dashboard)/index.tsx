@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { ObterGruposByPeriodoAtivoByEstudanteId } from "../../../core/services/GrupoService";
 import ListaGrupo from "../../../components/ListaGrupo";
@@ -17,6 +17,7 @@ export default function ListaUC() {
   const {estudanteId} = useAuth().authState.userData;
   const [grupos, setGrupos] = useState<Grupo[]>([])
   const [frequencia, setFrequencia] = useState<FrequenciaViewModel[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if(estudanteId){
@@ -37,11 +38,13 @@ export default function ListaUC() {
         }
     )
     setGrupos(grupos)
+    setLoading(false)
+
   },[frequencia])
 
   return (
     <>
-      {(grupos) ? (
+      { !loading ? (
         <View style={styles.container}>
           <FlashList
             ListHeaderComponent={
@@ -60,7 +63,7 @@ export default function ListaUC() {
           {/* <ProfileScreen /> */}
         </View>
       ) : (
-        <Text>Carregando..</Text>
+        <ActivityIndicator size={"large"}/>
       )}
     </>
   );
