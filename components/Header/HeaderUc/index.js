@@ -40,9 +40,9 @@ function HeaderUc(props) {
                     <FontAwesome name="bell" size={20} color="#205395" />
                 </TouchableOpacity> */}
 
-                <TouchableOpacity style={styles.buttonIcon} >
+                {/* <TouchableOpacity style={styles.buttonIcon} >
                     <FontAwesome name="gear" size={22} color="#205395" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
             </View>
 

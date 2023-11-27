@@ -48,7 +48,7 @@ export default function UcDetails() {
                             />
                         </View>
                     </View>
-                    <View style={styles.sectionProgress}>
+                    {/* <View style={styles.sectionProgress}>
                         <View style={styles.progressCircle}>
                             <Text style={styles.progressTitle}>Atividades</Text>
                             <CircularProgress
@@ -98,7 +98,7 @@ export default function UcDetails() {
                                 // style={{elevation: 10}}
                             />
                         </View>
-                    </View>
+                    </View> */}
                 </ScrollView>
             </View>
             <TopTabsUc grupoId={id} unidadeCurricularId={grupo?.unidadeCurricularId}/>

@@ -6,7 +6,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing'
 import * as MediaLibrary from 'expo-media-library';
-import { Recurso } from '../../../models/Recurso';
+import { Recurso, RecursoClass } from '../../../models/Recurso';
 import RecursoService from '../../../core/services/RecursoService';
 import uuid from 'uuid-random';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -16,7 +16,10 @@ import { useAuth } from '../../../contexts/AuthContext';
 export default function listaRecursos() {
 
   const { usuarioId } = useAuth().authState.userData;
-  const { listaRecursos, originalData, setListaRecursos, getListaRecursoPorUsuarioId, deleteRecurso, saveRecurso } = RecursoService()
+  const { listaRecursos, originalData, setListaRecursos, getListaRecursoPorUsuarioId, deleteRecurso, saveRecurso, updateRecurso } = RecursoService()
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editedRecurso, setEditedRecurso] = useState<Recurso | null>(null);
+
 
   const [showModal, setShowModal] = useState(false);
   const [showDesc, setShowDesc] = useState(true);
@@ -24,10 +27,10 @@ export default function listaRecursos() {
   const [fileResponse, setFileResponse] = useState([]);
   const [recurso, setRecurso] = useState<Recurso>()
   const [nomeArquivo, setNomeArquivo] = useState<string>('');
+  const [pesoArquivo, setPesoArquivo] = useState(null);
   const [desc, setText] = useState('');
 
   const id = uuid();
-
 
   const saveFileInDevice = async (arquivo: string, nomeArquivo: string) => {
     const fileExtension = nomeArquivo.split(".")[1]
@@ -42,85 +45,116 @@ export default function listaRecursos() {
     // .catch(error => {
     //   console.error(error);
     // });
-    if( Platform.OS === 'android') {
+    if (Platform.OS === 'android') {
       const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
-      if(permissions.granted) {
+      if (permissions.granted) {
         await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, nomeArquivo, fileExtension)
           .then(async (filePath) => {
             await FileSystem.writeAsStringAsync(filePath, arquivo, { encoding: 'base64' });
           })
-          .catch (e => console.log(e))
+          .catch(e => console.log(e))
       };
     }
-    else{
+    else {
       shareAsync(filePath)
     }
-    
-
     // await MediaLibrary.saveToLibraryAsync(filePath); SALVA NA BIBLIOTECA, teoricamente só funciona com imagens, videos, pdf
   }
 
+  function getFileSize(base64String: string): number {
+    // A base64 encoded string is approximately 33% larger than the original binary data
+    // Each base64 character represents 6 bits of data
+    if (base64String) {
+      const base64Length = base64String.length;
+    const padding = (base64String.endsWith("==")) ? 2 : (base64String.endsWith("=") ? 1 : 0);
+    const fileSize = (base64Length * 3 / 4) - padding;
+
+    return fileSize / 1048576;}
+    else{
+      return 0
+    }
+}
 
   type RenderRecursoProps = {
     item: Recurso
   };
-
+  
   const RenderRecurso = ({ item }: RenderRecursoProps) => {
+
     return (
       <View>
         <Card.Title
           title={item.nomeArquivo}
           subtitle={item.descricao}
-          left={(props) =>
-            (<TouchableOpacity onPress={() => saveFileInDevice(item.arquivo, item.nomeArquivo)}>
+          left={(props) => (
+            <TouchableOpacity onPress={() => saveFileInDevice(item.arquivo, item.nomeArquivo)}>
               <Avatar.Icon {...props} style={styles.button} icon="content-save" />
             </TouchableOpacity>
-            )}
-          right={(props) => <IconButton {...props} icon="close" onPress={() =>
-            Alert.alert("",
-              "Tem certeza que deseja apagar o arquivo?",
-              [
-                {
-                  text: 'Sim',
-                  onPress: () => {
-                    deleteRecurso(item.id).catch((error) => {
-                      Toast.show({
-                        title: "Erro ao apagar arquivo!",
-                        placement: "top",
-                        backgroundColor: "amber.500",
-                      });
-                      console.log(error);
-                    }).
-                      then(() => {
-                        getListaRecursoPorUsuarioId(usuarioId),
-                          Toast.show({
-                            title: "Arquivo apagado com sucesso!",
-                            placement: "top",
-                            backgroundColor: "green.500",
-                          });
-                      });
-                  },
-                  style: 'destructive',
-                },
-                {
-                  text: 'Não',
-                  onPress: () => {
-                    // Lógica a ser executada ao pressionar o Botão 2
-                    return null;
-                  },
-                  style: 'cancel',
-                },
-
-              ],
-            )} />}
+          )}
+          right={(props) => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <IconButton
+                icon="pencil"
+                onPress={() => {
+                  setEditedRecurso(item); // Define o recurso a ser editado
+                  setIsEditModalOpen(true); // Abre o modal de edição
+                }}
+              />
+              <IconButton
+                {...props}
+                icon="close"
+                onPress={() =>
+                  Alert.alert(
+                    "",
+                    "Tem certeza que deseja apagar o arquivo?",
+                    [
+                      {
+                        text: 'Sim',
+                        onPress: () => {
+                          deleteRecurso(item.id)
+                            .catch((error) => {
+                              Toast.show({
+                                title: "Erro ao apagar arquivo!",
+                                placement: "top",
+                                backgroundColor: "amber.500",
+                              });
+                              console.log(error);
+                            })
+                            .then(() => {
+                              getListaRecursoPorUsuarioId(usuarioId),
+                                Toast.show({
+                                  title: "Arquivo apagado com sucesso!",
+                                  placement: "top",
+                                  backgroundColor: "green.500",
+                                });
+                            });
+                        },
+                        style: 'destructive',
+                      },
+                      {
+                        text: 'Não',
+                        onPress: () => {
+                          // Lógica a ser executada ao pressionar o Botão 2
+                          return null;
+                        },
+                        style: 'cancel',
+                      },
+                    ],
+                  )
+                }
+              />
+            </View>
+          )}
         />
-          <Divider />
+        <Text style={styles.additionalText}>Data de criação: {item.dataCadastro}</Text>
+        <Text style={styles.additionalText}>Peso arquivo: {getFileSize(item.arquivo)} MB</Text>
+        <Divider />
       </View>
-
-
 
     )
   }
+
+
 
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
@@ -139,6 +173,7 @@ export default function listaRecursos() {
         dataCadastro: new Date().toISOString(),
         status: 1,
         usuarioId: usuarioId,
+        peso: 1
       };
       setRecurso(Recurso)
       console.log(recurso)
@@ -147,11 +182,51 @@ export default function listaRecursos() {
     }
 
   };
+  const EditModal = ({ isOpen, onClose, editedRecurso, setEditedRecurso }) => {
+    return (
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal.Content maxWidth="400px">
+          <Modal.Header>Alterar nome do arquivo</Modal.Header>
+          <Modal.Body>
+            <Input
+              value={editedRecurso?.descricao || ''}
+              onChangeText={(text) =>
+                setEditedRecurso({ ...editedRecurso, descricao: text })
+              }
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button.Group space={2}>
+              <Button
+                variant="ghost"
+                colorScheme="blueGray"
+                onPress={() => {
+                  onClose();
+                  setEditedRecurso(null);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                colorScheme="blue"
+                onPress={() => {
+                  updateRecurso(editedRecurso);
+                  onClose(); // Fecha o modal de edição após a edição
+                  setEditedRecurso(null); // Limpa o recurso editado
+                }}
+              >
+                Salvar
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    );
+  };
 
   const ModalUpload = () => {
 
     return <Center>
-
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
           <Modal.Header>Upload de Recursos</Modal.Header>
@@ -167,7 +242,6 @@ export default function listaRecursos() {
               </Button>
               <Button colorScheme='blue' onPress={
                 () => {
-
                   saveRecurso(recurso).catch((error) => {
                     Toast.show({
                       title: "Erro ao salvar arquivo!",
@@ -185,7 +259,6 @@ export default function listaRecursos() {
                         });
                       setShowModal(false);
                     });
-
                 }}>
                 Save
               </Button>
@@ -254,45 +327,48 @@ export default function listaRecursos() {
   return (
     <NativeBaseProvider>
       {usuarioId &&
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View>
-          <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-            Arquivos
-          </Heading>
-
-          <TextInput
-            placeholder='Pesquisar'
-            style={styles.input}
-            placeholderTextColor={'#999'}
-            onChangeText={(s) => { search(s) }}
-          />
-
-          <FlatList
-            // ListHeaderComponent={() => (
-            //   <nativeBase.Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
-            //     Arquivos
-            //   </nativeBase.Heading>
-            // )}
-            data={listaRecursos}
-            renderItem={RenderRecurso}
-            key={id}
-            style={styles.listaRecursos}
-          />
-          <AnimatedFAB
-            icon={'plus'}
-            extended={false}
-            label={'Label'}
-            onPress={() => setShowModal(true)}
-            visible={true}
-            animateFrom={'right'}
-            iconMode={'static'}
-            color='#F2994A'
-            style={[styles.fabStyle, styles.button]}
-          />
-
-          <ModalUpload />
-        </View>
-      </TouchableWithoutFeedback>}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
+            <Heading fontFamily={'Poppins'} fontSize="20" p="2" marginLeft="4">
+              Arquivos
+            </Heading>
+            <TextInput
+              placeholder='Pesquisar'
+              style={styles.input}
+              placeholderTextColor={'#999'}
+              onChangeText={(s) => { search(s) }}
+            />
+            <TouchableOpacity style={styles.buttonUpload} onPress={() => setShowModal(true)}>
+              <View style={styles.buttonTextContainer}>
+                <Text style={styles.buttonText}>Upload</Text>
+              </View>
+            </TouchableOpacity>
+            <FlatList
+              data={listaRecursos}
+              renderItem={RenderRecurso}
+              key={id}
+              style={styles.listaRecursos}
+            />
+            {/* <AnimatedFAB
+              icon={'plus'}
+              extended={false}
+              label={'Label'}
+              onPress={() => setShowModal(true)}
+              visible={true}
+              animateFrom={'right'}
+              iconMode={'static'}
+              color='#F2994A'
+              style={[styles.fabStyle, styles.button]}
+            /> */}
+            <ModalUpload />
+            <EditModal
+              isOpen={isEditModalOpen}
+              onClose={() => setIsEditModalOpen(false)}
+              editedRecurso={editedRecurso}
+              setEditedRecurso={setEditedRecurso}
+            />
+          </View>
+        </TouchableWithoutFeedback>}
     </NativeBaseProvider>
 
   )
@@ -322,6 +398,29 @@ const styles = StyleSheet.create({
     borderColor: '#2563ea',
     color: '#2563ea',
   },
+  buttonUpload: {
+    height: 40,
+    marginVertical: 5,
+    marginHorizontal: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#2563ea',
+    borderColor: '#2563ea',
+    color: '#2563ea',
+  },
+  buttonTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  additionalText: {
+    marginLeft: 16, // Ajuste a margem esquerda conforme necessário
+    color: '#333', // Cor do texto
+    fontSize: 14, // Tamanho da fonte
+    fontWeight: 'bold', // Peso da fonte
+  },
 });
-
-

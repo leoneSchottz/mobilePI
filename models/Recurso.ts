@@ -1,4 +1,5 @@
 import { Usuario } from './Usuario';
+import * as TextEncoding from 'text-encoding'
 
 export type Recurso = {
     id: number;
@@ -8,4 +9,5 @@ export type Recurso = {
     dataCadastro: string;
     status: number;
     usuarioId: string;
+    
 }

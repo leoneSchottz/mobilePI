@@ -10,6 +10,8 @@ import Participantes from '../Participantes/Participantes';
 import Competencias from '../Copetencia/Competencia';
 import Notas from '../Notas/Notas';
 import DescricaoUC from '../DescricaoUC/DescricaoUc';
+import Comunidades from '../../../app/(_tabs)/(menu)/forum/Comunidades'
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,21 +31,7 @@ function TopTabsUc({grupoId, unidadeCurricularId}) {
 
             }}
         >
-            <Tab.Screen
-                name="Descrição"
-                children={() => <DescricaoUC grupoId = {grupoId}/>}
-                options={{
-                    headerShown: false,
-                    tabBarShowLabel: false,
-                    tabBarIcon: ({ focused }) => (
-                        <Feather
-                            name="info"
-                            size={22}
-                            color={focused ? '#f8922c' : '#FFF'}
-                        />
-                    )
-                }}
-            />
+            
             <Tab.Screen
                 name="Encontros"
                 children={() => <Encontros grupoId = {grupoId}/>}
@@ -80,7 +68,7 @@ function TopTabsUc({grupoId, unidadeCurricularId}) {
             />
             <Tab.Screen
                 name="Competências"
-                children={() => <Competencias unidadeCurricularId = {unidadeCurricularId}/>}
+                children={() => <Comunidades unidadeCurricularId = {unidadeCurricularId}/>}
                 options={{
                     headerShown: false,
                     tabBarShowLabel: false,
@@ -103,6 +91,21 @@ function TopTabsUc({grupoId, unidadeCurricularId}) {
                         <Feather
                             name="bar-chart-2"
                             size={25}
+                            color={focused ? '#f8922c' : '#FFF'}
+                        />
+                    )
+                }}
+            />
+            <Tab.Screen
+                name="Descrição"
+                children={() => <DescricaoUC grupoId = {grupoId}/>}
+                options={{
+                    headerShown: false,
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ focused }) => (
+                        <Feather
+                            name="info"
+                            size={22}
                             color={focused ? '#f8922c' : '#FFF'}
                         />
                     )
